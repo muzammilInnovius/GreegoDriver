@@ -48,6 +48,8 @@ import com.greegoapp.greegodriver.Utils.MyProgressDialog;
 import com.greegoapp.greegodriver.Utils.SnackBar;
 import com.greegoapp.greegodriver.Utils.WebFields;
 import com.greegoapp.greegodriver.databinding.ActivityDriverAttachFileInfoBinding;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -193,6 +195,7 @@ public class DriverAttachFileInfoActivity extends AppCompatActivity implements V
                 if (requestPermission()) {
                     /*ImageCapturing();*/
                     imageBrowse();
+                  /*  getImage();*/
                 }
                 break;
             case R.id.imgVwDriverAutoInsurance:
@@ -219,6 +222,14 @@ public class DriverAttachFileInfoActivity extends AppCompatActivity implements V
 
         }
     }
+  /*  public void getImage() {
+        CropImage.activity()
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setMultiTouchEnabled(true)
+                .start(getContext(), ProfileTouristFragment.this);
+
+    }
+*/
     private void imageBrowse() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Start the Intent

@@ -116,10 +116,12 @@ public class SettingActivity extends AppCompatActivity implements View.OnClickLi
                             String strName = driverDetail.getData().getName();
                             String strEmail = driverDetail.getData().getEmail();
                             String strPhone = driverDetail.getData().getContact_number();
+                            String strProfilePic = driverDetail.getData().getProfile_pic();
                             tvUserName.setText(strName);
                             tvUserEmail.setText(strEmail);
                             tvUserPhone.setText(strPhone);
-                            Glide.with(context).load("http://www.innoviussoftware.com/greego/storage/app/documents/w47HhwzUJARP1nshJblCM2jgRTO0hSZwEvkfAhFY.jpeg")
+
+                            Glide.with(context).load(strProfilePic)
                                     .into(imgVwProPic);
 
                         } else {
