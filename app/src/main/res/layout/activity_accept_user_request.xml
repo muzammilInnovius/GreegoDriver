@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.greegoapp.greegodriver.Activity.AcceptUserRequestActivity">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:clickable="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgVwTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_greego_text"
+                android:padding="@dimen/scale_20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rlAddress"
+            android:background="@mipmap/bg_rectangle70"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintTop_toBottomOf="@+id/header">
+            <RelativeLayout
+                android:id="@+id/rlUserAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:id="@+id/imgVwStartPin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/scale_10dp"
+                    android:src="@mipmap/ic_start_pin"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvUserAddress"
+                    android:layout_width="@dimen/scale_200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/scale_10dp"
+                    android:layout_toRightOf="@+id/imgVwStartPin"
+                    android:layout_marginLeft="@dimen/scale_10dp"
+                    android:text="@string/user_address"
+                    android:textColor="@color/black"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvRemainTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvUserAddress"
+                    android:layout_marginLeft="@dimen/scale_10dp"
+                    android:layout_toRightOf="@+id/imgVwStartPin"
+                    android:text="@string/remain_time"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvPrepareUserCar"
+                    android:layout_width="@dimen/scale_200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/prepare_user_car"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_16"
+                    android:visibility="gone" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/scale_10dp"
+                android:layout_gravity="center"
+                android:layout_weight="1">
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="1dp"
+                    android:layout_height="@dimen/scale_45dp"
+                    android:background="@color/bg_view" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/scale_10dp"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tvTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/second"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_30"
+                    android:visibility="visible" />
+
+                <ImageView
+                    android:id="@+id/imgVwStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:src="@mipmap/unnamed"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/tvDropInTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imgVwStart"
+                    android:text="@string/drop_in_time"
+                    android:textColor="@color/black"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:textSize="@dimen/txt_10"
+                    android:visibility="gone"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@+id/rlButton"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rlAddress">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scale_250dp" />
+
+                <ImageView
+                    android:id="@+id/imgVwCall"
+                    android:layout_width="@dimen/scale_60dp"
+                    android:layout_height="@dimen/scale_60dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="@dimen/scale_10dp"
+                    android:layout_marginTop="@dimen/scale_150dp"
+                    android:visibility="gone"
+                    android:src="@mipmap/ic_mobile" />
+
+                <RelativeLayout
+                    android:id="@+id/rlUserDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/map">
+                    <RelativeLayout
+                        android:id="@+id/rlUserProfileDetail"
+                        android:layout_width="match_parent"
+                        android:visibility="visible"
+                        android:layout_height="wrap_content">
+                        <com.greegoapp.greegodriver.Utils.RoundedImageView
+                            android:id="@+id/imgVwUserProfile"
+                            android:layout_width="@dimen/scale_90dp"
+                            android:layout_height="@dimen/scale_90dp"
+                            android:layout_margin="@dimen/scale_10dp"
+                            android:src="@mipmap/ic_profile" />
+                        <TextView
+                            android:id="@+id/tvUserName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_name"
+                            android:textStyle="bold"
+                            android:layout_marginTop="@dimen/scale_10dp"
+                            android:layout_marginLeft="@dimen/scale_10dp"
+                            android:layout_toRightOf="@+id/imgVwUserProfile"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_30" />
+                        <ImageView
+                            android:id="@+id/imgVwStar"
+                            android:layout_width="@dimen/scale_30dp"
+                            android:layout_height="@dimen/scale_30dp"
+                            android:src="@mipmap/ic_star"
+                            android:layout_marginLeft="@dimen/scale_5dp"
+                            android:layout_marginTop="@dimen/scale_5dp"
+                            android:layout_toRightOf="@+id/imgVwUserProfile"
+                            android:layout_below="@+id/tvUserName"/>
+                        <TextView
+                            android:id="@+id/tvRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/user_rating"
+                            android:layout_toRightOf="@+id/imgVwStar"
+                            android:layout_below="@+id/tvUserName"
+                            android:layout_marginTop="@dimen/scale_1dp"
+                            android:layout_marginLeft="@dimen/scale_5dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_30"
+                            />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rlVehicleDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="visible"
+                        android:layout_below="@+id/rlUserProfileDetail">
+                        <TextView
+                            android:id="@+id/tvVehicleYear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/year"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_18"
+                            android:layout_marginLeft="@dimen/scale_5dp"
+                            />
+                        <TextView
+                            android:id="@+id/tvVehicleMake"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vehicle_make"
+                            android:layout_toRightOf="@+id/tvVehicleYear"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_18"
+                            android:layout_marginLeft="@dimen/scale_5dp"/>
+                        <TextView
+                            android:id="@+id/tvVehicleModel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vehicle_model"
+                            android:layout_toRightOf="@+id/tvVehicleMake"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_18"
+                            android:layout_marginLeft="@dimen/scale_5dp"/>
+
+                        <TextView
+                            android:id="@+id/tvVehicleColor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/vehicle_color"
+                            android:layout_toRightOf="@+id/tvVehicleModel"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_18"
+                            android:layout_marginLeft="@dimen/scale_5dp"/>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+        <RelativeLayout
+            android:id="@+id/rlButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tap_button_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
+            <com.greegoapp.greegodriver.Utils.RoundedImageView
+                android:id="@+id/imgVwUserDropProfile"
+                android:layout_width="@dimen/scale_90dp"
+                android:layout_height="@dimen/scale_90dp"
+                android:layout_margin="@dimen/scale_10dp"
+                android:visibility="gone"
+                android:src="@mipmap/ic_profile" />
+            <TextView
+                android:id="@+id/tvTabToBeDriver"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/scale_110dp"
+                android:background="@color/tap_button_color"
+                android:layout_toRightOf="@+id/imgVwUserDropProfile"
+                android:text="@string/tap_to_be_a_driver"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_25"/>
+        </RelativeLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

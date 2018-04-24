@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@mipmap/bg_rectangle20"
+    tools:context="com.greegoapp.greegodriver.Activity.AcceptUserRequestActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.greegoapp.greegodriver.Utils.RoundedImageView
+        android:id="@+id/imgVwUserProfile"
+        android:layout_width="@dimen/scale_125dp"
+        android:layout_height="@dimen/scale_125dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_profile"
+        app:corner_radius="@dimen/scale_75dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/tvHaveArrived"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/arrive_at"
+        android:textSize="@dimen/txt_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgVwUserProfile"/>
+    <TextView
+        android:id="@+id/tvUserAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50 Massachusetts Ave NE, Washington, DC 20002,Joy?"
+        android:textSize="@dimen/txt_16"
+        android:gravity="center"
+        android:paddingLeft="@dimen/scale_30dp"
+        android:paddingRight="@dimen/scale_30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvHaveArrived"/>
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/not_editable_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserAddress" />
+
+    <Button
+        android:id="@+id/btnConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Confirm arrival"
+        android:textAllCaps="false"
+        android:background="@color/confirm_button"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_15"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        />
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/not_editable_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfirm" />
+    <Button
+        android:id="@+id/btnConfirmCancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:background="@color/white"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/txt_15"
+        app:layout_constraintTop_toBottomOf="@+id/view1"
+        />
+</android.support.constraint.ConstraintLayout>

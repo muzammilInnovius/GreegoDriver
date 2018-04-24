@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_rectangle101"
+        tools:context="com.greegoapp.greegodriver.Activity.MainActivity">
+
+        <ImageView
+            android:id="@+id/imgVwGreegoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/scale_50dp"
+            android:paddingBottom="@dimen/scale_50dp"
+            android:src="@mipmap/ic_greego_logo" />
+
+        <ImageView
+            android:id="@+id/imgVwDriver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:alpha="0.6"
+            android:background="@mipmap/driver_image"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgVwGreegoText" />
+
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/scale_13dp"
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:background="@mipmap/bg_rectangle4"
+            android:gravity="center|center_horizontal"
+            android:text="@string/let_get_it"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="@dimen/txt_20"
+            app:layout_constraintTop_toBottomOf="@+id/imgVwDriver" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/scale_2dp"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/btnStart">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/need_driver"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_15"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvUserAppLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="@dimen/scale_1dp"
+                android:layout_toRightOf="@+id/textView"
+                android:text="@string/open_user_app"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_15"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

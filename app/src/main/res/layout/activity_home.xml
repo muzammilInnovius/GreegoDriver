@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.greegoapp.greegodriver.Activity.HomeActivity">
+        <android.support.v4.widget.DrawerLayout
+            android:id="@+id/drawerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.greegoapp.greegodriver.Utils.RoundedImageView
+                    android:id="@+id/ivProPicHome"
+                    android:layout_width="@dimen/scale_60dp"
+                    android:layout_height="@dimen/scale_60dp"
+                    android:layout_marginLeft="@dimen/scale_10dp"
+                    android:layout_marginTop="@dimen/scale_10dp"
+                    android:background="@mipmap/ic_driver_profile"
+                    android:scaleType="fitXY"
+                    android:elevation="4dp"
+                    app:corner_radius="@dimen/scale_30dp"
+                    app:border_color="@color/app_bg"
+                    app:round_background="true" />
+
+
+                <FrameLayout
+                    android:id="@+id/containerBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:orientation="horizontal" >
+                </FrameLayout>
+
+                <ImageView
+                    android:paddingLeft="@dimen/scale_95dp"
+                    android:paddingRight="@dimen/scale_95dp"
+                    android:src="@mipmap/ic_greego_text"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scale_85dp" />
+                <ImageView
+                    android:paddingTop="@dimen/scale_5dp"
+                    android:paddingRight="@dimen/scale_10dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/ic_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+
+
+            <!--<FrameLayout-->
+            <!--android:layout_width="@dimen/scale_250dp"-->
+            <!--android:layout_height=""></FrameLayout>-->
+            <!--android:layout_gravity="start"-->
+            <RelativeLayout
+                android:layout_gravity="start"
+                android:id="@+id/drawerlist"
+                android:layout_width="@dimen/scale_260dp"
+                android:layout_height="match_parent"
+                android:background="@color/white">
+
+                <RelativeLayout
+                    android:id="@+id/nav_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scale_160dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@mipmap/dr_slider_home_bg">
+
+                    <com.greegoapp.greegodriver.Utils.RoundedImageView
+                        android:id="@+id/ivPro"
+                        android:layout_width="@dimen/scale_80dp"
+                        android:layout_height="@dimen/scale_80dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/scale_20dp"
+                        android:background="@mipmap/ic_place_holder"
+                        android:scaleType="fitXY"
+                        app:corner_radius="@dimen/scale_40dp"
+                        app:round_background="true" />
+
+                    <TextView
+                        android:id="@+id/tvDrawUsername"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scale_20dp"
+                        android:layout_marginTop="@dimen/scale_50dp"
+                        android:layout_toRightOf="@+id/ivPro"
+                        android:text="Tom"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/txt_25" />
+
+                    <!--<View-->
+                    <!--android:layout_marginTop="@dimen/scale_15dp"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_below="@+id/tvDrawUsername"-->
+                    <!--android:background="@color/app_bg"-->
+                    <!--android:layout_width="@dimen/scale_150dp"-->
+                    <!--android:layout_height="1dp"/>-->
+                    <!--<TextView-->
+                    <!--android:id="@+id/tvDrawHomeAdd"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/tvDrawUsername"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_centerInParent="true"-->
+                    <!--android:text="@string/tv_home_add"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="@dimen/txt_14" />-->
+
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/menuList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="@+id/view"
+                    android:layout_below="@+id/nav_header"
+                    android:layout_gravity="start"
+                    android:background="#FFF8F8"
+                    android:choiceMode="singleChoice"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:horizontalSpacing="@dimen/scale_5dp"
+                    android:scrollbars="vertical"
+                    android:verticalSpacing="@dimen/scale_5dp"
+                     />
+
+
+                <ImageView
+                    android:id="@+id/imgVwtransfer"
+                    android:layout_width="@dimen/scale_50dp"
+                    android:layout_height="@dimen/scale_50dp"
+                    android:layout_below="@+id/view1"
+                    android:layout_marginLeft="@dimen/scale_15dp"
+                    android:src="@mipmap/ic_transfer"
+                    android:layout_marginBottom="@dimen/scale_20dp"
+                    android:textColor="@color/black"
+                    android:layout_alignParentBottom="true"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tvSwitchToUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/scale_50dp"
+                    android:layout_below="@+id/view1"
+                    android:layout_marginRight="@dimen/scale_15dp"
+                    android:text="@string/switch_to_user"
+                    android:textSize="@dimen/txt_18"
+                    android:layout_marginLeft="@dimen/scale_5dp"
+                    android:paddingTop="@dimen/scale_5dp"
+                    android:layout_toRightOf="@+id/imgVwtransfer"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/scale_20dp"
+                    android:textColor="@color/black" />
+
+
+            </RelativeLayout>
+
+        </android.support.v4.widget.DrawerLayout>
+
+    </RelativeLayout>
+</layout>

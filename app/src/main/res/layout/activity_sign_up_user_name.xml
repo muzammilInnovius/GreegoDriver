@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_rectangle7"
+        android:paddingTop="@dimen/scale_10dp"
+        tools:context="com.greegoapp.greegodriver.Activity.SignUpUserNameActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale_40dp"
+            android:background="@color/transparent"
+            android:clickable="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/ibBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_6dp"
+                android:src="@mipmap/ic_back_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_8dp"
+                android:src="@mipmap/ic_edit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/txt_3"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:text="@string/header_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_20"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tvUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_20dp"
+            android:text="@string/whats_name"
+            android:textColor="@color/app_bg"
+            android:textSize="@dimen/txt_18"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header" />
+
+
+        <TextView
+            android:id="@+id/tvUserNameDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_5dp"
+            android:paddingLeft="@dimen/scale_6dp"
+            android:paddingRight="@dimen/scale_6dp"
+            android:text="@string/desc_user_name"
+            android:textAlignment="center"
+            android:textColor="@color/hint_color"
+            android:textSize="@dimen/txt_13"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvUserName" />
+
+
+        <LinearLayout
+            android:id="@+id/lluname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scale_35dp"
+            android:layout_marginRight="@dimen/scale_35dp"
+            android:layout_marginTop="@dimen/scale_70dp"
+            android:orientation="horizontal"
+            android:padding="@dimen/scale_2dp"
+            android:weightSum="2"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserNameDesc">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/edtTvFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/scale_10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_fname"
+                    android:imeOptions="actionNext"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/edtTvFirstName"
+                    android:layout_marginLeft="@dimen/scale_5dp"
+                    android:layout_marginRight="@dimen/scale_5dp"
+                    android:layout_marginTop="@dimen/scale_2dp"
+                    android:background="@color/view_bg" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <EditText
+                    android:id="@+id/edtTvLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/scale_10dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="@string/hint_lname"
+                    android:imeOptions="actionDone"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_14" />
+
+                <View
+                    android:id="@+id/view_lname"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/edtTvLastName"
+                    android:layout_marginLeft="@dimen/scale_5dp"
+                    android:layout_marginRight="@dimen/scale_5dp"
+                    android:layout_marginTop="@dimen/scale_2dp"
+                    android:background="@color/view_bg" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <ImageButton
+            android:id="@+id/ibFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/scale_10dp"
+            android:layout_marginRight="@dimen/scale_15dp"
+            android:layout_marginTop="@dimen/scale_60dp"
+            android:background="@mipmap/ic_next_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</layout>

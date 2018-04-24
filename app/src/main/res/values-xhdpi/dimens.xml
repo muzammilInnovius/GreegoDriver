@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- text size values -->
+    <dimen name="txt_1">3sp</dimen>
+    <dimen name="txt_2">4sp</dimen>
+    <dimen name="txt_3">5sp</dimen>
+    <dimen name="txt_4">6sp</dimen>
+    <dimen name="txt_5">7sp</dimen>
+    <dimen name="txt_6">8sp</dimen>
+    <dimen name="txt_7">9sp</dimen>
+    <dimen name="txt_8">10sp</dimen>
+    <dimen name="txt_9">11sp</dimen>
+    <dimen name="txt_10">12sp</dimen>
+    <dimen name="txt_11">13sp</dimen>
+    <dimen name="txt_12">14sp</dimen>
+    <dimen name="txt_13">15sp</dimen>
+    <dimen name="txt_14">16sp</dimen>
+    <dimen name="txt_15">17sp</dimen>
+    <dimen name="txt_16">18sp</dimen>
+    <dimen name="txt_17">19sp</dimen>
+    <dimen name="txt_18">20sp</dimen>
+    <dimen name="txt_19">21sp</dimen>
+    <dimen name="txt_20">22sp</dimen>
+    <dimen name="txt_21">23sp</dimen>
+    <dimen name="txt_22">24sp</dimen>
+    <dimen name="txt_24">26sp</dimen>
+    <dimen name="txt_25">27sp</dimen>
+    <dimen name="txt_30">32sp</dimen>
+    <dimen name="txt_40">42sp</dimen>
+    <dimen name="txt_45">47sp</dimen>
+    <dimen name="txt_50">52sp</dimen>
+    <dimen name="txt_55">57sp</dimen>
+    <dimen name="txt_60">62sp</dimen>
+
+    <!--mines dimensions -->
+    <dimen name="scale_min_1dp">-2dp</dimen>
+    <dimen name="scale_min_2dp">-3dp</dimen>
+    <dimen name="scale_min_3dp">-4dp</dimen>
+    <dimen name="scale_min_5dp">-6dp</dimen>
+    <dimen name="scale_min_6dp">-7dp</dimen>
+
+
+    <!-- dimensions -->
+    <dimen name="scale_0.5dp">0.5dp</dimen>
+    <dimen name="scale_divider">1dp</dimen>
+    <dimen name="scale_1dp">5dp</dimen>
+    <dimen name="scale_2dp">6dp</dimen>
+    <dimen name="scale_3dp">7dp</dimen>
+    <dimen name="scale_5dp">9dp</dimen>
+    <dimen name="scale_dialog_5dp">9dp</dimen>
+    <dimen name="scale_6dp">10dp</dimen>
+    <dimen name="scale_7dp">11dp</dimen>
+    <dimen name="scale_8dp">12dp</dimen>
+    <dimen name="scale_10dp">14dp</dimen>
+    <dimen name="scale_13dp">17dp</dimen>
+    <dimen name="scale_15dp">19dp</dimen>
+    <dimen name="scale_custom_25dp">17dp</dimen>
+    <dimen name="scale_20dp">24dp</dimen>
+    <dimen name="scale_25dp">29dp</dimen>
+    <dimen name="scale_28dp">32dp</dimen>
+    <dimen name="scale_30dp">34dp</dimen>
+    <dimen name="scale_35dp">39dp</dimen>
+    <dimen name="scale_40dp">44dp</dimen>
+    <dimen name="scale_45dp">49dp</dimen>
+    <dimen name="scale_min_45dp">49dp</dimen>
+    <dimen name="scale_setting_45dp">49dp</dimen>
+    <dimen name="scale_50dp">54dp</dimen>
+    <dimen name="scale_55dp">59dp</dimen>
+    <dimen name="scale_60dp">64dp</dimen>
+    <dimen name="scale_min_60dp">-64dp</dimen>
+    <dimen name="scale_65dp">69dp</dimen>
+    <dimen name="scale_70dp">74dp</dimen>
+    <dimen name="scale_75dp">79dp</dimen>
+    <dimen name="scale_80dp">84dp</dimen>
+    <dimen name="scale_85dp">89dp</dimen>
+    <dimen name="scale_90dp">94dp</dimen>
+    <dimen name="scale_95dp">99dp</dimen>
+    <dimen name="scale_110dp">114dp</dimen>
+    <dimen name="scale_115dp">119dp</dimen>
+    <dimen name="scale_120dp">124dp</dimen>
+    <dimen name="scale_125dp">129dp</dimen>
+    <dimen name="scale_130dp">134dp</dimen>
+    <dimen name="scale_135dp">139dp</dimen>
+    <dimen name="scale_140dp">144dp</dimen>
+    <dimen name="scale_145dp">149dp</dimen>
+    <dimen name="scale_150dp">154dp</dimen>
+    <dimen name="scale_160dp">164dp</dimen>
+    <dimen name="scale_180dp">184dp</dimen>
+    <dimen name="scale_200dp">204dp</dimen>
+    <dimen name="scale_210dp">214dp</dimen>
+    <dimen name="scale_225dp">229dp</dimen>
+    <dimen name="scale_150dp_rad">77dp</dimen>
+    <dimen name="scale_336dp">340dp</dimen>
+    
+    <dimen name="scale_250dp">244dp</dimen>
+    <dimen name="scale_260dp">264dp</dimen>
+    <dimen name="dialogsize">300dp</dimen>
+
+    <dimen name="scale_welcm_110dp">122dp</dimen>
+</resources>

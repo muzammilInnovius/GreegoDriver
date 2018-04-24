@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="login_images">80dp</dimen>
+    <dimen name="profileimagesize">220dp</dimen>
+    <dimen name="profileimagesizeDemo">170dp</dimen>
+    <dimen name="dashboard_margin">50dp</dimen>
+    <dimen name="margin_10">20dp</dimen>
+    <dimen name="margin_25">50dp</dimen>
+    <dimen name="margin_20">40dp</dimen>
+    <dimen name="green_circle">120dp</dimen>
+    <dimen name="textsize_small">32sp</dimen>
+    <dimen name="textsize_smaller">24sp</dimen>
+    <dimen name="textsize_smaller_leaderboard">26sp</dimen>
+    <dimen name="textsize_normal">40sp</dimen>
+    <dimen name="textsize_medium">44sp</dimen>
+    <dimen name="textsize_big">60sp</dimen>
+    <dimen name="textsize_profile">56sp</dimen>
+    <dimen name="textsize_bigger">110sp</dimen>
+    <dimen name="contributor_grid_row">274dp</dimen>
+    <dimen name="mideal_grid_row">560dp</dimen>
+    <dimen name="contributor_photo">480dp</dimen>
+    <dimen name="golf_club_atlas_closest_row_h">500dp</dimen>
+    <dimen name="golf_club_atlas_closest_row_w">1000dp</dimen>
+    <dimen name="mi_club_images">200dp</dimen>
+    <dimen name="golf_club_atlas_country_h">1060dp</dimen>
+    <dimen name="golf_club_atlas_country_w">420dp</dimen>
+    <dimen name="mi_coach_video">520dp</dimen>
+    <dimen name="margin_5">10dp</dimen>
+    <dimen name="margin_minus_5">-10dp</dimen>
+    <dimen name="circle_calender">140dp</dimen>
+    <dimen name="margin_15">30dp</dimen>
+    <dimen name="scale_175dp">280dp</dimen>
+    <dimen name="scale_300dp">350dp</dimen>
+    <dimen name="scale_140">280dp</dimen>
+    <dimen name="scale_290">580dp</dimen>
+    <dimen name="header_50dp">100dp</dimen>
+    <dimen name="course_grid">460dp</dimen>
+
+    <!-- text size values -->
+    <dimen name="txt_1">2sp</dimen>
+    <dimen name="txt_2">4sp</dimen>
+    <dimen name="txt_3">6sp</dimen>
+    <dimen name="txt_4">8sp</dimen>
+    <dimen name="txt_5">10sp</dimen>
+    <dimen name="txt_6">12sp</dimen>
+    <dimen name="txt_7">14sp</dimen>
+    <dimen name="txt_8">16sp</dimen>
+    <dimen name="txt_9">18sp</dimen>
+
+    <dimen name="txt_10">20sp</dimen>
+    <dimen name="txt_11">22sp</dimen>
+    <dimen name="txt_12">24sp</dimen>
+    <dimen name="txt_13">26sp</dimen>
+    <dimen name="txt_14">28sp</dimen>
+    <dimen name="txt_15">20sp</dimen>
+    <dimen name="txt_16">32sp</dimen>
+    <dimen name="txt_17">34sp</dimen>
+    <dimen name="txt_18">36sp</dimen>
+    <dimen name="txt_19">38sp</dimen>
+    <dimen name="txt_20">40sp</dimen>
+    <dimen name="txt_22">44sp</dimen>
+    <dimen name="txt_24">48sp</dimen>
+    <dimen name="txt_25">50sp</dimen>
+    <dimen name="txt_30">60sp</dimen>
+    <dimen name="txt_35">70sp</dimen>
+    <dimen name="txt_40">80sp</dimen>
+    <dimen name="txt_45">90sp</dimen>
+    <dimen name="txt_50">100sp</dimen>
+    <dimen name="txt_55">110sp</dimen>
+    <dimen name="txt_60">120sp</dimen>
+    <dimen name="txt_65">130sp</dimen>
+    <dimen name="txt_70">140sp</dimen>
+
+    <!--mines dimensions -->
+    <dimen name="scale_min_1dp">-2dp</dimen>
+    <dimen name="scale_min_2dp">-4dp</dimen>
+    <dimen name="scale_min_3dp">-6dp</dimen>
+    <dimen name="scale_min_5dp">-10dp</dimen>
+    <dimen name="scale_min_6dp">-12dp</dimen>
+
+
+    <!-- dimensions -->
+    <dimen name="scale_0.5dp">0.5dp</dimen>
+    <dimen name="scale_divider">1dp</dimen>
+
+    <dimen name="scale_1dp">12dp</dimen>
+
+    <dimen name="scale_2dp">4dp</dimen>
+    <dimen name="scale_3dp">6dp</dimen>
+    <dimen name="scale_5dp">10dp</dimen>
+    <dimen name="scale_dialog_5dp">40dp</dimen>
+    <dimen name="scale_6dp">12dp</dimen>
+    <dimen name="scale_7dp">14dp</dimen>
+    <dimen name="scale_8dp">16dp</dimen>
+    <dimen name="scale_10dp">20dp</dimen>
+    <dimen name="scale_13dp">26dp</dimen>
+    <dimen name="scale_15dp">30dp</dimen>
+    <dimen name="scale_custom_25dp">60dp</dimen>
+    <dimen name="scale_20dp">40dp</dimen>
+    <dimen name="scale_25dp">50dp</dimen>
+    <dimen name="scale_28dp">56dp</dimen>
+    <dimen name="scale_30dp">60dp</dimen>
+    <dimen name="scale_35dp">70dp</dimen>
+    <dimen name="scale_40dp">80dp</dimen>
+    <!--<dimen name="scale_45dp">110dp</dimen>-->
+    <dimen name="scale_45dp">90dp</dimen>
+    <dimen name="scale_setting_45dp">110dp</dimen>
+    <dimen name="scale_min_45dp">75dp</dimen>
+    <dimen name="scale_50dp">100dp</dimen>
+    <dimen name="scale_55dp">110dp</dimen>
+    <dimen name="scale_60dp">120dp</dimen>
+
+    <dimen name="scale_65dp">130dp</dimen>
+    <dimen name="scale_85dp">170dp</dimen>
+    <dimen name="scale_115dp">230dp</dimen>
+    <dimen name="scale_125dp">250dp</dimen>
+    <dimen name="scale_145dp">290dp</dimen>
+
+    <dimen name="scale_min_60dp">-120dp</dimen>
+    <dimen name="scale_70dp">140dp</dimen>
+    <dimen name="scale_75dp">150dp</dimen>
+    <dimen name="scale_80dp">160dp</dimen>
+    <dimen name="scale_90dp">180dp</dimen>
+    <dimen name="scale_95dp">190dp</dimen>
+    <dimen name="scale_110dp">220dp</dimen>
+    <dimen name="scale_135dp">270dp</dimen>
+    <dimen name="scale_140dp">280dp</dimen>
+    <dimen name="scale_150dp">300dp</dimen>
+    <dimen name="scale_160dp">320dp</dimen>
+    <dimen name="scale_265dp">530dp</dimen>
+    <dimen name="scale_170dp">340dp</dimen>
+    <dimen name="scale_210dp">420dp</dimen>
+    <dimen name="scale_200dp">270dp</dimen>
+    <dimen name="scale_225dp">450dp</dimen>
+    <dimen name="scale_150dp_rad">300dp</dimen>
+    <dimen name="scale_201dp">402dp</dimen>
+    <dimen name="dialogsize">450dp</dimen>
+    <dimen name="scale_180dp">300dp</dimen>
+    <dimen name="scale_224dp">448dp</dimen>
+    <dimen name="scale_260dp">520dp</dimen>
+    <dimen name="btn_width">450dp</dimen>
+    <dimen name="scale_336dp">1180dp</dimen>
+
+    <!-- Report a Problem -->
+    <dimen name="report_checkbox_text">32sp</dimen>
+    <dimen name="report_camera_box_w">340dp</dimen>
+    <dimen name="report_camera_box_h">280dp</dimen>
+    <dimen name="report_btn_h">80dp</dimen>
+    <dimen name="report_btn_w">240dp</dimen>
+    <dimen name="report_row_top">30dp</dimen>
+
+    <dimen name="swing_thumb_width">200dp</dimen>
+    <dimen name="swing_thumb_margin">100dp</dimen>
+    <dimen name="scale_400dp">800dp</dimen>
+
+    <dimen name="scale_welcm_110dp">220dp</dimen>
+</resources>

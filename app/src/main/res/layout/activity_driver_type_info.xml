@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/scale_10dp"
+        tools:context="com.greegoapp.greegodriver.Activity.DriverTypeInfoActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale_40dp"
+            android:background="@color/transparent"
+            android:clickable="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/ibCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_6dp"
+                android:src="@mipmap/ic_cancel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_8dp"
+                android:src="@mipmap/ic_edit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/txt_3"
+
+                android:text="@string/driver_information_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_15"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_view"
+            app:layout_constraintTop_toBottomOf="@+id/header" />
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:clickable="true"
+            android:scrollbars="none"
+            app:layout_constraintBottom_toTopOf="@+id/btnNext"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_10dp"
+                android:layout_marginLeft="@dimen/scale_15dp"
+                android:layout_marginRight="@dimen/scale_15dp"
+                android:layout_marginTop="@dimen/scale_5dp">
+
+                <TextView
+                    android:id="@+id/tvBankInfoTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/driver_type_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_20"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvBankInfoInstruction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvBankInfoTitle"
+                    android:layout_marginTop="@dimen/scale_20dp"
+                    android:text="@string/request_for_drive_type"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_13" />
+
+                <TextView
+                    android:id="@+id/tvCarSize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvBankInfoInstruction"
+                    android:layout_marginTop="@dimen/scale_30dp"
+                    android:text="@string/car_size"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_13"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rlSedan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvCarSize"
+                    android:padding="@dimen/scale_10dp">
+
+                    <TextView
+                        android:textSize="@dimen/txt_14"
+                        android:textStyle="bold"
+                        android:id="@+id/tvSedan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sedan" />
+
+                    <ImageView
+                        android:id="@+id/imgVwSedan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/scale_5dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/viewSedan"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rlSedan"
+                    android:layout_marginLeft="@dimen/scale_3dp"
+                    android:layout_marginRight="@dimen/scale_3dp"
+                    android:background="@color/hint_color" />
+
+                <RelativeLayout
+                    android:id="@+id/rlSuv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewSedan"
+                    android:padding="@dimen/scale_10dp">
+
+                    <TextView
+                        android:textSize="@dimen/txt_14"
+                        android:textStyle="bold"
+                        android:id="@+id/tvSuv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="SUV" />
+
+                    <ImageView
+                        android:id="@+id/imgVwSuv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/scale_5dp" />
+
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/viewSuv"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rlSuv"
+                    android:layout_marginLeft="@dimen/scale_3dp"
+                    android:layout_marginRight="@dimen/scale_3dp"
+                    android:background="@color/hint_color" />
+
+                <RelativeLayout
+                    android:id="@+id/rlVan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewSuv"
+                    android:padding="@dimen/scale_10dp">
+
+                    <TextView
+                        android:textSize="@dimen/txt_14"
+                        android:textStyle="bold"
+                        android:id="@+id/tvVan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Van" />
+
+                    <ImageView
+                        android:id="@+id/imgVwVan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/scale_5dp" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/viewVan"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rlVan"
+                    android:layout_marginLeft="@dimen/scale_3dp"
+                    android:layout_marginRight="@dimen/scale_3dp"
+                    android:background="@color/hint_color" />
+
+
+                <TextView
+                    android:id="@+id/tvTransmission"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewVan"
+                    android:layout_marginTop="@dimen/scale_30dp"
+                    android:text="@string/transmission"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_13"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rlAuto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTransmission"
+                    android:padding="@dimen/scale_10dp">
+
+                    <TextView
+                        android:textSize="@dimen/txt_14"
+                        android:textStyle="bold"
+                        android:id="@+id/tvAuto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Auto" />
+
+                    <ImageView
+                        android:id="@+id/imgVwAuto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/scale_5dp" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/viewAuto"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rlAuto"
+                    android:layout_marginLeft="@dimen/scale_3dp"
+                    android:layout_marginRight="@dimen/scale_3dp"
+                    android:background="@color/hint_color" />
+
+
+                <RelativeLayout
+                    android:id="@+id/rlManual"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewAuto"
+                    android:padding="@dimen/scale_10dp">
+
+                    <TextView
+                        android:textSize="@dimen/txt_14"
+                        android:textStyle="bold"
+                        android:id="@+id/tvManual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manual" />
+
+                    <ImageView
+                        android:id="@+id/imgVwManual"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/scale_5dp" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:id="@+id/viewManual"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/rlManual"
+                    android:layout_marginLeft="@dimen/scale_3dp"
+                    android:layout_marginRight="@dimen/scale_3dp"
+                    android:background="@color/hint_color" />
+
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="@dimen/scale_200dp"
+            android:layout_height="@dimen/scale_40dp"
+            android:layout_marginLeft="@dimen/scale_10dp"
+            android:layout_marginRight="@dimen/scale_10dp"
+            android:background="@mipmap/bg_rectangle74"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/scale_2dp"
+            android:textSize="@dimen/txt_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

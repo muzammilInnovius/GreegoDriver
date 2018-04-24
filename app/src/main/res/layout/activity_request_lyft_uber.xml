@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFEFEF"
+        tools:context="com.greegoapp.greegodriver.Activity.RequestLyftUberActivity">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imgVwTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_greego_text"
+                android:padding="@dimen/scale_20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:scrollbars="none"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#EFEFEF"
+                app:layout_constraintTop_toBottomOf="@+id/scrollView">
+
+                <TextView
+                    android:id="@+id/tvRequestSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/request_section"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/txt_30"
+                    android:background="@mipmap/bg_rectangle69" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvRequestSection">
+                    <TextView
+                        android:id="@+id/tvRequestSectionDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/scale_20dp"
+                        android:text="@string/request_section_desc"
+                        android:textSize="@dimen/txt_15"
+                        android:textStyle="bold|italic"
+                        />
+                    <TextView
+                        android:id="@+id/tvRequestSelectApp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/request_choose_app"
+                        android:textSize="@dimen/txt_15"
+                        android:textStyle="bold|italic"
+                        android:layout_below="@+id/tvRequestSectionDesc"
+                        />
+                    <RelativeLayout
+                        android:id="@+id/rlLyft"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/scale_20dp"
+                        android:layout_below="@+id/tvRequestSelectApp">
+                        <ImageView
+                            android:id="@+id/imgVwLyft"
+                            android:layout_width="@dimen/scale_65dp"
+                            android:layout_height="@dimen/scale_65dp"
+                            android:src="@mipmap/ic_lyft"
+                            android:layout_marginLeft="@dimen/scale_10dp"
+                            android:layout_marginRight="@dimen/scale_10dp"
+                           />
+                        <TextView
+                            android:id="@+id/tvRequestLyft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/request_lyft"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/txt_16"
+                            android:textColor="@color/black"
+                            android:layout_toRightOf="@+id/imgVwLyft"/>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/rlUber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/scale_20dp"
+                        android:layout_below="@+id/rlLyft">
+                        <ImageView
+                            android:id="@+id/imgVwUber"
+                            android:layout_width="@dimen/scale_65dp"
+                            android:layout_height="@dimen/scale_65dp"
+                            android:src="@mipmap/unnamed_1"
+                            android:layout_marginLeft="@dimen/scale_10dp"
+                            android:layout_marginRight="@dimen/scale_10dp"
+                            />
+                        <TextView
+                            android:id="@+id/tvRequestUber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/request_uber"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/txt_16"
+                            android:textColor="@color/black"
+                            android:layout_toRightOf="@+id/imgVwUber"/>
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

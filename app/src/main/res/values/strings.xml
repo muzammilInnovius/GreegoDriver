@@ -1,0 +1,208 @@
+<resources>
+    <string name="app_name">GreegoDriver</string>
+    <string name="app_name_title">GREEGO</string>
+
+    <!--splash screen-->
+    <string name="welcome_app_name">Welcome GreegoApp</string>
+    <string name="header_title">Title</string>
+    <string name="let_get_it">Let\'s get it</string>
+    <string name="need_driver">Needing a driver?</string>
+    <string name="open_user_app"><u>Open the user app</u></string>
+
+    <!--signup mobile number-->
+    <string name="whats_mobile_no">What\'s your mobile number?</string>
+    <string name="num_for_contact">This number will be used to contact</string>
+    <string name="mobile_number_hint">(205) 555 - 5555</string>
+    <string name="enter_mobile_no_empty">Please enter your mobile number.</string>
+    <string name="mobile_no_length">Please enter valid mobile number.</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="otp_resend_empty">Please resend otp.</string>
+    <string name="otp_resend_wng">Please enter correct otp.</string>
+
+    <!--signup digit code-->
+    <string name="whats_digit_code">What\'s your 6 digit code?</string>
+    <string name="enter_digit_code">Please enter digit code.</string>
+    <string name="enter_valid_digit_code">Digit code should be 6 characters long.</string>
+    <string name="resend">Resend</string>
+
+    <!--signup email-->
+    <string name="whats_email">What\'s your email address?</string>
+    <string name="email_for_reach_you">It is the best way to reach you</string>
+    <string name="hint_email">name@gmail.com</string>
+    <string name="entered_email_no_empty">Please enter your email.</string>
+    <string name="enter_valid_email">Please enter valid email.</string>
+
+    <!--signup user name-->
+    <string name="whats_name">What\'s your name?</string>
+    <string name="desc_user_name">When they meet you, they will identify/ verify  you through your photo</string>
+    <string name="hint_fname">First name</string>
+    <string name="hint_lname">Last name</string>
+
+    <!--signup promo code-->
+    <string name="promo_title">Enter promo code</string>
+    <string name="about_promo_code">If you have a promotion code, please enter in this box.</string>
+    <string name="enter_skip_promo_code">If you don\'t have it, please click skip.</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="entered_promocode_no_empty">Please enter Promo code.</string>
+    <string name="whats_agreement">Do you agree with Greego?</string>
+    <string name="desc_agreement">It is the term &amp; condition for users</string>
+    <string name="agreement_detail">Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,</string>
+    <string name="check_agreement">I agree the Greego agreement</string>
+    <string name="no_checked_agreement">Please first accept the term &amp; condition.</string>
+
+    <!--driver personal information-->
+    <string name="driver_information_title">Driver Information</string>
+    <string name="about_greego">Greego is committed to keeping our drivers and passengers safe.We run background checks to screen drivers for any criminal offenses and driver incidents.</string>
+    <string name="enter_name_exactly_in_license">Please enter your name exactly as it appears on your driver\'s license.</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="legal_fname">Legal first name</string>
+    <string name="middle_name">Middle name (Option)</string>
+    <string name="legal_lname">Legal last name</string>
+    <string name="social_security_number">Social Security Number</string>
+    <string name="birth_date">Date of Birth</string>
+    <string name="empty_first_name">Please enter your first name.</string>
+    <string name="empty_middle_name">Please enter your middle name.</string>
+    <string name="empty_last_name">Please enter your last name.</string>
+    <string name="empty_social_security_number">Please enter social security number.</string>
+    <string name="valid_social_security_number">Please enter valid social security number.</string>
+    <string name="empty_date_of_birth">Please enter your date of birth.</string>
+
+    <!--driver shipping info-->
+    <string name="shipping_address_title">Shipping Address</string>
+    <string name="shipping_address_detail">We use your address to send you your car emblem and other driver-related supplies and goodies.</string>
+    <string name="street_address">Street Address</string>
+    <string name="appartment">Apt / Suite / etc. (optional)</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="driven_with_another">I\'ve driven with another rideshare company</string>
+    <string name="city_prompt">City</string>
+    <string name="state_prompt">State</string>
+    <string name="empty_street_address">Please enter your street address.</string>
+    <string name="empty_Apt_name">Please enter your appartment number.</string>
+    <string name="empty_zip_code">Please enter your zip code.</string>
+    <string name="valid_zip_code">Please enter valid zip code.</string>
+    <string name="state">State</string>
+    <string name="city">City</string>
+
+    <!--driver attach document file-->
+    <string name="must_attach_file">Must Attach file</string>
+    <string name="driver_verification">Driver Verification</string>
+    <string name="auto_insurance">Auto Insurance (No registration)</string>
+    <string name="option">Options</string>
+    <string name="option_desc">Depending on the document,it helps to shortern the background checking.</string>
+    <string name="check_question">Please check the following question.</string>
+    <string name="have_home_insurance">*Do you have home insurance?</string>
+    <string name="uber_driver">*Are you Uber driver?</string>
+    <string name="attach_home_insurance">Please attach the document of home insurance</string>
+    <string name="attach_uber_payroll">Please attach the document of recent Uber payroll</string>
+
+    <!--driver bank information-->
+    <string name="bank_info_title">Bank Information</string>
+    <string name="request_for_bank_detail">Please enter your bank information for earning money</string>
+    <string name="routing_number">Routing Number</string>
+    <string name="account_number">Account Number</string>
+    <string name="empty_routing_number">Please enter your routing number.</string>
+    <string name="empty_account_number">Please enter your account number.</string>
+    <string name="valid_routing_number">Routing number should be minimum 9 characters long.</string>
+    <string name="valid_account_number">Account number should be minimum 8 characters long.</string>
+
+    <!--driver type info-->
+    <string name="driver_type_title">Driver Type</string>
+    <string name="request_for_drive_type">Please choose the car-size and transmission that you can drive</string>
+    <string name="car_size">Car-size</string>
+    <string name="transmission">Transmission</string>
+
+    <!--driver Profile info-->
+    <string name="profile_title">Profile</string>
+    <string name="request_for_profile">Please take a picture of you.</string>
+
+    <!--home screen-side menu-->
+    <string name="switch_to_user">Switch to user</string>
+    <string name="title">title</string>
+
+    <!--map fragment-->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--accept user request-->
+    <string name="user_address">50 Massachusetts Ave NE, Washington, DC 20002</string>
+    <string name="remain_time">5 MIN Away</string>
+    <string name="second">60</string>
+    <string name="user_name">Joy</string>
+    <string name="user_rating">5.0</string>
+    <string name="year">2017</string>
+    <string name="vehicle_make">Lexus</string>
+    <string name="vehicle_model">RX   350</string>
+    <string name="vehicle_color">White</string>
+    <string name="tap_to_be_a_driver">Tap to be a driver</string>
+
+
+    <!--dialog user already taken-->
+    <string name="user_already_taken">This user is already taken by other driver</string>
+    <string name="back_home">Back to  home</string>
+
+
+    <!--home-->
+    <string name="in_progress">In Progress</string>
+
+    <!--arrive user-->
+    <string name="arrive_for_user">Arrive for Joy</string>
+    <string name="arrive_at">Have arrived at</string>
+
+
+    <!--prepare user car-->
+    <string name="prepare_user_car">Prepare to drive user\'s car</string>
+    <string name="start">Start</string>
+    <string name="sure">Are you sure?</string>
+
+    <!--confirm navigate-->
+    <string name="drop_user">Drop off Joy</string>
+    <string name="navigate">Navigate</string>
+    <string name="drop_in_time">13 MIN</string>
+
+    <!--dialog dropped-->
+    <string name="did_you_arrive">Did you arrived</string>
+    <string name="user_names">Joy\'s</string>
+    <string name="destination">destination?</string>
+    <string name="confirm_drop">Confirm drop off</string>
+
+    <!--rate-->
+    <string name="trip_price">50.19</string>
+    <string name="price_symbol">$</string>
+    <string name="review_text">Awesome</string>
+    <string name="rate_instruction">You\'ll never be matched with a user you rate 3 stars or below</string>
+    <string name="done">Done</string>
+
+    <!--request lyft and uber-->
+    <string name="request">Request</string>
+    <string name="request_section">Request Section</string>
+    <string name="request_section_desc">Greego prefers to use \nUber &amp; Lyft.</string>
+    <string name="request_choose_app">Please click the app that you like to use</string>
+    <string name="request_lyft">Request from Lyft</string>
+    <string name="request_uber">Request from Uber</string>
+
+    <!--setting page-->
+    <string name="setting">Setting</string>
+    <string name="join">Joined</string>
+    <string name="joinDate">February 2017</string>
+    <string name="unverify">Unverified</string>
+    <string name="phone">+1 123 123 1231</string>
+    <string name="payment">Payment</string>
+    <string name="navigation">Navigation</string>
+    <string name="google_map">Google Map</string>
+    <string name="logout">Log out</string>
+
+    <!--user name setting-->
+    <string name="who_are_you">Who are you?</string>
+    <string name="profile_photo">Profile Photo</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="user_last_name">Driver</string>
+    <string name="driver_name">Tom</string>
+    <string name="whats_email_again">What\'s your email again?</string>
+    <string name="update">Updates</string>
+        <!--priyanka 23/4-->
+    <string name="enter_first_name">Please enter your first name.</string>
+    <string name="enter_last_name">Please enter your last name.</string>
+
+
+</resources>

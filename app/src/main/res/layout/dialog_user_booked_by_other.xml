@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/scale_20dp"
+        android:background="@mipmap/bg_rectangle20">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/scale_250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/txt_3"
+            android:text="@string/user_already_taken"
+            android:textColor="@color/tap_button_color"
+            android:textSize="@dimen/txt_15"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+            android:id="@+id/btnBackHome"
+            android:layout_width="@dimen/scale_150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/back_home"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:background="@color/main_mob_no_bg"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/scale_10dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

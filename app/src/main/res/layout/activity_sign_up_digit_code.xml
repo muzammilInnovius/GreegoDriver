@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_rectangle7"
+        android:paddingTop="@dimen/scale_10dp"
+        tools:context="com.greegoapp.greegodriver.Activity.SignUpDigitCodeActivity">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale_40dp"
+            android:background="@color/transparent"
+            android:clickable="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/ibBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_6dp"
+                android:src="@mipmap/ic_back_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_8dp"
+                android:src="@mipmap/ic_edit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/txt_3"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:text="@string/header_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_20"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/tvMobileNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/whats_digit_code"
+            android:textColor="@color/app_bg"
+            android:textSize="@dimen/txt_18"
+            android:layout_marginTop="@dimen/scale_20dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header"
+            />
+
+
+        <RelativeLayout
+            android:id="@+id/rlDriver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvMobileNo">
+
+            <TextView
+                android:id="@+id/tvCntWthDriverTtl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scale_25dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:text="@string/enter_digit_code"
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/txt_12" />
+
+            <TextView
+                android:id="@+id/tvCntWthDriver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:layout_toRightOf="@+id/tvCntWthDriverTtl"
+                android:text="@string/mobile_number_hint"
+                android:textColor="@color/app_bg"
+                android:textSize="@dimen/txt_12" />
+        </RelativeLayout>
+
+
+            <com.chaos.view.PinView
+                android:id="@+id/pVwDigitCode"
+                style="@style/PinWidget.PinView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:inputType="number"
+                android:maxLines="1"
+                app:itemCount="6"
+                app:itemHeight="38dp"
+                app:itemRadius="6dp"
+                app:itemSpacing="6dp"
+                app:itemWidth="38dp"
+                app:lineColor="@color/colorAccent"
+                app:lineWidth="1dp"
+                app:viewType="line"
+                android:imeOptions="actionDone"
+                android:layout_marginTop="@dimen/scale_70dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rlDriver"/>
+        <!--<RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >-->
+
+         <!--   <TextView
+                android:id="@+id/tvResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="@dimen/scale_20dp"
+                android:layout_marginLeft="@dimen/scale_50dp"
+                android:layout_marginTop="@dimen/scale_7dp"
+                android:text="@string/resend"
+                android:textColor="@color/app_bg"
+                android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/ibFinish"
+            android:layout_width="@dimen/scale_35dp"
+            android:layout_height="@dimen/scale_35dp"
+            android:layout_marginRight="@dimen/scale_50dp"
+            android:layout_marginBottom="@dimen/scale_20dp"
+            android:background="@mipmap/ic_next_button"
+            android:layout_alignParentRight="true"
+           />-->
+            <TextView
+                android:id="@+id/tvResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scale_30dp"
+                android:layout_marginTop="@dimen/scale_55dp"
+                android:text="@string/resend"
+                android:textColor="@color/app_bg"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginBottom="@dimen/scale_20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/txtTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/scale_55dp"
+                android:text="0:59"
+                android:layout_marginLeft="@dimen/scale_15dp"
+                android:textColor="@color/white"
+                app:layout_constraintLeft_toRightOf="@id/tvResend"
+                android:layout_marginBottom="@dimen/scale_20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <ImageButton
+                android:id="@+id/ibFinish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/scale_15dp"
+                android:layout_marginBottom="@dimen/scale_20dp"
+                android:background="@mipmap/ic_next_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+       <!-- </RelativeLayout>
+-->
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,319 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.greegoapp.greegodriver.Fragment.MapHomeFragment">
+
+        <!--<fragment
+            android:id="@+id/mgooleMap"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />-->
+        <RelativeLayout
+            android:id="@+id/rlVwUpdateMain"
+            android:layout_width="@dimen/scale_260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/scale_10dp"
+            android:layout_marginRight="@dimen/scale_10dp"
+            android:background="@drawable/bg_update_button"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_above="@+id/contentLayout"
+            android:visibility="gone">
+            <View
+                android:id="@+id/viewTop"
+                android:layout_width="@dimen/scale_50dp"
+                android:layout_height="@dimen/scale_1dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@color/black" />
+            <RelativeLayout
+                android:id="@+id/rlUpdate"
+                android:layout_below="@+id/viewTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/txtVwUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:elevation="4dp"
+                    android:padding="@dimen/scale_2dp"
+                    android:text="@string/update"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_18" />
+
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/imgVwRemainMark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/rlUpdate"
+                android:layout_marginTop="@dimen/scale_15dp"
+                android:visibility="visible"
+                android:src="@mipmap/ic_remain_mark"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="@dimen/scale_260dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_layout"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/llTab"
+            android:orientation="vertical"
+            android:padding="10dip" >
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:layout_marginBottom="@dimen/scale_5dp"
+                android:background="@color/bg_view" />
+            <ImageView
+                android:id="@+id/imgVwAlert"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/scale_5dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginBottom="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_20dp"
+                android:visibility="visible"
+                android:src="@mipmap/ic_alert"/>
+            <TextView
+                android:id="@+id/tvPercentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/imgVwAlert"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:padding="@dimen/scale_5dp"
+                android:textStyle="bold"
+                android:textColor="@color/hint_color" />
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:layout_below="@+id/tvPercentage"
+                android:paddingLeft="@dimen/scale_5dp"
+                android:paddingRight="@dimen/scale_5dp"
+                android:layout_marginBottom="@dimen/scale_5dp"
+                android:background="@color/bg_view" />
+
+            <Button
+                android:id="@+id/btnfinish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view4"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:text="Finish application"
+                android:background="@mipmap/bg_rectangle19"
+                android:textStyle="bold"
+                android:padding="@dimen/scale_5dp"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+       <!-- <SlidingDrawer
+            android:id="@+id/SlidingDrawer"
+            android:layout_width="@dimen/scale_260dp"
+            android:layout_height="@dimen/scale_225dp"
+            android:content="@+id/contentLayout"
+            android:handle="@+id/slideButton"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_above="@+id/llTab"
+            android:padding="10dip" >
+
+            &lt;!&ndash; Handle button &ndash;&gt;
+        &lt;!&ndash;    <Button
+                android:id="@+id/slideButton"
+                android:layout_width="@dimen/scale_225dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_update_button"
+                android:ems="10"
+                android:text="@string/update"
+                android:textColor="@color/black" >
+            </Button>&ndash;&gt;
+                <Button
+                    android:id="@+id/slideButton"
+                    android:layout_width="@dimen/scale_260dp"
+                    android:layout_height="@dimen/scale_50dp"
+                    android:background="@drawable/bg_update_button"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_16"
+                    android:elevation="@dimen/scale_50dp"
+                    android:text="@string/update"
+                    android:textColor="@color/black"/>
+
+            &lt;!&ndash; Content Layout &ndash;&gt;
+            <RelativeLayout
+                android:id="@+id/contentLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_layout"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="10dip" >
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:layout_marginBottom="@dimen/scale_5dp"
+                    android:background="@color/bg_view" />
+                <ImageView
+                    android:id="@+id/imgVwAlert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scale_5dp"
+                    android:layout_marginRight="@dimen/scale_5dp"
+                    android:layout_marginBottom="@dimen/scale_5dp"
+                    android:layout_marginTop="@dimen/scale_20dp"
+                    android:src="@mipmap/ic_alert"/>
+                <TextView
+                    android:id="@+id/tvPercentage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/imgVwAlert"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:text="Your application is 40% complete!"
+                    android:padding="@dimen/scale_5dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/hint_color" />
+                <View
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:layout_below="@+id/tvPercentage"
+                    android:paddingLeft="@dimen/scale_5dp"
+                    android:paddingRight="@dimen/scale_5dp"
+                    android:layout_marginBottom="@dimen/scale_5dp"
+                    android:background="@color/bg_view" />
+
+                <Button
+                    android:id="@+id/btnfinish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view4"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:text="Finish application"
+                    android:background="@mipmap/bg_rectangle19"
+                    android:textStyle="bold"
+                    android:padding="@dimen/scale_5dp"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+        </SlidingDrawer>-->
+
+        <LinearLayout
+            android:id="@+id/llTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:weightSum="3"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/scale_10dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/scale_10dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/imgVwTabHome"
+                    android:layout_width="@dimen/scale_80dp"
+                    android:layout_height="@dimen/scale_80dp"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/scale_1dp"
+                    android:src="@mipmap/ic_map" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Home"
+                    android:textColor="@color/tap_button_color"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_16"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/bg_view"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStartTime" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0.4"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/imgVwTabEarning"
+                    android:layout_width="@dimen/scale_80dp"
+                    android:layout_height="@dimen/scale_80dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_earning" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Earning"
+                    android:textColor="@color/tap_button_color"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_16"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+            <View
+                android:id="@+id/view1"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/bg_view"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStartTime" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:alpha="0.4"
+                android:paddingRight="@dimen/scale_10dp"
+                android:orientation="vertical">
+                <ImageView
+                    android:id="@+id/imgVwTabManage"
+                    android:layout_width="@dimen/scale_80dp"
+                    android:layout_height="@dimen/scale_80dp"
+                    android:padding="@dimen/scale_10dp"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/ic_manage" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manage"
+                    android:textColor="@color/tap_button_color"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/txt_16"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#073E50</color>
+    - <!-- SnackBar color
+  -->
+    <color name="warning_bg">#000000</color>
+    <color name="error_bg">#FF0000</color>
+    <color name="success_bg">#5AC84B</color>
+    <color name="header_start_color">#383838</color>
+    <color name="header_end_color">#050404</color>
+    <color name="view_color">#DACAD5</color>
+    <color name="search_transaction_rectangle_border">#BAF0BF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
+    <color name="app_bg">#073E50</color>
+    <color name="not_editable_text">#8D8D8D</color>
+    <color name="not_editable_text_border">#EDEDED</color>
+    <color name="trans_black">#99000000</color>
+    <color name="transaction_item_select">#82F3A3</color>
+    <color name="transaction_item_details_text">#666666</color>
+    <color name="transparent">#00000000</color>
+    <color name="hint_color">#696969</color>
+    <color name="bg_view">#BDBDBD</color>
+    <color name="bg_debtorAmt">#0D0D0D</color>
+    <color name="send_feedback_bg">#E4E4E4</color>
+    <color name="white_header_bg">#FFFFFF</color>
+    <color name="txt_hint">#d9d9d9</color>
+    <color name="edt_vw_border">#d9d9d9</color>
+    <color name="progress_bar">#0C6293</color>
+    <color name="main_mob_no_bg">#073E50</color>
+    <color name="view_bg">#696969</color>
+    <color name="textColor">#597475</color>
+    <color name="btnDriverIdColor">#76ABA6</color>
+    <color name="green">#386E0F</color>
+    <color name="end">#569A94</color>
+    <color name="done_help">#3894F4</color>
+    <color name="line">#5DD8BD</color>
+    <color name="profile_no">#8D8D8D</color>
+    <color name="text_color">#1F404A</color>
+    <color name="resend_time">#12319e</color>
+    <color name="tap_button_color">#34CFB0</color>
+    <color name="confirm_button">#93E5D5</color>
+    <color name="mobile_desc">#B5C6CB</color>
+    <!--mujju-->
+    <color name="driver_type_bg">#0E6213</color>
+</resources>
