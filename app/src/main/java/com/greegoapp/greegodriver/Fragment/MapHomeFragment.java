@@ -79,7 +79,7 @@ import com.greegoapp.greegodriver.R;
 import com.greegoapp.greegodriver.Utils.ConnectivityDetector;
 import com.greegoapp.greegodriver.databinding.FragmentMapHomeBinding;
 
-public class MapHomeFragment extends Fragment implements View.OnClickListener/*,OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,LocationListener, GoogleApiClient.OnConnectionFailedListener */{
+public class MapHomeFragment extends Fragment implements View.OnClickListener{
     FragmentMapHomeBinding binding;
     View snackBarView;
     Context context;
@@ -109,17 +109,6 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener/*,
     RelativeLayout rlVwUpdateMain,rlContentLayout;
     ImageView imgVwRemainMark,imgVwAlert;
 
-    //sapan
-    //GoogleMap 21/4/2018
-    GoogleMap googleMap;
-    MapFragment mapFragment;
-    private boolean mLocationPermissionGranted;
-    private GoogleApiClient mGoogleApiClient;
-    private Location lastLocation;
-    LatLng latLng;
-    LocationRequest locationRequest;
-    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1001;
-    private static final String TAG = MapHomeFragment.class.getName();
     int open=0;
 
     // Defined in mili seconds.

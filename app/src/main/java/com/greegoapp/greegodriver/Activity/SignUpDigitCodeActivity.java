@@ -22,6 +22,7 @@ import com.android.volley.request.JsonObjectRequest;
 import com.chaos.view.PinView;
 import com.google.gson.Gson;
 import com.greegoapp.greegodriver.AppController.AppController;
+import com.greegoapp.greegodriver.FCM.Config;
 import com.greegoapp.greegodriver.GlobleFields.GlobalValues;
 import com.greegoapp.greegodriver.Model.GetDriverData;
 import com.greegoapp.greegodriver.Model.Login;
@@ -59,6 +60,8 @@ public class SignUpDigitCodeActivity extends AppCompatActivity implements View.O
     Dialog dialogotp;
     int sendOtp;
     SmsVerifyCatcher smsVerifyCatcher;
+    private String registerFCMKey;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class SignUpDigitCodeActivity extends AppCompatActivity implements View.O
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up_digit_code);
         context = SignUpDigitCodeActivity.this;
         snackBarView = findViewById(android.R.id.content);
+        registerFCMKey = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0).getString("regId", "def");
 
         bindView();
         setListners();
@@ -354,6 +358,7 @@ public class SignUpDigitCodeActivity extends AppCompatActivity implements View.O
             jsonObject.put(WebFields.SIGN_IN.PARAM_CONTACT_NO, SessionManager.getMobileNo(context));
             jsonObject.put(WebFields.SIGN_IN.PARAM_IS_PHONE_NO, 0);
             jsonObject.put(WebFields.SIGN_IN.PARAM_USER_TYPE, GlobalValues.USER_TYPE);
+            jsonObject.put(WebFields.SIGN_IN.PARAM_DEVICE_ID,registerFCMKey);
 
             Applog.E("request: " + jsonObject.toString());
             MyProgressDialog.showProgressDialog(context);

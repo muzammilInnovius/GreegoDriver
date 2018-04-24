@@ -49,7 +49,8 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCb8loUuaqlWhl-6W7PMuER9__HVWQuQ-g" />
+            android:value="AIzaSyCyFl8h0st1d-GRxRCdxwnb71Oq_rVybOE"/>
+            <!--android:value="AIzaSyCb8loUuaqlWhl-6W7PMuER9__HVWQuQ-g" />-->
         <!-- android:value="AIzaSyDTGjaMsOWGOzRYtUEhYmj7Q_zPpk9G8-o" /> -->
 
         <activity
@@ -140,6 +141,17 @@
         </receiver>
 
         <activity android:name=".Activity.UserNameSettingActivity"></activity>
+        <service android:name=".FCM.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".FCM.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

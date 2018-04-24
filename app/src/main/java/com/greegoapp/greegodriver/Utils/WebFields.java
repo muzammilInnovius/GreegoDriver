@@ -14,6 +14,8 @@ public class WebFields {
         public static final String PARAM_CONTACT_NO = "contact_number";
         public static final String PARAM_IS_PHONE_NO = "is_iphone";
         public static final String PARAM_USER_TYPE = "user_type";
+        public static final String PARAM_DEVICE_ID = "device_id";
+
     }
     public static final class TRIP{
         public static  final String MODE = "user/get/rates";
@@ -107,6 +109,14 @@ public class WebFields {
 
     }
 
+    public static final class ACCEPT_USER_REQUEST{
+        public static final String MODE="driver/view/request";
+        public static final String request_id="request_id";
+    }
 
+    public static final class ACCPET_TRIP{
+        public static final String MODE="driver/accept/request";
+        public static final String request_id="request_id";
+    }
 
 }

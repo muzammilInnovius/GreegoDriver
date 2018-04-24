@@ -1,13 +1,14 @@
 package com.greegoapp.greegodriver.Activity;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -22,12 +23,38 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.error.AuthFailureError;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonObjectRequest;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.greegoapp.greegodriver.AppController.AppController;
+import com.greegoapp.greegodriver.Fragment.MapHomeFragment;
+import com.greegoapp.greegodriver.GlobleFields.GlobalValues;
 import com.greegoapp.greegodriver.R;
+import com.greegoapp.greegodriver.SessionManager.SessionManager;
+import com.greegoapp.greegodriver.Utils.Applog;
+import com.greegoapp.greegodriver.Utils.MyProgressDialog;
+import com.greegoapp.greegodriver.Utils.SnackBar;
+import com.greegoapp.greegodriver.Utils.WebFields;
 import com.greegoapp.greegodriver.databinding.ActivityAcceptUserRequestBinding;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AcceptUserRequestActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -41,7 +68,25 @@ public class AcceptUserRequestActivity extends AppCompatActivity implements View
     RelativeLayout rlUserDetail, rlVehicleDetail;
     ImageView imgVwStart, imgVwStartPin, imgVwCall, imgVwUserDropProfile;
     Dialog dialogConfirmArrive, dialogCall, dialogConfirmNavi, dialogConfirmDrop;
+    String trip_id;
+    public static Boolean flag=false;
+    //sapan
+    //LineDraw
+    private List<LatLng> routeList;
+    private static final long MOVE_ANIMATION_DURATION = 1000;
+    private long TURN_ANIMATION_DURATION = 500;
+    private Marker marker;
+    Bitmap mMarkerIcon;
+    private int mIndexCurrentPoint = 0;
+    private LatLng pickupPoint, dropPoint;
+    public static final int PICK_CONTACT_REQUEST = 1;  // The request code
+    public static final int ADD_EDIT_VEHICAL_REQUEST = 2000;
 
+    // Defined in mili seconds.
+    // This number in extremely low, and should be used only for debug
+    private final int REQ_PERMISSION = 999;
+    private final int UPDATE_INTERVAL = 1000;
+    private final int FASTEST_INTERVAL = 900;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +96,58 @@ public class AcceptUserRequestActivity extends AppCompatActivity implements View
         bindView();
         setListners();
         timer();
+        Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
+        getUserData(""+getIntent().getStringExtra("message"));
+    }
+
+    private void getUserData(final String key) {
+        try {
+            JSONObject jsonObject = new JSONObject();
+//            String token = SessionManager.getToken(context);
+//            Applog.E("Token" + token);
+            jsonObject.put(WebFields.ACCEPT_USER_REQUEST.request_id,key);
+            Applog.E("request: " + jsonObject.toString());
+            MyProgressDialog.showProgressDialog(context);
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                    WebFields.BASE_URL + WebFields.ACCEPT_USER_REQUEST.MODE, jsonObject, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Applog.E("success: " + response.toString());
+                    trip_id=key;
+                    //
+                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+                    MyProgressDialog.hideProgressDialog();
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    MyProgressDialog.hideProgressDialog();
+                    Applog.E("Error: " + error.getMessage());
+                    Toast.makeText(context, "error", Toast.LENGTH_SHORT).show();
+                    SnackBar.showError(context, snackBarView, getResources().getString(R.string.something_went_wrong));
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    params.put(WebFields.PARAM_ACCEPT, "application/json");
+                    params.put(WebFields.PARAM_AUTHOTIZATION, GlobalValues.BEARER_TOKEN + SessionManager.getToken(context));
+
+                    return params;
+                }
+            };
+            jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                    GlobalValues.TIME_OUT,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            AppController.getInstance().addToRequestQueue(jsonObjReq);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -82,10 +179,14 @@ public class AcceptUserRequestActivity extends AppCompatActivity implements View
             case R.id.tvTabToBeDriver:
                 String strBtnText = tvTab.getText().toString();
                 if (strBtnText == getResources().getString(R.string.tap_to_be_a_driver)) {
-                    mCountDownTimer.cancel();
-                    tvTimer.setVisibility(View.GONE);
-                    imgVwStart.setVisibility(View.VISIBLE);
-                    tvTab.setText(getResources().getString(R.string.arrive_for_user));
+                    if (acceptTrip())
+                    {
+                        mCountDownTimer.cancel();
+                        tvTimer.setVisibility(View.GONE);
+                        imgVwStart.setVisibility(View.VISIBLE);
+                        tvTab.setText(getResources().getString(R.string.arrive_for_user));
+                    }
+
                 } else if (strBtnText == getResources().getString(R.string.arrive_for_user)) {
                     dialogConfirmArrive = new Dialog(this);
                     dialogConfirmArrive.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -188,6 +289,52 @@ public class AcceptUserRequestActivity extends AppCompatActivity implements View
         }
     }
 
+    private boolean acceptTrip() {
+        Toast.makeText(context, ""+trip_id, Toast.LENGTH_SHORT).show();
+        try {
+            JSONObject jsonObject = new JSONObject();
+//            String token = SessionManager.getToken(context);
+//            Applog.E("Token" + token);
+            jsonObject.put(WebFields.ACCEPT_USER_REQUEST.request_id,trip_id);
+            Applog.E("request: " + jsonObject.toString());
+            MyProgressDialog.showProgressDialog(context);
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                    WebFields.BASE_URL + WebFields.ACCPET_TRIP.MODE, jsonObject, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Applog.E("success: " + response.toString());
+                    flag=true;
+                    MyProgressDialog.hideProgressDialog();
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    MyProgressDialog.hideProgressDialog();
+                    Applog.E("Error: " + error.getMessage());
+                    SnackBar.showError(context, snackBarView, getResources().getString(R.string.something_went_wrong));
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put(WebFields.PARAM_ACCEPT, "application/json");
+                    params.put(WebFields.PARAM_AUTHOTIZATION, GlobalValues.BEARER_TOKEN + SessionManager.getToken(context));
+                    return params;
+                }
+            };
+            jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                    GlobalValues.TIME_OUT,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            AppController.getInstance().addToRequestQueue(jsonObjReq);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
 
     private boolean requestPermission() {
         int result = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE);
@@ -235,7 +382,8 @@ public class AcceptUserRequestActivity extends AppCompatActivity implements View
 
             @Override
             public void onFinish() {
-                //   OpenDialog();
+//                   OpenDialog();
+                finish();
             }
         }.start();
     }
@@ -247,4 +395,35 @@ public class AcceptUserRequestActivity extends AppCompatActivity implements View
         AlertDialog dialog = alert.create();
         dialog.show();
     }
+
+    /*private class TripDetailResponse {
+        String message;
+        String error_code;
+        TripDetail tripDetail;
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getError_code() {
+            return error_code;
+        }
+
+        public void setError_code(String error_code) {
+            this.error_code = error_code;
+        }
+
+        public TripDetail getTripDetail() {
+            return tripDetail;
+        }
+
+        public void setTripDetail(TripDetail tripDetail) {
+            this.tripDetail = tripDetail;
+        }
+
+    }*/
 }

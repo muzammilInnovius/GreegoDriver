@@ -28,16 +28,18 @@
                     app:corner_radius="@dimen/scale_30dp"
                     app:border_color="@color/app_bg"
                     app:round_background="true" />
-
-
+                <fragment
+                    android:id="@+id/mgooleMap"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
                 <FrameLayout
                     android:id="@+id/containerBody"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:orientation="horizontal" >
-                </FrameLayout>
+                    android:orientation="horizontal" />
 
                 <ImageView
                     android:paddingLeft="@dimen/scale_95dp"
@@ -167,6 +169,5 @@
             </RelativeLayout>
 
         </android.support.v4.widget.DrawerLayout>
-
     </RelativeLayout>
 </layout>
