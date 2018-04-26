@@ -116,11 +116,11 @@ public class DriverBankInfoActivity extends AppCompatActivity implements View.On
             edtTvAccountNumber.requestFocus();
             SnackBar.showValidationError(context, snackBarView, getString(R.string.empty_account_number));
             return false;
-        } else if (strRoutingNumber.length() < 9) {
+        } else if (strRoutingNumber.length() != 9) {
             edtTvRoutingNumber.requestFocus();
             SnackBar.showValidationError(context, snackBarView, getString(R.string.valid_routing_number));
             return false;
-        } else if (strAccountNumber.length() < 8) {
+        } else if (strAccountNumber.length() != 8) {
             edtTvAccountNumber.requestFocus();
             SnackBar.showValidationError(context, snackBarView, getString(R.string.valid_account_number));
             return false;
@@ -150,20 +150,21 @@ public class DriverBankInfoActivity extends AppCompatActivity implements View.On
                 @Override
                 public void onResponse(JSONObject response) {
                     Applog.E("success: " + response.toString());
-
-                    ProfileStatus userDetails = new Gson().fromJson(String.valueOf(response), ProfileStatus.class);
                     try {
-                        MyProgressDialog.hideProgressDialog();
-//
-                        if (userDetails.getError_code() == 0) {
 
-                            Applog.E("UserDetails" + userDetails);
+                        ProfileStatus userDetails = new Gson().fromJson(String.valueOf(response), ProfileStatus.class);
+                        try {
+                            MyProgressDialog.hideProgressDialog();
+//
+                            if (userDetails.getError_code() == 0) {
+
+                                Applog.E("UserDetails" + userDetails);
 //                            callUserMeApi();
 
-                            SessionManager.setIsUserLoggedin(context, true);
+                                SessionManager.setIsUserLoggedin(context, true);
 //                            int profileStatus = userDetails.getData().getProfile_status();
 //
-                             profileStatus = userDetails.getData().getProfile_status();
+                                profileStatus = userDetails.getData().getProfile_status();
 //                            //getIs_agreed = 0 new user
                             /*if(REQUEST_ADD_BANK_INFO==1004)
                             {
@@ -171,17 +172,21 @@ public class DriverBankInfoActivity extends AppCompatActivity implements View.On
                                 i.putExtra("profileStatus",profileStatus);
                                 setResult(REQUEST_ADD_BANK_INFO,i);
                             }*/
-                            setProfileScreen(profileStatus);
+                                setProfileScreen(profileStatus);
 ////
 //                            Intent in = new Intent(context, DriverPersonalInfoActivity.class);
 //                            in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //                            startActivity(in);
 //                            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
-                        } else {
-                            MyProgressDialog.hideProgressDialog();
-                            SnackBar.showError(context, snackBarView, response.getString("message"));
+                            } else {
+                                MyProgressDialog.hideProgressDialog();
+                                SnackBar.showError(context, snackBarView, response.getString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
+                    }catch (Exception e)
+                    {
                         e.printStackTrace();
                     }
                 }

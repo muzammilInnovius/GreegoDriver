@@ -146,35 +146,10 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/tvState"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tILApt"
-                    android:layout_marginBottom="@dimen/scale_5dp"
-                    android:layout_marginTop="@dimen/scale_5dp"
-                    android:text="@string/state"
-                    android:textColor="@color/black" />
-
-                <Spinner
-                    android:id="@+id/spinnerState"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/scale_30dp"
-                    android:layout_below="@+id/tvState"
-                    android:imeOptions="actionNext"
-                    android:prompt="@string/city_prompt" />
-
-                <View
-                    android:id="@+id/viewState"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/spinnerState"
-                    android:background="@color/view_bg" />
-
-                <TextView
                     android:id="@+id/tvCity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/viewState"
+                    android:layout_below="@+id/tILApt"
                     android:layout_marginBottom="@dimen/scale_5dp"
                     android:layout_marginTop="@dimen/scale_5dp"
                     android:text="@string/city"
@@ -196,11 +171,37 @@
                     android:layout_below="@+id/spinnerCity"
                     android:background="@color/view_bg" />
 
+                <TextView
+                    android:id="@+id/tvState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewCity"
+                    android:layout_marginBottom="@dimen/scale_5dp"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:text="@string/state"
+                    android:textColor="@color/black" />
+
+                <Spinner
+                    android:id="@+id/spinnerState"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scale_30dp"
+                    android:layout_below="@+id/tvState"
+                    android:imeOptions="actionNext"
+                    android:prompt="@string/city_prompt" />
+
+                <View
+                    android:id="@+id/viewState"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/spinnerState"
+                    android:background="@color/view_bg" />
+
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/tILZipCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/spinnerCity"
+                    android:layout_below="@+id/spinnerState"
                     android:layout_marginTop="@dimen/scale_5dp">
 
                     <android.support.design.widget.TextInputEditText

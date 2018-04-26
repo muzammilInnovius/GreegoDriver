@@ -121,6 +121,7 @@
                         android:hint="@string/routing_number"
                         android:textColor="@color/app_bg"
                         android:textSize="@dimen/txt_15"
+                        android:maxLength="9"
                         android:imeOptions="actionNext"/>
                 </RelativeLayout>
 
@@ -150,6 +151,7 @@
                         android:hint="@string/account_number"
                         android:textColor="@color/app_bg"
                         android:inputType="number"
+                        android:maxLength="8"
                         android:textSize="@dimen/txt_15"
                         android:imeOptions="actionDone"/>
                 </RelativeLayout>

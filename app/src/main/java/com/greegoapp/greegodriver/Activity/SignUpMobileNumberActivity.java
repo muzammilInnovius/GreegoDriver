@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -231,29 +232,34 @@ public class SignUpMobileNumberActivity extends AppCompatActivity implements Vie
                 @Override
                 public void onResponse(JSONObject response) {
                     Applog.E("success: " + response.toString());
-
-                    Login loginData = new Gson().fromJson(String.valueOf(response), Login.class);
                     try {
-                        MyProgressDialog.hideProgressDialog();
-                        if (loginData.getError_code() == 0) {
+                        Login loginData = new Gson().fromJson(String.valueOf(response), Login.class);
+                        try {
+                            MyProgressDialog.hideProgressDialog();
+                            if (loginData.getError_code() == 0) {
 
-                            Applog.E("Contact No" + loginData.getData().getContact_number());
-                            SessionManager.saveUserData(context, loginData);
+                                Applog.E("Contact No" + loginData.getData().getContact_number());
+                                SessionManager.saveUserData(context, loginData);
 //                            SnackBar.showSuccess(context, snackBarView, response.getString("message"));
 //                            backPressed.onBackPressed(getContext());
 
-                            Intent in = new Intent(context, SignUpDigitCodeActivity.class);
-                            in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            startActivity(in);
-                            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
+                                Intent in = new Intent(context, SignUpDigitCodeActivity.class);
+                                in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(in);
+                                overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
 
-                        } else {
-                            MyProgressDialog.hideProgressDialog();
-                            SnackBar.showError(context, snackBarView, response.getString("message"));
+                            } else {
+                                MyProgressDialog.hideProgressDialog();
+                                SnackBar.showError(context, snackBarView, response.getString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e) {
+                    }catch (Exception e)
+                    {
                         e.printStackTrace();
                     }
+
                 }
             }, new Response.ErrorListener() {
 
@@ -277,13 +283,15 @@ public class SignUpMobileNumberActivity extends AppCompatActivity implements Vie
     }
 
     private boolean isValid() {
-        strMobileNo = "+91" + edtTvMobileNo.getText().toString();
+
+            strMobileNo = "+91" + edtTvMobileNo.getText().toString();
+
         if (strMobileNo.isEmpty()) {
             edtTvMobileNo.requestFocus();
             SnackBar.showValidationError(context, snackBarView, getString(R.string.enter_mobile_no_empty));
             return false;
         }
-        else if(strMobileNo.length()< 10)
+        else if(strMobileNo.length() < 10 || strMobileNo.length() > 15)
         {
             edtTvMobileNo.requestFocus();
             SnackBar.showValidationError(context, snackBarView, getString(R.string.mobile_no_length));
