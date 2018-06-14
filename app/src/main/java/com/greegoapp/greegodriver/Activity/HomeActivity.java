@@ -149,10 +149,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             Applog.E("UserUpdate==>Dg==>" + driverDetail);
 
                             String userName = driverDetail.getData().getName();
+                            String userPro = driverDetail.getData().getProfile_pic();
                             tvDrawUsername.setText(userName);
-                            Glide.with(context).load("http://www.innoviussoftware.com/greego/storage/app/documents/w47HhwzUJARP1nshJblCM2jgRTO0hSZwEvkfAhFY.jpeg")
+                            Glide.with(context).load(userPro)
                                     .into(ivProPicHome);
-                            Glide.with(context).load("http://www.innoviussoftware.com/greego/storage/app/documents/w47HhwzUJARP1nshJblCM2jgRTO0hSZwEvkfAhFY.jpeg")
+                            Glide.with(context).load(userPro)
                                     .into(ivPro);
 
 

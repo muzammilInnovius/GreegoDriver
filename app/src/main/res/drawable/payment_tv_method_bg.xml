@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <!--<padding-->
+            <!--android:bottom="3dip"-->
+            <!--android:left="3dip"-->
+            <!--android:right="3dip"-->
+            <!--android:top="3dip" />-->
+            <!--<corners android:radius="5dip" />-->
+            <gradient
+                android:centerColor="@color/white"
+
+                android:endColor="@color/white"
+                android:startColor="@color/white" />
+            <stroke
+                android:width="1px"
+                android:color="@color/black" />
+
+        </shape>
+
+    </item>
+
+</layer-list>
