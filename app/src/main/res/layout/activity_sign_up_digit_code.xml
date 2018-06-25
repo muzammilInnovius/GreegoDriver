@@ -9,6 +9,7 @@
         android:background="@mipmap/bg_rectangle7"
         android:paddingTop="@dimen/scale_10dp"
         tools:context="com.greegoapp.greegodriver.Activity.SignUpDigitCodeActivity">
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
@@ -69,14 +70,13 @@
             android:id="@+id/tvMobileNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/scale_20dp"
             android:text="@string/whats_digit_code"
             android:textColor="@color/app_bg"
             android:textSize="@dimen/txt_18"
-            android:layout_marginTop="@dimen/scale_20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/header" />
 
 
         <RelativeLayout
@@ -110,90 +110,89 @@
         </RelativeLayout>
 
 
-            <com.chaos.view.PinView
-                android:id="@+id/pVwDigitCode"
-                style="@style/PinWidget.PinView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:inputType="number"
-                android:maxLines="1"
-                app:itemCount="6"
-                app:itemHeight="38dp"
-                app:itemRadius="6dp"
-                app:itemSpacing="6dp"
-                app:itemWidth="38dp"
-                app:lineColor="@color/colorAccent"
-                app:lineWidth="1dp"
-                app:viewType="line"
-                android:imeOptions="actionDone"
-                android:layout_marginTop="@dimen/scale_70dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rlDriver"/>
+        <com.chaos.view.PinView
+            android:id="@+id/pVwDigitCode"
+            style="@style/PinWidget.PinView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/scale_70dp"
+            android:imeOptions="actionDone"
+            android:inputType="number"
+            android:maxLines="1"
+            app:itemCount="6"
+            app:itemHeight="38dp"
+            app:itemRadius="6dp"
+            app:itemSpacing="6dp"
+            app:itemWidth="38dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rlDriver"
+            app:lineColor="@color/colorAccent"
+            app:lineWidth="1dp"
+            app:viewType="line" />
         <!--<RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             >-->
 
-         <!--   <TextView
-                android:id="@+id/tvResend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="@dimen/scale_20dp"
-                android:layout_marginLeft="@dimen/scale_50dp"
-                android:layout_marginTop="@dimen/scale_7dp"
-                android:text="@string/resend"
-                android:textColor="@color/app_bg"
-                android:textStyle="bold" />
+        <!--   <TextView
+               android:id="@+id/tvResend"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignParentLeft="true"
+               android:layout_marginBottom="@dimen/scale_20dp"
+               android:layout_marginLeft="@dimen/scale_50dp"
+               android:layout_marginTop="@dimen/scale_7dp"
+               android:text="@string/resend"
+               android:textColor="@color/app_bg"
+               android:textStyle="bold" />
+
+       <ImageButton
+           android:id="@+id/ibFinish"
+           android:layout_width="@dimen/scale_35dp"
+           android:layout_height="@dimen/scale_35dp"
+           android:layout_marginRight="@dimen/scale_50dp"
+           android:layout_marginBottom="@dimen/scale_20dp"
+           android:background="@mipmap/ic_next_button"
+           android:layout_alignParentRight="true"
+          />-->
+        <TextView
+            android:id="@+id/tvResend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/scale_20dp"
+            android:layout_marginLeft="@dimen/scale_30dp"
+            android:layout_marginTop="@dimen/scale_55dp"
+            android:text="@string/resend"
+            android:textColor="@color/app_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/txtTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/scale_20dp"
+            android:layout_marginLeft="@dimen/scale_15dp"
+            android:layout_marginTop="@dimen/scale_55dp"
+            android:text="0:59"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tvResend" />
 
         <ImageButton
             android:id="@+id/ibFinish"
-            android:layout_width="@dimen/scale_35dp"
-            android:layout_height="@dimen/scale_35dp"
-            android:layout_marginRight="@dimen/scale_50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/scale_20dp"
+            android:layout_marginRight="@dimen/scale_15dp"
             android:background="@mipmap/ic_next_button"
-            android:layout_alignParentRight="true"
-           />-->
-            <TextView
-                android:id="@+id/tvResend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/scale_30dp"
-                android:layout_marginTop="@dimen/scale_55dp"
-                android:text="@string/resend"
-                android:textColor="@color/app_bg"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginBottom="@dimen/scale_20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-
-            <TextView
-                android:id="@+id/txtTimer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/scale_55dp"
-                android:text="0:59"
-                android:layout_marginLeft="@dimen/scale_15dp"
-                android:textColor="@color/white"
-                app:layout_constraintLeft_toRightOf="@id/tvResend"
-                android:layout_marginBottom="@dimen/scale_20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                />
-            <ImageButton
-                android:id="@+id/ibFinish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/scale_15dp"
-                android:layout_marginBottom="@dimen/scale_20dp"
-                android:background="@mipmap/ic_next_button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
-       <!-- </RelativeLayout>
--->
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+        <!-- </RelativeLayout>
+ -->
 
     </android.support.constraint.ConstraintLayout>
 

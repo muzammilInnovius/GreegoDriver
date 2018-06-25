@@ -1,9 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activity.HelpCenterActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context="com.greegoapp.Activity.HelpActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale_60dp"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/ibBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_6dp"
+                android:src="@mipmap/ic_back_button"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_8dp"
+                android:src="@mipmap/ic_edit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/txt_3"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:text="@string/header_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_20"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rlDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/header">
+
+            <ImageView
+                android:id="@+id/imgVwGreegoHelp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/scale_200dp"
+                android:src="@color/app_bg" />
+
+            <ImageView
+                android:id="@+id/imgVwGreego"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/scale_10dp"
+                android:layout_marginTop="@dimen/scale_10dp"
+                android:src="@mipmap/ic_greego_logo" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_below="@+id/imgVwGreegoHelp"
+                android:background="@color/line" />
+
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/view"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:id="@+id/tvHow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/scale_30dp"
+                    android:paddingLeft="@dimen/scale_8dp"
+                    android:text="@string/how_help"
+                    android:textColor="@color/line"
+                    android:textSize="@dimen/scale_25dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvHowHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/scale_5dp"
+                    android:layout_marginTop="@dimen/scale_30dp"
+                    android:layout_toRightOf="@+id/tvHow"
+                    android:text="@string/help_questionMark"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/scale_25dp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/rlDetail"
+            android:layout_marginTop="@dimen/scale_10dp"
+            android:padding="@dimen/scale_10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rlDetail">
+
+            <!-- <TextView
+                 android:id="@+id/tvHelpContition"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginBottom="@dimen/scale_2dp"
+                 android:padding="@dimen/scale_10dp"
+                 android:text=""
+                 android:textColor="@color/app_bg"
+                 android:textSize="@dimen/scale_15dp" />
+ -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_lost_found"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lost_found"
+                    android:textColor="@color/app_bg"
+                    android:gravity="center"
+                    android:layout_marginBottom="@dimen/scale_5dp"
+                    android:textSize="@dimen/scale_15dp" />
+                <TextView
+                    android:id="@+id/tv_report_incident"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/report_safety"
+                    android:textColor="@color/app_bg"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:layout_marginBottom="@dimen/scale_5dp"
+                    android:layout_below="@+id/tv_lost_found"
+                    android:textSize="@dimen/scale_15dp" />
+                <TextView
+                    android:id="@+id/tv_pay_cal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/how_pay_cal"
+                    android:textColor="@color/app_bg"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:layout_marginBottom="@dimen/scale_5dp"
+                    android:layout_below="@+id/tv_report_incident"
+                    android:textSize="@dimen/scale_15dp" />
+                <TextView
+                    android:id="@+id/tv_policy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_policy"
+                    android:layout_below="@+id/tv_pay_cal"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:layout_marginBottom="@dimen/scale_5dp"
+                    android:textColor="@color/app_bg"
+                    android:textSize="@dimen/scale_15dp" />
+
+            </RelativeLayout>
+
+        </ScrollView>
+    </android.support.constraint.ConstraintLayout>
+</layout>

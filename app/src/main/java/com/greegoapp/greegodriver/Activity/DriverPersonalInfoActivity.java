@@ -7,10 +7,16 @@ import android.databinding.DataBindingUtil;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
+import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +27,7 @@ import com.android.volley.Response;
 import com.android.volley.error.AuthFailureError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
+import com.bugsnag.android.Bugsnag;
 import com.google.gson.Gson;
 import com.greegoapp.greegodriver.AppController.AppController;
 import com.greegoapp.greegodriver.GlobleFields.GlobalValues;
@@ -39,7 +46,10 @@ import com.greegoapp.greegodriver.databinding.ActivityDriverPersonalInfoBinding;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +60,7 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
     ActivityDriverPersonalInfoBinding binding;
     Context context;
     private View snackBarView;
-    TextView tvDateOfBirth;
+    EditText tvDateOfBirth;
 
     TextInputEditText edtTvFirstName, edtTvMiddleName, edtTvLastName, edtTvSocSecNum;
     Button btnNext;
@@ -66,9 +76,56 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
         binding = DataBindingUtil.setContentView(this, R.layout.activity_driver_personal_info);
         context = DriverPersonalInfoActivity.this;
         snackBarView = findViewById(android.R.id.content);
+        Bugsnag.init(context);
         bindView();
         setListners();
         tvDateOfBirth.setInputType(InputType.TYPE_NULL);
+        edtTvSocSecNum.addTextChangedListener(new TextWatcher() {
+
+            private boolean spaceDeleted;
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                CharSequence charDeleted = s.subSequence(start, start + count);
+                spaceDeleted = "-".equals(charDeleted.toString());
+            }
+
+            public void afterTextChanged(Editable editable) {
+
+                edtTvSocSecNum.removeTextChangedListener(this);
+
+                int cursorPosition = edtTvSocSecNum.getSelectionStart();
+                String withSpaces = formatText(editable);
+                edtTvSocSecNum.setText(withSpaces);
+
+                edtTvSocSecNum.setSelection(cursorPosition + (withSpaces.length() - editable.length()));
+
+
+                if (spaceDeleted) {
+                    //  userNameET.setSelection(userNameET.getSelectionStart() - 1);
+                    spaceDeleted = false;
+                }
+
+
+                edtTvSocSecNum.addTextChangedListener(this);
+            }
+
+            private String formatText(CharSequence text) {
+                StringBuilder formatted = new StringBuilder();
+                int count = 0;
+                if (text.length() == 3 || text.length() == 6) {
+                    if (!spaceDeleted)
+                        formatted.append(text + "-");
+                    else
+                        formatted.append(text);
+                } else
+                    formatted.append(text);
+                return formatted.toString();
+            }
+        });
     }
 
     private void setListners() {
@@ -79,6 +136,69 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
         tvDateOfBirth.setOnClickListener(this);
         ibCancel.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+        edtTvFirstName.setFilters(new InputFilter[] {
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence cs, int start,
+                                               int end, Spanned spanned, int dStart, int dEnd) {
+                        // TODO Auto-generated method stub
+                        if(cs.equals("")){ // for backspace
+                            return cs;
+                        }
+                        if(cs.toString().matches("[a-zA-Z ]+")){
+                            return cs;
+                        }
+                        return "";
+                    }
+                }
+        });
+        edtTvMiddleName.setFilters(new InputFilter[] {
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence cs, int start,
+                                               int end, Spanned spanned, int dStart, int dEnd) {
+                        // TODO Auto-generated method stub
+                        if(cs.equals("")){ // for backspace
+                            return cs;
+                        }
+                        if(cs.toString().matches("[a-zA-Z ]+")){
+                            return cs;
+                        }
+                        return "";
+                    }
+                }
+        });
+        edtTvLastName.setFilters(new InputFilter[] {
+                new InputFilter() {
+                    @Override
+                    public CharSequence filter(CharSequence cs, int start,
+                                               int end, Spanned spanned, int dStart, int dEnd) {
+                        // TODO Auto-generated method stub
+                        if(cs.equals("")){ // for backspace
+                            return cs;
+                        }
+                        if(cs.toString().matches("[a-zA-Z ]+")){
+                            return cs;
+                        }
+                        return "";
+                    }
+                }
+        });
+        tvDateOfBirth.setFocusable(true);
+        tvDateOfBirth.setFocusableInTouchMode(true);
+
+        tvDateOfBirth.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) {
+                    tvDateOfBirth.performClick();
+                    KeyboardUtility.hideKeyboard(context,tvDateOfBirth);
+                }
+            }
+
+
+        });
     }
 
     private void bindView() {
@@ -128,10 +248,9 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
 //        in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 //        startActivity(in);
 //        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
-
+        //strSocSecNum = strSocSecNum.replaceAll("-", "");
         try {
             JSONObject jsonObject = new JSONObject();
-
             jsonObject.put(WebFields.SIGN_UP_PERSONAL_INFO.PARAM_LEGAL_FNAME, strFirstname);
             jsonObject.put(WebFields.SIGN_UP_PERSONAL_INFO.PARAM_LEGAL_LNAME, strLastname);
             jsonObject.put(WebFields.SIGN_UP_PERSONAL_INFO.PARAM_LEGAL_MNAME, strMiddlename);
@@ -180,6 +299,9 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }catch (Throwable throwable)
+                    {
+                        Bugsnag.notify(throwable);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -210,6 +332,9 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
             AppController.getInstance().addToRequestQueue(jsonObjReq);
         } catch (Exception e) {
             e.printStackTrace();
+        }catch (Throwable throwable)
+        {
+            Bugsnag.notify(throwable);
         }
 
     }
@@ -253,13 +378,21 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
             edtTvFirstName.requestFocus();
             SnackBar.showValidationError(context, snackBarView, getString(R.string.empty_first_name));
             return false;
-        } else if (strMiddlename.isEmpty()) {
+        } /*else if (strMiddlename.isEmpty()) {
             edtTvMiddleName.requestFocus();
             SnackBar.showValidationError(context, snackBarView, getString(R.string.empty_middle_name));
             return false;
-        } else if (strLastname.isEmpty()) {
+        }*/ else if (strLastname.isEmpty()) {
             edtTvLastName.requestFocus();
             SnackBar.showValidationError(context, snackBarView, getString(R.string.empty_last_name));
+            return false;
+        } else if (strSocSecNum.isEmpty()) {
+            edtTvSocSecNum.requestFocus();
+            SnackBar.showValidationError(context, snackBarView, getString(R.string.empty_social_security_number));
+            return false;
+        } else if (strSocSecNum.length() < 11) {
+            edtTvSocSecNum.requestFocus();
+            SnackBar.showValidationError(context, snackBarView, getString(R.string.valid_social_security_number));
             return false;
         } else if (strDateOfBirth.isEmpty()) {
             tvDateOfBirth.requestFocus();
@@ -267,6 +400,14 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
             return false;
         }
         return true;
+    }
+
+    public static int age(Date birthday, Date date) {
+        DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
+        int d1 = Integer.parseInt(formatter.format(birthday));
+        int d2 = Integer.parseInt(formatter.format(date));
+        int age = (d2 - d1) / 10000;
+        return age;
     }
 
     private void getDate() {
@@ -277,33 +418,58 @@ public class DriverPersonalInfoActivity extends AppCompatActivity implements Vie
             mYear = c.get(Calendar.YEAR);
             mMonth = c.get(Calendar.MONTH);
             mDay = c.get(Calendar.DAY_OF_MONTH);
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+            final DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
                             mYear = year;
-                            mMonth = monthOfYear;
+                            mMonth = monthOfYear + 1;
                             mDay = dayOfMonth;
                             String formattedMonth = "" + mMonth;
                             String formattedDayOfMonth = "" + mDay;
+                            Calendar thatDay = Calendar.getInstance();
+                            thatDay.set(Calendar.DAY_OF_MONTH, mDay);
+                            thatDay.set(Calendar.MONTH, mMonth); // 0-11 so 1 less
+                            thatDay.set(Calendar.YEAR, mYear);
 
-                            if(mMonth < 10){
+                            Calendar today = Calendar.getInstance();
 
-                                formattedMonth = "0" + (mMonth+1);
-                            }
-                            if(dayOfMonth < 10){
+                            long diff = today.getTimeInMillis() - thatDay.getTimeInMillis(); //result in millis
+//                            Here's an approximation...
 
-                                formattedDayOfMonth = "0" + mDay;
-                            }
-                            tvDateOfBirth.setText(new StringBuilder().append(formattedMonth).append("-").append(formattedDayOfMonth).append("-").append(year).append(" "));
-                            //strFrom = txtVwWrkgSncFrom.getText().toString();
+                            long days = diff / (24 * 60 * 60 * 1000);
+                            long age = days / 365;
+                            if (age >= 18 && age <= 100) {
+                                String mon = String.valueOf(mMonth);
+                                if (mon.length() < 2) {
+
+                                    formattedMonth = "0" + (mMonth);
+                                }
+                                if (dayOfMonth < 10) {
+
+                                    formattedDayOfMonth = "0" + mDay;
+                                }
+                                tvDateOfBirth.setText(new StringBuilder().append(year).append("-").append(formattedMonth).append("-").append(formattedDayOfMonth).append(" "));
+                                //strFrom = txtVwWrkgSncFrom.getText().toString();
+                            } else {
+                                if(age < 18 ) {
+                                    SnackBar.showError(context, snackBarView, "Driver age should be 18 or more.");
+                                }else if(age > 100)
+                                {
+                                    SnackBar.showError(context, snackBarView, "Driver age should be 100 or less.");
+                                }
+                                }
                         }
                     }, mYear, mMonth, mDay);
+
             datePickerDialog.show();
 
         } catch (Exception e) {
             e.printStackTrace();
+        }catch (Throwable throwable)
+        {
+            Bugsnag.notify(throwable);
         }
 
     }

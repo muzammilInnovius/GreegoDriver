@@ -12,6 +12,16 @@ import java.util.List;
 
 
 public class PathJSONParser {
+    String distance;String duratuion;
+
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public String getDuratuion() {
+        return duratuion;
+    }
 
     public List<List<HashMap<String, String>>> parse(JSONObject jObject) {
         List<List<HashMap<String, String>>> routes = new ArrayList<List<HashMap<String,String>>>() ;
@@ -30,8 +40,12 @@ public class PathJSONParser {
 
                 JSONObject mJsonObject=jLegs.getJSONObject(i).optJSONObject("duration");
 
-                String duratuion=mJsonObject.getString("text");
 
+                JSONObject mJsonObjectDistance=jLegs.getJSONObject(i).optJSONObject("distance");
+
+                duratuion = mJsonObject.getString("text");
+
+                distance = mJsonObjectDistance.getString("text");
 
 
                 /** Traversing all legs */
@@ -47,8 +61,8 @@ public class PathJSONParser {
                         /** Traversing all points */
                         for(int l=0;l<list.size();l++){
                             HashMap<String, String> hm = new HashMap<String, String>();
-                            hm.put("lat", Double.toString(((LatLng)list.get(l)).latitude) );
-                            hm.put("lng", Double.toString(((LatLng)list.get(l)).longitude) );
+                            hm.put("lat", Double.toString(list.get(l).latitude) );
+                            hm.put("lng", Double.toString(list.get(l).longitude) );
                             path.add(hm);
                         }
                     }

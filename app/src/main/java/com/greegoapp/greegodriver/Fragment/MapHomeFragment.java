@@ -1,10 +1,16 @@
 package com.greegoapp.greegodriver.Fragment;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,16 +18,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
@@ -32,8 +43,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
+import com.bugsnag.android.Bugsnag;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
+import com.greegoapp.greegodriver.Activity.AcceptUserRequestActivity;
 import com.greegoapp.greegodriver.Activity.DriverAttachFileInfoActivity;
 import com.greegoapp.greegodriver.Activity.DriverBankInfoActivity;
 import com.greegoapp.greegodriver.Activity.DriverPersonalInfoActivity;
@@ -41,6 +54,7 @@ import com.greegoapp.greegodriver.Activity.DriverProfileInfoActivity;
 import com.greegoapp.greegodriver.Activity.DriverShippingInfoActivity;
 import com.greegoapp.greegodriver.Activity.DriverTypeInfoActivity;
 import com.greegoapp.greegodriver.Activity.HomeActivity;
+import com.greegoapp.greegodriver.Activity.MainActivity;
 import com.greegoapp.greegodriver.Activity.SignUpEmailActivity;
 import com.greegoapp.greegodriver.AppController.AppController;
 import com.greegoapp.greegodriver.GlobleFields.GlobalValues;
@@ -61,7 +75,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.gcm.Task;
@@ -79,12 +92,15 @@ import com.greegoapp.greegodriver.R;
 import com.greegoapp.greegodriver.Utils.ConnectivityDetector;
 import com.greegoapp.greegodriver.databinding.FragmentMapHomeBinding;
 
-public class MapHomeFragment extends Fragment implements View.OnClickListener{
+public class MapHomeFragment extends Fragment implements View.OnClickListener {
+    FrameLayout frameLayout;
     FragmentMapHomeBinding binding;
+    GetDriverData userDetail;
     View snackBarView;
     Context context;
     Button slideButton;
     SlidingDrawer slidingDrawer;
+
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -106,10 +122,11 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
     int profileStatus;
     TextView tvPercentage;
     Button btnFinish;
-    RelativeLayout rlVwUpdateMain,rlContentLayout;
-    ImageView imgVwRemainMark,imgVwAlert;
+    RelativeLayout rlVwUpdateMain, rlContentLayout;
+    ImageView imgVwRemainMark, imgVwAlert;
+    LinearLayout linlay1, linlay2, linlay3;
 
-    int open=0;
+    int open = 0;
 
     // Defined in mili seconds.
     // This number in extremely low, and should be used only for debug
@@ -130,10 +147,39 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
         return fragment;
     }
 
+    LocalBroadcastManager mLocalBroadcastManager;
+    BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("com.close")) {
+                showCustomAlert(intent.getStringExtra("msg")+".");
+                callDriverMeApi();
+                Animation bottomDown = AnimationUtils.loadAnimation(getContext(),
+                        R.anim.bottom_down);
+                rlVwUpdateMain.startAnimation(bottomDown);
+                rlContentLayout.startAnimation(bottomDown);
+                rlContentLayout.setVisibility(View.GONE);
+                rlVwUpdateMain.setVisibility(View.GONE);
+                imgVwAlert.setVisibility(View.GONE);
+                imgVwRemainMark.setVisibility(View.GONE);
+                rlContentLayout.setVisibility(View.GONE);
+               /* Intent i = new Intent(context,HomeActivity.class);
+                startActivity(i);*/
+            }
+            Log.d("message", "message");
+        }
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* if (getArguments() != null) {
+
+     /*   mLocalBroadcastManager = LocalBroadcastManager.getInstance(getActivity());
+        IntentFilter mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction("com.close");
+        mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, mIntentFilter);
+        if (getArguments() != null) {
             userDetails = getArguments().getParcelableArrayList("userData");
         }*/
     }
@@ -146,11 +192,11 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
         View view = binding.getRoot();
         snackBarView = getActivity().findViewById(android.R.id.content);
         context = getActivity();
-
+        Bugsnag.init(context);
         bindViews();
 
         setListner();
-      /*  setFirstTimeRegister();*/
+        /*  setFirstTimeRegister();*/
         callDriverMeApi();
 
      /*   slidingDrawer.setOnDrawerOpenListener(new SlidingDrawer.OnDrawerOpenListener() {
@@ -198,48 +244,69 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
                 @Override
                 public void onResponse(JSONObject response) {
                     Applog.E("success: " + response.toString());
-
-
-//                   GetUserData.DataBean userDtl = new Gson().fromJson(String.valueOf(response), GetUserData.DataBean.class);
-                    GetDriverData userDetail = new Gson().fromJson(String.valueOf(response), GetDriverData.class);
                     try {
-                        MyProgressDialog.hideProgressDialog();
-                        userDetails = new ArrayList<>();
+                        SharedPreferences.Editor editor = getActivity().getSharedPreferences("driverData", 0).edit();
+                        editor.putString("driver", response.toString());
+//                   GetUserData.DataBean userDtl = new Gson().fromJson(String.valueOf(response), GetUserData.DataBean.class);
 
-                        if (userDetail.getError_code() == 0) {
+                        userDetail = new Gson().fromJson(String.valueOf(response), GetDriverData.class);
+                        try {
+                            MyProgressDialog.hideProgressDialog();
+                            userDetails = new ArrayList<>();
+
+                            if (userDetail.getError_code() == 0) {
 
 
-                            userDetails.add(userDetail);
-                            profileStatus = userDetail.getData().getProfile_status();
-                            int status = calculatePercentage(profileStatus);
-                            String message = "Your application is " + status + "% complete!";
-                            tvPercentage.setText(message);
-                            if (status == 100) {
-                                rlVwUpdateMain.setVisibility(View.GONE);
-                                imgVwAlert.setVisibility(View.GONE);
-                                imgVwRemainMark.setVisibility(View.GONE);
-                            } else
-                            {
-                                rlVwUpdateMain.setVisibility(View.VISIBLE);
-                                imgVwRemainMark.setVisibility(View.VISIBLE);
-                                imgVwAlert.setVisibility(View.VISIBLE);
-                            }
+                                userDetails.add(userDetail);
+                                profileStatus = userDetail.getData().getProfile_status();
+                                String profileaprrove = userDetail.getData().getIs_approve();
+                                int status = calculatePercentage(profileStatus);
+                                if (status == 100) {
+                                    if (profileaprrove.equals("1")) {
+                                        rlVwUpdateMain.setVisibility(View.GONE);
+                                        imgVwAlert.setVisibility(View.GONE);
+                                        imgVwRemainMark.setVisibility(View.GONE);
+                                    } else {
+                                        String message = "Your application is under review";
+                                        tvPercentage.setText(message);
+                                        rlVwUpdateMain.setVisibility(View.VISIBLE);
+                                        imgVwRemainMark.setVisibility(View.VISIBLE);
+                                        imgVwAlert.setVisibility(View.VISIBLE);
+                                        btnFinish.setVisibility(View.GONE);
+                                    }
+                                } else {
+                                    String message = "Your application is " + status + "% complete!";
+                                    tvPercentage.setText(message);
+                                    rlVwUpdateMain.setVisibility(View.VISIBLE);
+                                    imgVwRemainMark.setVisibility(View.VISIBLE);
+                                    imgVwAlert.setVisibility(View.VISIBLE);
+                                }
 //                            //getIs_agreed = 0 new user
-                            //     setProfileScreen(profileStatus);
-                            /*      setFirstTimeRegister();*/
+                                //     setProfileScreen(profileStatus);
+                                /*      setFirstTimeRegister();*/
 
 //                            SessionManager.saveUserData(context, userDetails);
 //                            SnackBar.showSuccess(context, snackBarView, response.getString("message"));
 //
-                            //getIs_agreed = 0 new user
+                                //getIs_agreed = 0 new user
 
 //
-                        } else {
-                            MyProgressDialog.hideProgressDialog();
-                            SnackBar.showError(context, snackBarView, response.getString("message"));
+                            } else {
+                                MyProgressDialog.hideProgressDialog();
+                                SnackBar.showError(context, snackBarView, response.getString("message"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }catch (Throwable throwable)
+                        {
+                            Bugsnag.notify(throwable);
                         }
-                    } catch (JSONException e) {
+                    }catch (Exception e)
+                    {
                         e.printStackTrace();
+                    }catch (Throwable throwable)
+                    {
+                        Bugsnag.notify(throwable);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -249,7 +316,7 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
                     MyProgressDialog.hideProgressDialog();
                     Applog.E("Error: " + error.getMessage());
 
-                    SnackBar.showError(context, snackBarView, getResources().getString(R.string.something_went_wrong));
+                    SnackBar.showError(getActivity(), snackBarView, getResources().getString(R.string.something_went_wrong));
                 }
             }) {
                 @Override
@@ -271,6 +338,9 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
             AppController.getInstance().addToRequestQueue(jsonObjReq);
         } catch (Exception e) {
             e.printStackTrace();
+        }catch (Throwable throwable)
+        {
+            Bugsnag.notify(throwable);
         }
 
     }
@@ -318,19 +388,31 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
         tvBankInfo.setOnClickListener(this);
         tvProfile.setOnClickListener(this);*/
         //sapan-->googlemap
-      /*  mapFragment.getMapAsync(this);*/
+        /*  mapFragment.getMapAsync(this);*/
         tvPercentage.setOnClickListener(this);
         btnFinish.setOnClickListener(this);
+
+        linlay1.setOnClickListener(this);
+        linlay2.setOnClickListener(this);
+        linlay3.setOnClickListener(this);
+
+
     }
 
     private void bindViews() {
+
         rlVwUpdateMain = binding.rlVwUpdateMain;
         rlContentLayout = binding.contentLayout;
         tvPercentage = binding.tvPercentage;
         btnFinish = binding.btnfinish;
-        imgVwRemainMark=binding.imgVwRemainMark;
+        imgVwRemainMark = binding.imgVwRemainMark;
         imgVwAlert = binding.imgVwAlert;
 
+        linlay1 = binding.lenlay1;
+        linlay2 = binding.lenlay2;
+        linlay3 = binding.lenlay3;
+
+        frameLayout = binding.containerTab;
     /*    tvPersonalInfo = binding.tvPersonalInfo;
         tvShippingInfo = binding.tvShippingInfo;
         tvAttachFiles = binding.tvAttachFiles;
@@ -338,7 +420,7 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
         tvBankInfo = binding.tvBankInfo;
         tvProfile = binding.tvProfile;*/
         //sapan-->googlemap
-   /*     mapFragment = (MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.mgooleMap);*/
+        /*     mapFragment = (MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.mgooleMap);*/
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -351,21 +433,164 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        mLocalBroadcastManager = LocalBroadcastManager.getInstance(context);
+        IntentFilter mIntentFilter = new IntentFilter();
+        mIntentFilter.addAction("com.close");
+        mLocalBroadcastManager.registerReceiver(mBroadcastReceiver, mIntentFilter);
+    }
 
+    Dialog dialog;
+
+    private void showCustomAlert(String s) {
+        try {
+            /*AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                    .setView(R.layout.dialog_unable_request);
+
+
+          //  builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    if (ConnectivityDetector
+                            .isConnectingToInternet(context)) {
+
+                        dialog.dismiss();
+
+                    } else {
+                        SnackBar.showInternetError(context, snackBarView);
+                    }
+                }
+            });*//*
+
+//            builder.setPositiveButton("No", new DialogInterface.OnClickListener() {
+//                public void onClick(DialogInterface dialog, int id) {
+//                    dialog.dismiss();
+//                }
+//            });
+            AlertDialog dialog = builder.create();
+            dialog.show();*/
+            dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setContentView(R.layout.dialog_unable_request);
+            TextView tvTitle = dialog.findViewById(R.id.tvTitle1);
+            Button btnHome = (Button) dialog.findViewById(R.id.btnBackHome);
+            tvTitle.setText("" + s);
+            btnHome.setOnClickListener(this);
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }catch (Throwable throwable)
+        {
+            Bugsnag.notify(throwable);
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-
+        mLocalBroadcastManager.unregisterReceiver(mBroadcastReceiver);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onClick(View view) {
-        Fragment fragment = null;
+        // DriverEarningFragment fragment = null;
         Intent intent;
         switch (view.getId()) {
+            case R.id.btnBackHome:
+                dialog.dismiss();
+                getActivity().finish();
+                Intent i = new Intent(context, HomeActivity.class);
+                startActivity(i);
+                break;
+            case R.id.lenlay1:
+                try {
+                    ///   callUserMeApi();
+                    //if (userData.getData().getProfile_pic() != null && userData.getData().getProfile_status() == 7) {
+                    if (userDetail.getData().getIs_approve().equals("1")) {
+                        //showCheckUserUpdateData("Please complete your updates before proceeding.");
+                        linlay1.setAlpha(1);
+                        linlay2.setAlpha((float) 0.3);
+                        linlay3.setAlpha((float) 0.3);
+                        frameLayout.setVisibility(View.GONE);
+                    } else {
+
+//                startActivity(new Intent(getActivity(), AcceptUserRequestActivity.class).putExtra("message","191"));
+                /*Fragment fragmentPro = null;
+                fragmentPro = new MapHomeFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                fragmentTransaction.replace(R.id.containerBody, fragmentPro);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();*/
+                    }
+                    //  openDrawer();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }catch (Throwable throwable)
+                {
+                    Bugsnag.notify(throwable);
+                }
+                break;
+            case R.id.lenlay2:
+                try {
+                    ///   callUserMeApi();
+                    //if (userData.getData().getProfile_pic() != null && userData.getData().getProfile_status() == 7) {
+                    if (userDetail.getData().getIs_approve().equals("1")) {
+                        linlay1.setAlpha((float) 0.3);
+                        linlay2.setAlpha(1);
+                        linlay3.setAlpha((float) 0.3);
+                        frameLayout.setVisibility(View.VISIBLE);
+                        DriverEarningFragment fragment3 = new DriverEarningFragment();
+                        FragmentTransaction transaction3 = getFragmentManager().beginTransaction();
+                        transaction3.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        transaction3.replace(R.id.containerTab, fragment3);
+                        transaction3.addToBackStack(null);
+                        transaction3.commit();
+                        //showCheckUserUpdateData("Please complete your updates before proceeding.");
+                    } else {
+
+                    }
+                    //  openDrawer();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }catch (Throwable throwable)
+                {
+                    Bugsnag.notify(throwable);
+                }
+
+                break;
+            case R.id.lenlay3:
+                try {
+                    ///   callUserMeApi();
+                    //if (userData.getData().getProfile_pic() != null && userData.getData().getProfile_status() == 7) {
+                    if (userDetail.getData().getIs_approve().equals("1")) {
+                        //showCheckUserUpdateData("Please complete your updates before proceeding.");\
+                        linlay1.setAlpha((float) 0.3);
+                        linlay2.setAlpha((float) 0.3);
+                        linlay3.setAlpha(1);
+                        frameLayout.setVisibility(View.VISIBLE);
+                        DriverManageFragment fragment2 = new DriverManageFragment(getActivity(), userDetail);
+                        FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
+                        transaction2.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                        transaction2.replace(R.id.containerTab, fragment2);
+                        transaction2.addToBackStack(null);
+                        transaction2.commit();
+                    } else {
+
+                    }
+//  openDrawer();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }catch (Throwable throwable)
+                {
+                    Bugsnag.notify(throwable);
+                }
+                break;
             case R.id.tvPercentage:
 
                 break;
@@ -373,23 +598,20 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
                 setProfileScreen(profileStatus);
                 break;
             case R.id.rlVwUpdateMain:
-                if(open==0)
-                {
+                if (open == 0) {
                     Animation bottomUp = AnimationUtils.loadAnimation(getContext(),
                             R.anim.bottom_up);
                     rlVwUpdateMain.startAnimation(bottomUp);
                     rlContentLayout.startAnimation(bottomUp);
                     rlContentLayout.setVisibility(View.VISIBLE);
-                    open=1;
-                }
-                else
-                {
+                    open = 1;
+                } else {
                     Animation bottomDown = AnimationUtils.loadAnimation(getContext(),
                             R.anim.bottom_down);
                     rlVwUpdateMain.startAnimation(bottomDown);
                     rlContentLayout.startAnimation(bottomDown);
                     rlContentLayout.setVisibility(View.GONE);
-                    open=0;
+                    open = 0;
                 }
                /* RelativeLayout hiddenPanel = (RelativeLayout) findViewById(R.id.hidden_panel);
                 hiddenPanel.startAnimation(bottomUp);
@@ -426,19 +648,20 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
                 startActivityForResult(intent, REQUEST_ADD_PROFILE_INFO);*//*
                 break;*/
         }
-        if (fragment != null) {
+        /*if (fragment != null) {
             FragmentTransaction transaction = getFragmentManager().beginTransaction();
             transaction.replace(R.id.containerBody, fragment);
             transaction.addToBackStack(null);
+            Toast.makeText(context, "hiiii", Toast.LENGTH_SHORT).show();
             transaction.commit();
 
 
-        }
+        }*/
     }
 
     private int calculatePercentage(int profileStatus) {
-            per=(profileStatus*100)/7;
-            return per;
+        per = (profileStatus * 100) / 7;
+        return per;
     }
 
     @Override
@@ -496,6 +719,12 @@ public class MapHomeFragment extends Fragment implements View.OnClickListener{
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        callDriverMeApi();
     }
 
 }

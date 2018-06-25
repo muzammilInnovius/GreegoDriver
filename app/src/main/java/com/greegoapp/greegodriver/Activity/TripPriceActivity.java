@@ -1,9 +1,11 @@
 package com.greegoapp.greegodriver.Activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -18,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.error.AuthFailureError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
+import com.bugsnag.android.Bugsnag;
 import com.google.gson.Gson;
 import com.greegoapp.greegodriver.AppController.AppController;
 import com.greegoapp.greegodriver.GlobleFields.GlobalValues;
@@ -31,6 +35,12 @@ import com.greegoapp.greegodriver.Utils.MyProgressDialog;
 import com.greegoapp.greegodriver.Utils.SnackBar;
 import com.greegoapp.greegodriver.Utils.WebFields;
 import com.greegoapp.greegodriver.databinding.ActivityTripPriceBinding;
+import com.stripe.android.Stripe;
+import com.stripe.android.TokenCallback;
+import com.stripe.android.exception.AuthenticationException;
+import com.stripe.android.model.Card;
+import com.stripe.android.model.Token;
+import com.stripe.model.Charge;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,10 +115,10 @@ public class TripPriceActivity extends AppCompatActivity implements View.OnClick
                         try {
                             MyProgressDialog.hideProgressDialog();
                             if (tripRateData.getError_code() == 0) {
-                                base_fee = Float.parseFloat(tripRateData.getData().getBase_fee());
-                                time_fee = Float.parseFloat(tripRateData.getData().getTime_fee());
-                                mile_fee = Float.parseFloat(tripRateData.getData().getMile_fee());
-                                over_mile_fee =Float.parseFloat(tripRateData.getData().getOvermile_fee());
+                                base_fee = Float.parseFloat(""+tripRateData.getData().getBase_fee());
+                                time_fee = Float.parseFloat(""+tripRateData.getData().getTime_fee());
+                                mile_fee = Float.parseFloat(""+tripRateData.getData().getMile_fee());
+                                over_mile_fee =Float.parseFloat(""+tripRateData.getData().getOvermile_fee());
                              //   CalculateMile(str,elapsedTime);
 
                             } else {
@@ -117,6 +127,9 @@ public class TripPriceActivity extends AppCompatActivity implements View.OnClick
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
+                        }catch (Throwable throwable)
+                        {
+                            Bugsnag.notify(throwable);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -146,7 +159,10 @@ public class TripPriceActivity extends AppCompatActivity implements View.OnClick
                 AppController.getInstance().addToRequestQueue(jsonObjReq);
             } catch (Exception e) {
                 e.printStackTrace();
-            }
+            }catch (Throwable throwable)
+        {
+            Bugsnag.notify(throwable);
+        }
 
     }
 

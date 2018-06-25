@@ -9,46 +9,45 @@
         android:background="@mipmap/bg_rectangle7"
         android:paddingTop="@dimen/scale_10dp"
 
-    tools:context="com.greegoapp.greegodriver.Activity.TripPriceActivity">
+        tools:context="com.greegoapp.greegodriver.Activity.TripPriceActivity">
 
 
-    <EditText
-        android:id="@+id/editTextDistance"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
-        android:layout_margin="10dp"
-        android:hint="Enter distance" />
-    <EditText
-        android:id="@+id/editTextTime"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDistance"
-        android:inputType="number"
+        <EditText
+            android:id="@+id/editTextDistance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="Enter distance"
+            android:inputType="number" />
 
-        android:layout_margin="10dp"
-        android:hint="Enter Elapsed Time" />
+        <EditText
+            android:id="@+id/editTextTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:ems="10"
+            android:hint="Enter Elapsed Time"
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_margin="10dp"
+            android:inputType="number"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDistance" />
 
-       app:layout_constraintTop_toBottomOf="@+id/editTextTime"
-        />
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Button"
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Trip Estimate Price is:"
-        android:layout_margin="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/button"
-        />
-</android.support.constraint.ConstraintLayout>
+            app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Trip Estimate Price is:"
+            app:layout_constraintTop_toBottomOf="@+id/button" />
+    </android.support.constraint.ConstraintLayout>
 </layout>

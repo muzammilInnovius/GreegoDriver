@@ -85,7 +85,7 @@ public class GetDriverData implements Parcelable{
          * profile_status : 6
          * profile_pic :
          */
-
+        private int email_verifed;
         private String promocode;
         private BankInformationBean bank_information;
         private DocumentsBean documents;
@@ -95,12 +95,39 @@ public class GetDriverData implements Parcelable{
         private String contact_number;
         private int id;
         private ShippingAdressBean shipping_adress;
+        private String is_approve;
+
+        public int getEmail_verifed() {
+            return email_verifed;
+        }
+
+        public void setEmail_verifed(int email_verifed) {
+            this.email_verifed = email_verifed;
+        }
+
+        public String getIs_approve() {
+            return is_approve;
+        }
+
+        public void setIs_approve(String is_approve) {
+            this.is_approve = is_approve;
+        }
+
         private String is_agreed;
         private String email;
         private String name;
         private int profile_status;
         private String profile_pic;
 
+        public String getDriver_on() {
+            return driver_on;
+        }
+
+        public void setDriver_on(String driver_on) {
+            this.driver_on = driver_on;
+        }
+
+        private String driver_on;
         public String getPromocode() {
             return promocode;
         }
@@ -214,6 +241,78 @@ public class GetDriverData implements Parcelable{
         }
 
         public static class BankInformationBean {
+        /* "bank_information": {
+                "id": 10,
+                        "driver_id": 26,
+                        "routing_number": "1",
+                        "account_number": "MQ==",
+                        "stripe_account_id": null,
+                        "created_at": "2018-05-07 05:15:12",
+                        "updated_at": "2018-05-07 05:15:12"
+            }*/
+        private String id;
+        private String driver_id;
+        private String routing_number;
+        private String account_number;
+        private String stripe_account_id;
+        private String created_at;
+        private String updated_at;
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getDriver_id() {
+                return driver_id;
+            }
+
+            public void setDriver_id(String driver_id) {
+                this.driver_id = driver_id;
+            }
+
+            public String getRouting_number() {
+                return routing_number;
+            }
+
+            public void setRouting_number(String routing_number) {
+                this.routing_number = routing_number;
+            }
+
+            public String getAccount_number() {
+                return account_number;
+            }
+
+            public void setAccount_number(String account_number) {
+                this.account_number = account_number;
+            }
+
+            public String getStripe_account_id() {
+                return stripe_account_id;
+            }
+
+            public void setStripe_account_id(String stripe_account_id) {
+                this.stripe_account_id = stripe_account_id;
+            }
+
+            public String getCreated_at() {
+                return created_at;
+            }
+
+            public void setCreated_at(String created_at) {
+                this.created_at = created_at;
+            }
+
+            public String getUpdated_at() {
+                return updated_at;
+            }
+
+            public void setUpdated_at(String updated_at) {
+                this.updated_at = updated_at;
+            }
         }
 
         public static class DocumentsBean {

@@ -111,6 +111,13 @@
                     android:padding="@dimen/scale_20dp"
                     android:layout_marginTop="@dimen/scale_1dp"
                     android:background="@drawable/bg_attach_file">
+                    <com.theartofdev.edmodo.cropper.CropImageView
+                        android:id="@+id/cImgVwDriverVerification"
+                        android:layout_width="@dimen/scale_70dp"
+                        android:layout_height="@dimen/scale_70dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/document_attachment"
+                        />
                     <ImageView
                         android:id="@+id/imgVwDriverVerification"
                         android:layout_width="@dimen/scale_70dp"
@@ -139,6 +146,13 @@
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/tvAutoInsurance"
                     >
+                    <com.theartofdev.edmodo.cropper.CropImageView
+                        android:id="@+id/cImgVwDriverAutoInsurance"
+                        android:layout_width="@dimen/scale_70dp"
+                        android:layout_height="@dimen/scale_70dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/document_attachment"
+                        />
                     <ImageView
                         android:id="@+id/imgVwDriverAutoInsurance"
                         android:layout_width="@dimen/scale_70dp"
@@ -236,6 +250,13 @@
                         android:padding="@dimen/scale_20dp"
                         android:layout_marginTop="@dimen/scale_1dp"
                         android:background="@drawable/bg_attach_file">
+                        <com.theartofdev.edmodo.cropper.CropImageView
+                            android:id="@+id/cImgVwHomeInsurance"
+                            android:layout_width="@dimen/scale_70dp"
+                            android:layout_height="@dimen/scale_70dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@mipmap/document_attachment"
+                            />
                         <ImageView
                             android:id="@+id/imgVwHomeInsurance"
                             android:layout_width="@dimen/scale_70dp"
@@ -308,6 +329,13 @@
                     android:padding="@dimen/scale_20dp"
                     android:layout_marginTop="@dimen/scale_1dp"
                     android:background="@drawable/bg_attach_file">
+                    <com.theartofdev.edmodo.cropper.CropImageView
+                        android:id="@+id/cImgVwUberDriver"
+                        android:layout_width="@dimen/scale_70dp"
+                        android:layout_height="@dimen/scale_70dp"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/document_attachment"
+                        />
                     <ImageView
                         android:id="@+id/imgVwUberDriver"
                         android:layout_width="@dimen/scale_70dp"

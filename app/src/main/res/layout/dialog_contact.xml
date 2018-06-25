@@ -40,7 +40,7 @@
         android:id="@+id/btnCall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Yes, call Joy"
+        android:text="Call"
         android:textAllCaps="false"
         android:background="@color/confirm_button"
         android:textColor="@color/black"

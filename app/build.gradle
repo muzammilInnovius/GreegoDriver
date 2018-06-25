@@ -2,9 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.greegoapp.greegodriver"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -24,6 +25,7 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     implementation 'com.android.support:design:26.1.0'
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -48,5 +50,19 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:12.0.1'
     implementation 'com.google.firebase:firebase-core:12.0.1'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.4.7'
+
+    implementation 'com.intuit.sdp:sdp-android:1.0.5'
+    implementation 'com.android.support:support-v13:26.1.0'
+
+    //stripe
+    implementation 'com.stripe:stripe-android:2.0.2'
+    implementation 'com.stripe:stripe-java:2.3.0'
+    implementation 'com.google.code.gson:gson:2.8.1'
+
+    //bugsnag
+    implementation 'com.bugsnag:bugsnag-android-ndk:1.+'
+
+    //image cropper
+   // implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.bugsnag.android.Bugsnag;
 import com.greegoapp.greegodriver.R;
 import com.greegoapp.greegodriver.Utils.ConnectivityDetector;
 import com.greegoapp.greegodriver.Utils.EmailValidation;
@@ -31,6 +32,7 @@ public class SignUpEmailActivity extends AppCompatActivity implements View.OnCli
         binding= DataBindingUtil.setContentView(this,R.layout.activity_sign_up_email);
         context= SignUpEmailActivity.this;
         snackBarView = findViewById(android.R.id.content);
+        Bugsnag.init(context);
         bindView();
         setListners();
     }

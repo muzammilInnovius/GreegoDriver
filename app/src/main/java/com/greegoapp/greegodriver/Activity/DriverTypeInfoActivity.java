@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.error.AuthFailureError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
+import com.bugsnag.android.Bugsnag;
 import com.google.gson.Gson;
 import com.greegoapp.greegodriver.AppController.AppController;
 import com.greegoapp.greegodriver.GlobleFields.GlobalValues;
@@ -70,6 +71,7 @@ public class DriverTypeInfoActivity extends AppCompatActivity implements Adapter
         binding = DataBindingUtil.setContentView(this, R.layout.activity_driver_type_info);
         context = DriverTypeInfoActivity.this;
         snackBarView = findViewById(android.R.id.content);
+        Bugsnag.init(context);
         bindView();
         setListners();
     }
@@ -297,6 +299,9 @@ public class DriverTypeInfoActivity extends AppCompatActivity implements Adapter
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }catch (Throwable throwable)
+                    {
+                        Bugsnag.notify(throwable);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -327,12 +332,25 @@ public class DriverTypeInfoActivity extends AppCompatActivity implements Adapter
             AppController.getInstance().addToRequestQueue(jsonObjReq);
         } catch (Exception e) {
             e.printStackTrace();
+        }catch (Throwable throwable)
+        {
+            Bugsnag.notify(throwable);
         }
 
 
     }
 
     private boolean isValid() {
+        if(suvType == 0 && sedanType==0 && vanType==0)
+        {
+            SnackBar.showValidationError(context, snackBarView, getString(R.string.select_car_size));
+            return false;
+        }
+        else if(autoType == 0 && manualType ==0)
+        {
+            SnackBar.showValidationError(context, snackBarView, getString(R.string.select_transmission));
+            return false;
+        }
         return true;
     }
 

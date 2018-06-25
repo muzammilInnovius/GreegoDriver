@@ -6,7 +6,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context="com.greegoapp.greegodriver.Activity.DriverPersonalInfoActivity">
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
@@ -59,12 +61,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
+
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/bg_view"
-            app:layout_constraintTop_toBottomOf="@+id/header"/>
+            app:layout_constraintTop_toBottomOf="@+id/header" />
+
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
@@ -76,144 +80,151 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/scale_5dp"
                 android:layout_marginLeft="@dimen/scale_15dp"
                 android:layout_marginRight="@dimen/scale_15dp"
-                android:paddingBottom="@dimen/scale_40dp"
-               >
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:paddingBottom="@dimen/scale_40dp">
 
-                        <TextView
-                            android:id="@+id/tvPersonalInfoTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/personal_information"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/txt_25"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:id="@+id/tvGreegoInfo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/about_greego"
-                            android:layout_marginTop="@dimen/scale_10dp"
-                            android:textColor="@color/hint_color"
-                            android:layout_below="@+id/tvPersonalInfoTitle"
-                            android:textSize="@dimen/txt_13"
-                            />
-                        <TextView
-                            android:id="@+id/tvInstuction"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/enter_name_exactly_in_license"
-                            android:textColor="@color/hint_color"
-                            android:layout_marginTop="@dimen/scale_5dp"
-                            android:layout_marginBottom="@dimen/scale_10dp"
-                            android:textSize="@dimen/txt_13"
-                            android:layout_below="@+id/tvGreegoInfo"
-                            />
-                        <android.support.design.widget.TextInputLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:id="@+id/tILFname"
-                            android:layout_below="@+id/tvInstuction">
+                <TextView
+                    android:id="@+id/tvPersonalInfoTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personal_information"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/txt_25"
+                    android:textStyle="bold" />
 
-                            <android.support.design.widget.TextInputEditText
-                                android:id="@+id/edtTvFirstName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textPersonName"
-                                android:paddingTop="@dimen/scale_10dp"
-                                android:hint="@string/legal_fname"
-                                android:imeOptions="actionNext"/>
+                <TextView
+                    android:id="@+id/tvGreegoInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvPersonalInfoTitle"
+                    android:layout_marginTop="@dimen/scale_10dp"
+                    android:text="@string/about_greego"
+                    android:textColor="@color/hint_color"
+                    android:textSize="@dimen/txt_13" />
 
-                        </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:id="@+id/tvInstuction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvGreegoInfo"
+                    android:layout_marginBottom="@dimen/scale_10dp"
+                    android:layout_marginTop="@dimen/scale_5dp"
+                    android:text="@string/enter_name_exactly_in_license"
+                    android:textColor="@color/hint_color"
+                    android:textSize="@dimen/txt_13" />
 
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tILMiddlename"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_below="@+id/tILFname">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILFname"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tvInstuction">
 
-                            <android.support.design.widget.TextInputEditText
-                                android:id="@+id/edtTvMiddleName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textPersonName"
-                                android:hint="@string/middle_name"
-                                android:imeOptions="actionNext"/>
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edtTvFirstName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/legal_fname"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:paddingTop="@dimen/scale_10dp" />
 
-                        </android.support.design.widget.TextInputLayout>
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tILLastname"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_below="@+id/tILMiddlename">
+                </android.support.design.widget.TextInputLayout>
 
-                            <android.support.design.widget.TextInputEditText
-                                android:id="@+id/edtTvLastName"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textPersonName"
-                                android:hint="@string/legal_lname"
-                                android:imeOptions="actionNext"/>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILMiddlename"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tILFname">
 
-                        </android.support.design.widget.TextInputLayout>
-                        <android.support.design.widget.TextInputLayout
-                            android:id="@+id/tILSecurityNumber"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_below="@+id/tILLastname">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edtTvMiddleName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/middle_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName" />
 
-                            <android.support.design.widget.TextInputEditText
-                                android:id="@+id/edtTvSocialSecurityNumber"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="number"
-                                android:drawableLeft="@mipmap/ic_lock"
-                                android:hint="@string/social_security_number"
-                                android:imeOptions="actionNext"/>
+                </android.support.design.widget.TextInputLayout>
 
-                        </android.support.design.widget.TextInputLayout>
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILLastname"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tILMiddlename">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edtTvLastName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/legal_lname"
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/tILSecurityNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tILLastname">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edtTvSocialSecurityNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@mipmap/ic_lock"
+                        android:hint="@string/social_security_number"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:maxLength="11" />
+
+                </android.support.design.widget.TextInputLayout>
 
 
-                            <TextView
-                                android:id="@+id/tvDateOfBirth"
-                                android:layout_width="match_parent"
-                                android:layout_height="@dimen/scale_40dp"
-                                android:hint="@string/birth_date"
-                                android:layout_marginTop="@dimen/scale_10dp"
-                                android:imeOptions="actionDone"
-                                android:gravity="bottom"
-                                android:textColor="@color/app_bg"
-                                android:padding="@dimen/scale_2dp"
-                                android:textSize="@dimen/txt_15"
-                                android:layout_below="@+id/tILSecurityNumber"/>
-                    <View
+                <EditText
+                    android:id="@+id/tvDateOfBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scale_40dp"
+                    android:layout_below="@+id/tILSecurityNumber"
+                    android:layout_marginTop="@dimen/scale_10dp"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:gravity="bottom"
+                    android:hint="@string/birth_date"
+                    android:imeOptions="actionDone"
+                    android:padding="@dimen/scale_2dp"
+                    android:textColor="@color/app_bg"
+                    android:textSize="@dimen/txt_15" />
+
+                <View
                     android:id="@+id/view1"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/hint_color"
-                    android:layout_below="@+id/tvDateOfBirth"/>
-              </RelativeLayout>
+                    android:layout_below="@+id/tvDateOfBirth"
+                    android:background="@color/hint_color" />
+            </RelativeLayout>
         </ScrollView>
 
         <Button
             android:id="@+id/btnNext"
             android:layout_width="@dimen/scale_200dp"
             android:layout_height="@dimen/scale_40dp"
+            android:layout_marginBottom="@dimen/scale_2dp"
             android:layout_marginLeft="@dimen/scale_10dp"
             android:layout_marginRight="@dimen/scale_10dp"
-            android:layout_marginBottom="@dimen/scale_2dp"
             android:background="@mipmap/bg_rectangle74"
             android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="@dimen/txt_14"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintRight_toRightOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </layout>

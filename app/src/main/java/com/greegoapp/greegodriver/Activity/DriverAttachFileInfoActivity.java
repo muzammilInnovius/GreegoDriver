@@ -1,23 +1,31 @@
 package com.greegoapp.greegodriver.Activity;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Environment;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,75 +33,77 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
-import com.android.volley.error.AuthFailureError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.request.SimpleMultiPartRequest;
+import com.bugsnag.android.Bugsnag;
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.greegoapp.greegodriver.AppController.AppController;
 import com.greegoapp.greegodriver.GlobleFields.GlobalValues;
-import com.greegoapp.greegodriver.Model.GetDriverData;
-import com.greegoapp.greegodriver.Model.ProfileStatus;
+import com.greegoapp.greegodriver.Model.DocumentUploadModel;
 import com.greegoapp.greegodriver.R;
 import com.greegoapp.greegodriver.SessionManager.SessionManager;
 import com.greegoapp.greegodriver.Utils.Applog;
 import com.greegoapp.greegodriver.Utils.KeyboardUtility;
-import com.greegoapp.greegodriver.Utils.MyProgressDialog;
 import com.greegoapp.greegodriver.Utils.SnackBar;
 import com.greegoapp.greegodriver.Utils.WebFields;
 import com.greegoapp.greegodriver.databinding.ActivityDriverAttachFileInfoBinding;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
-import static com.greegoapp.greegodriver.Fragment.MapHomeFragment.REQUEST_ADD_FILES_INFO;
-import static com.greegoapp.greegodriver.Fragment.MapHomeFragment.REQUEST_ADD_SHIPPING_INFO;
+
+import static com.greegoapp.greegodriver.Fragment.MapHomeFragment.REQUEST_ADD_PROFILE_INFO;
+import static com.theartofdev.edmodo.cropper.CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE;
 
 
 public class DriverAttachFileInfoActivity extends AppCompatActivity implements View.OnClickListener {
+    private static int MAX_IMAGE_DIMENSION = 60 * 60;
     ActivityDriverAttachFileInfoBinding binding;
     Context context;
     private View snackBarView;
     ImageButton ibCancel;
     Button btnNext;
-    TextView tvHomeInsu,tvUberDriver;
-    RelativeLayout rlHomeInsVer,rlUberDriverVer;
-    ImageView imgVwReadyHomeInsDoc,imgVwReadyUberDoc,imgVwDriverVerification,imgVwDriverAutoInsurance,imgVwHomeInsurance,imgVwUberDriver;
-    View viewHomeInsurance,viewUberDriver;
-    private static int CAMARA_PERMIT = 1000;
-    private static int GALLARY_PERMISSION = 2000;
-    private static int SELECT_CAMERA_PIC = 99;
-    private static int SELECT_GALLERY_PIC = 101;
-    private String picturePath;
-    static final int PICK_IMAGE_REQUEST = 1;
-    int flag=0;
-    int profileStatus;
-    String filePath_driving_license,filePath_insurance_card,filePath_home_insurance,filePath_current_driver;
+    TextView tvHomeInsu, tvUberDriver;
+    RelativeLayout rlHomeInsVer, rlUberDriverVer;
+    ImageView imgVwReadyHomeInsDoc, imgVwReadyUberDoc, imgVwDriverVerification, imgVwDriverAutoInsurance, imgVwHomeInsurance, imgVwUberDriver;
+    View viewHomeInsurance, viewUberDriver;
 
+
+    private static final int SELECT_CAMERA_PIC = 99;
+    private static int SELECT_GALLERY_PIC = 101;
+
+
+    int flag = 0;
+    int profileStatus;
+    private Uri mImageUri;
+    String filePath_driving_license, filePath_insurance_card, filePath_home_insurance, filePath_current_driver;
+    private Bitmap bitmap = null;
     Uri uri;
+    private int flag_driving_license, flag_insurance_card, flag_home_insurance, flag_current_driver = 0;
+    DocumentUploadModel data;
+    CropImageView cImgVwDriverVerification, cImgVwDriverAutoInsurance, cImgVwHomeInsurance, cImgVwUberDriver;
+    private Uri mCropImageUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_driver_attach_file_info);
-        context= DriverAttachFileInfoActivity.this;
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_driver_attach_file_info);
+        context = DriverAttachFileInfoActivity.this;
         snackBarView = findViewById(android.R.id.content);
+        Bugsnag.init(context);
         bindView();
         setListners();
     }
@@ -109,67 +119,81 @@ public class DriverAttachFileInfoActivity extends AppCompatActivity implements V
         imgVwUberDriver.setOnClickListener(this);
         imgVwDriverAutoInsurance.setOnClickListener(this);
         imgVwHomeInsurance.setOnClickListener(this);
+        cImgVwDriverVerification.setOnClickListener(this);
+        cImgVwDriverAutoInsurance.setOnClickListener(this);
+        cImgVwHomeInsurance.setOnClickListener(this);
+        cImgVwUberDriver.setOnClickListener(this);
     }
 
     private void bindView() {
-        ibCancel=binding.ibCancel;
-        btnNext=binding.btnNext;
-        imgVwDriverVerification=binding.imgVwDriverVerification;
-        tvHomeInsu=binding.tvHomeInsurance;
-        imgVwReadyHomeInsDoc=binding.imgVwReadyHomeInsDoc;
-        rlHomeInsVer=binding.rlHomeInsuranceVerification;
-        viewHomeInsurance=binding.viewHomeInsurance;
-        tvUberDriver=binding.tvUberDriver;
-        imgVwReadyUberDoc=binding.imgVwReadyUberDoc;
-        rlUberDriverVer=binding.rlUberDriverVerification;
-        viewUberDriver=binding.viewUberDriver;
+        ibCancel = binding.ibCancel;
+        btnNext = binding.btnNext;
+        imgVwDriverVerification = binding.imgVwDriverVerification;
+        tvHomeInsu = binding.tvHomeInsurance;
+        imgVwReadyHomeInsDoc = binding.imgVwReadyHomeInsDoc;
+        rlHomeInsVer = binding.rlHomeInsuranceVerification;
+        viewHomeInsurance = binding.viewHomeInsurance;
+        tvUberDriver = binding.tvUberDriver;
+        imgVwReadyUberDoc = binding.imgVwReadyUberDoc;
+        rlUberDriverVer = binding.rlUberDriverVerification;
+        viewUberDriver = binding.viewUberDriver;
         imgVwDriverAutoInsurance = binding.imgVwDriverAutoInsurance;
-        imgVwHomeInsurance=binding.imgVwHomeInsurance;
+        imgVwHomeInsurance = binding.imgVwHomeInsurance;
         imgVwUberDriver = binding.imgVwUberDriver;
+        filePath_driving_license = "";
+        filePath_insurance_card = "";
+        filePath_current_driver = "";
+        filePath_home_insurance = "";
+        cImgVwDriverVerification = binding.cImgVwDriverVerification;
+        cImgVwDriverAutoInsurance = binding.cImgVwDriverAutoInsurance;
+        cImgVwHomeInsurance = binding.cImgVwHomeInsurance;
+        cImgVwUberDriver = binding.cImgVwUberDriver;
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId())
-        {
+        switch (view.getId()) {
             case R.id.ibCancel:
-//                finish();
                 Intent in = new Intent(context, HomeActivity.class);
                 in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(in);
                 overridePendingTransition(R.anim.trans_left_in, R.anim.trans_right_out);
-              /*  Intent i= new Intent();
-                i.putExtra("profileStatus",profileStatus);
-                setResult(REQUEST_ADD_FILES_INFO,i);*/
                 break;
             case R.id.btnNext:
                 KeyboardUtility.hideKeyboard(context, view);
-               /* if (isValid()) {
-                    if (ConnectivityDetector
-                            .isConnectingToInternet(context)) {
-                      *//*  *//*
 
-                    *//*    saveProfileAccount();*//*
+                try {
+                    if (flag_driving_license != 0 && flag_insurance_card != 0) {
+                        if (flag_driving_license == 1 || flag_insurance_card == 1 || flag_home_insurance == 1 || flag_current_driver == 1) {
+
+                            SnackBar.showSuccess(context, snackBarView, "Document uploading...");
+                        } else if (flag_driving_license == 2 && flag_insurance_card == 2) {
+                            SessionManager.setIsUserLoggedin(context, true);
+                            setProfileScreen(profileStatus);
+                            if (REQUEST_ADD_PROFILE_INFO == 1006) {
+                                Intent i = new Intent();
+                                i.putExtra("profileStatus", profileStatus);
+                                setResult(REQUEST_ADD_PROFILE_INFO, i);
+                            }
+                        }
                     } else {
-                        SnackBar.showInternetError(context, snackBarView);
+                        SnackBar.showValidationError(context, snackBarView, getString(R.string.select_image));
                     }
-                }*/
-                if (filePath_current_driver != null && filePath_driving_license!=null && filePath_home_insurance!=null && filePath_insurance_card!=null) {
-
-                    imageUpload(filePath_driving_license,filePath_insurance_card,filePath_home_insurance,filePath_current_driver);
-//                    callAttachFileInfoAPI();
-                } else {
-                    Toast.makeText(getApplicationContext(), "Image not selected!", Toast.LENGTH_LONG).show();
+                    //  imageUpload(filePath_driving_license,filePath_current_driver,filePath_home_insurance,filePath_insurance_card);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } catch (Throwable throwable) {
+                    Bugsnag.notify(throwable);
                 }
+
                 break;
             case R.id.tvHomeInsurance:
-                if (rlHomeInsVer .getVisibility() == View.VISIBLE) {
+                if (rlHomeInsVer.getVisibility() == View.VISIBLE) {
                     rlHomeInsVer.setVisibility(View.GONE);
                     imgVwReadyHomeInsDoc.setVisibility(View.GONE);
                     tvHomeInsu.setTextColor(getResources().getColor(R.color.black));
                     viewHomeInsurance.setBackgroundColor(getResources().getColor(R.color.black));
-                }
-                else {
+                } else {
                     rlHomeInsVer.setVisibility(View.VISIBLE);
                     imgVwReadyHomeInsDoc.setVisibility(View.VISIBLE);
                     tvHomeInsu.setTextColor(getResources().getColor(R.color.success_bg));
@@ -177,13 +201,12 @@ public class DriverAttachFileInfoActivity extends AppCompatActivity implements V
                 }
                 break;
             case R.id.tvUberDriver:
-                if (rlUberDriverVer .getVisibility() == View.VISIBLE) {
+                if (rlUberDriverVer.getVisibility() == View.VISIBLE) {
                     rlUberDriverVer.setVisibility(View.GONE);
                     imgVwReadyUberDoc.setVisibility(View.GONE);
                     tvUberDriver.setTextColor(getResources().getColor(R.color.black));
                     viewUberDriver.setBackgroundColor(getResources().getColor(R.color.black));
-                }
-                else {
+                } else {
                     rlUberDriverVer.setVisibility(View.VISIBLE);
                     imgVwReadyUberDoc.setVisibility(View.VISIBLE);
                     tvUberDriver.setTextColor(getResources().getColor(R.color.success_bg));
@@ -191,189 +214,192 @@ public class DriverAttachFileInfoActivity extends AppCompatActivity implements V
                 }
                 break;
             case R.id.imgVwDriverVerification:
-                flag =1;
+                flag = 1;
                 if (requestPermission()) {
                     /*ImageCapturing();*/
-                    imageBrowse();
-                  /*  getImage();*/
+
+                    //priyanka 6-6
+                    //imageBrowse();
+                    // showPicProfileDialog();
+                    cImgVwDriverVerification.performClick();
+
+                    /*  getImage();*/
                 }
                 break;
             case R.id.imgVwDriverAutoInsurance:
-                flag=2;
+                flag = 2;
                 if (requestPermission()) {
                     /*ImageCapturing();*/
-                    imageBrowse();
+                    //imageBrowse();
+                    // showPicProfileDialog();
+                    cImgVwDriverAutoInsurance.performClick();
                 }
                 break;
             case R.id.imgVwHomeInsurance:
-                flag=3;
+                flag = 3;
                 if (requestPermission()) {
-                  /*  ImageCapturing();*/
-                    imageBrowse();
+                    /*  ImageCapturing();*/
+                    // imageBrowse();
+//                    showPicProfileDialog();
+                    cImgVwHomeInsurance.performClick();
                 }
                 break;
             case R.id.imgVwUberDriver:
-                flag=4;
+                flag = 4;
                 if (requestPermission()) {
-                   /* ImageCapturing();*/
-                    imageBrowse();
+                    /* ImageCapturing();*/
+                    //   imageBrowse();
+//                    showPicProfileDialog();
+                    cImgVwUberDriver.performClick();
                 }
+                break;
+            case R.id.cImgVwDriverVerification:
+                CropImage.startPickImageActivity(this);
+                break;
+            case R.id.cImgVwDriverAutoInsurance:
+                CropImage.startPickImageActivity(this);
+                break;
+
+            case R.id.cImgVwHomeInsurance:
+                CropImage.startPickImageActivity(this);
+                break;
+            case R.id.cImgVwUberDriver:
+                CropImage.startPickImageActivity(this);
                 break;
 
         }
     }
-  /*  public void getImage() {
-        CropImage.activity()
-                .setGuidelines(CropImageView.Guidelines.ON)
-                .setMultiTouchEnabled(true)
-                .start(getContext(), ProfileTouristFragment.this);
+
+    private void showPicProfileDialog() {
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                    .setTitle("Greego App").setMessage("Choose Document");
+
+
+            builder.setNegativeButton("Gallery", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                    Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                    photoPickerIntent.setType("image/*");
+                    startActivityForResult(photoPickerIntent, SELECT_GALLERY_PIC);
+                }
+            });
+
+            builder.setPositiveButton("Camera", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    openCamera();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (Throwable throwable) {
+            Bugsnag.notify(throwable);
+        }
 
     }
-*/
-    private void imageBrowse() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Start the Intent
-        startActivityForResult(galleryIntent, PICK_IMAGE_REQUEST);
+
+    private void openCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, SELECT_CAMERA_PIC);
     }
 
-    private void imageUpload(String filePath_driving_license, String filePath_insurance_card, String filePath_home_insurance, String filePath_current_driver) {
-        SimpleMultiPartRequest smr = new SimpleMultiPartRequest(Request.Method.POST, WebFields.BASE_URL + WebFields.SIGN_UP_UPLOAD_FILE.MODE,
-                new Response.Listener<String>() {
+    class DocumentUpload extends AsyncTask<Void, Void, String> {
+
+        String name, image;
+        Uri uri;
+
+        DocumentUpload(String name, String image, Uri uri) {
+            this.name = name;
+            this.image = image;
+            this.uri = uri;
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+
+
+            try {
+                JSONObject jsonObject = new JSONObject();
+
+                jsonObject.put(WebFields.DOCUMENT_UPLOAD.name, name);
+                jsonObject.put(WebFields.DOCUMENT_UPLOAD.image, image);
+
+                JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
+                        WebFields.BASE_URL + WebFields.DOCUMENT_UPLOAD.MODE, jsonObject, new Response.Listener<JSONObject>() {
+
                     @Override
-                    public void onResponse(String response) {
-                        Log.d("Response", response);
-                        try {
-                            JSONObject jObj = new JSONObject(response);
-                            String message = jObj.getString("message");
+                    public void onResponse(JSONObject response) {
 
-                            ProfileStatus userDetails = new Gson().fromJson(String.valueOf(response), ProfileStatus.class);
-                            if (userDetails.getError_code() == 0) {
-                                 profileStatus = userDetails.getData().getProfile_status();
-//                            //getIs_agreed = 0 new user
-                                setProfileScreen(profileStatus);
-                              /*  if(REQUEST_ADD_FILES_INFO==1003)
-                                {
-                                    Intent i= new Intent();
-                                    i.putExtra("profileStatus",profileStatus);
-                                    setResult(REQUEST_ADD_FILES_INFO,i);
-                                }*/
-                              //  Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                        Log.e("aj", name + " sucess: " + response.toString());
+                        data = new Gson().fromJson(String.valueOf(response), DocumentUploadModel.class);
+                        if (data.getError_code() == 0) {
+                            if (name.equals(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_DRIVING_LICENSE)) {
+                                flag_driving_license = 2;
+                                Glide.with(getApplicationContext()).load(uri).into(imgVwDriverVerification);
+                            } else if (name.equals(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_INSURANCE_CARD)) {
+                                Glide.with(getApplicationContext()).load(uri).into(imgVwDriverAutoInsurance);
+                                flag_insurance_card = 2;
+                            } else if (name.equals(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_HOME_INSURANCE)) {
+                                Glide.with(getApplicationContext()).load(uri).into(imgVwHomeInsurance);
+                                flag_home_insurance = 2;
+                            } else if (name.equals(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_CURRENT_DRIVER)) {
+                                Glide.with(getApplicationContext()).load(uri).into(imgVwUberDriver);
+                                flag_current_driver = 2;
                             }
-                        } catch (JSONException e) {
-                            // JSON error
-                            e.printStackTrace();
-                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                            profileStatus = data.getData().getProfile_status();
+                        } else {
+                            SnackBar.showError(context, snackBarView, data.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
 
-                params.put(WebFields.PARAM_ACCEPT, "application/json");
-                params.put(WebFields.PARAM_AUTHOTIZATION, GlobalValues.BEARER_TOKEN + SessionManager.getToken(context));
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        DocumentUpload catTypeDriver = new DocumentUpload(name, image,uri);
+                        catTypeDriver.execute();
+                        Log.e("aj", "recall");
+                        Log.e("aj", "Error: " + error.getMessage());
 
-                return params;
-            }};
-
-        smr.addFile(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_DRIVING_LICENSE,filePath_driving_license);
-        smr.addFile(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_INSURANCE_CARD,filePath_insurance_card);
-        smr.addFile(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_HOME_INSURANCE,filePath_home_insurance);
-        smr.addFile(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_CURRENT_DRIVER,filePath_current_driver);
-        AppController.getInstance().addToRequestQueue(smr);
-
-    }
-
-    private boolean isValid() {
-        return true;
-    }
-
-    private void callAttachFileInfoAPI() {
-//        Intent in = new Intent(context, DriverBankInfoActivity.class);
-//        in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(in);
-//        overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
-
-        try {
-            JSONObject jsonObject = new JSONObject();
-
-//            jsonObject.put(WebFields.SIGN_UP_ATTACH_FILE.PARAM_STREET, strStreet);
-//            jsonObject.put(WebFields.SIGN_UP_ATTACH_FILE.PARAM_APT, strApt);
-//            jsonObject.put(WebFields.SIGN_UP_ATTACH_FILE.PARAM_CITY, strCity);
-//            jsonObject.put(WebFields.SIGN_UP_ATTACH_FILE.PARAM_STATE, strState);
-//            jsonObject.put(WebFields.SIGN_UP_ATTACH_FILE.PARAM_ZIPCODE, strZipCode);
-
-            Applog.E("request driver shipping info=> " + jsonObject.toString());
-            MyProgressDialog.showProgressDialog(context);
-
-            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST,
-                    WebFields.BASE_URL + WebFields.SIGN_UP_ATTACH_FILE.MODE, jsonObject, new Response.Listener<JSONObject>() {
-
-                @Override
-                public void onResponse(JSONObject response) {
-                    Applog.E("success: " + response.toString());
-
-                    ProfileStatus userDetails = new Gson().fromJson(String.valueOf(response), ProfileStatus.class);
-                    try {
-                        MyProgressDialog.hideProgressDialog();
-//
-                        if (userDetails.getError_code() == 0) {
-
-                            Applog.E("UserDetails" + userDetails);
-//                            callUserMeApi();
-
-                            SessionManager.setIsUserLoggedin(context, true);
-//                            int profileStatus = userDetails.getData().getProfile_status();
-//
-                            int profileStatus = userDetails.getData().getProfile_status();
-//                            //getIs_agreed = 0 new user
-                            setProfileScreen(profileStatus);
-////
-//                            Intent in = new Intent(context, DriverPersonalInfoActivity.class);
-//                            in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            startActivity(in);
-//                            overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
-                        } else {
-                            MyProgressDialog.hideProgressDialog();
-                            SnackBar.showError(context, snackBarView, response.getString("message"));
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                }
-            }, new Response.ErrorListener() {
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() {
+                        Map<String, String> params = new HashMap<String, String>();
 
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    MyProgressDialog.hideProgressDialog();
-                    Applog.E("Error: " + error.getMessage());
+                        params.put(WebFields.PARAM_ACCEPT, "application/json");
+                        params.put(WebFields.PARAM_AUTHOTIZATION, GlobalValues.BEARER_TOKEN + SessionManager.getToken(context));
 
-                    SnackBar.showError(context, snackBarView, getResources().getString(R.string.something_went_wrong));
-                }
-            }) {
-                @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    Map<String, String> params = new HashMap<String, String>();
+                        return params;
 
-                    params.put(WebFields.PARAM_ACCEPT, "application/json");
-                    params.put(WebFields.PARAM_AUTHOTIZATION, GlobalValues.BEARER_TOKEN + SessionManager.getToken(context));
+                    }
+                };
+                jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                        GlobalValues.TIME_OUT,
+                        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-                    return params;
-                }
-            };
-            jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
-                    GlobalValues.TIME_OUT,
-                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                AppController.getInstance().addToRequestQueue(jsonObjReq);
+            } catch (Exception e) {
+                e.printStackTrace();
+                Bugsnag.notify(e);
+            }
 
-            AppController.getInstance().addToRequestQueue(jsonObjReq);
-        } catch (Exception e) {
-            e.printStackTrace();
+            return "true";
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+
         }
     }
 
@@ -402,33 +428,7 @@ public class DriverAttachFileInfoActivity extends AppCompatActivity implements V
         startActivity(in);
         overridePendingTransition(R.anim.trans_right_in, R.anim.trans_left_out);
     }
-    private void ImageCapturing() {
 
-        final String[] DialogOption = {"Camera", "Cancel"};
-        final AlertDialog.Builder dialog1 = new AlertDialog.Builder(context);
-        dialog1.setTitle("Select Option");
-        dialog1.setCancelable(false);
-        //dialog1.setIcon(getResources().getDrawable(R.drawable.ic_menu_camera));
-
-        dialog1.setItems(DialogOption, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                if (DialogOption[i].equals("Camera")) {
-                    Intent int1 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(int1, CAMARA_PERMIT);
-                }/* else if (DialogOption[i].equals("From Gallary")) {
-                    Intent int1 = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
-                    startActivityForResult(int1, GALLARY_PERMISSION);
-                } */else if (DialogOption[i].equals("Cancel")) {
-                    dialogInterface.dismiss();
-                }
-
-            }
-        });
-        dialog1.show();
-
-    }
 
     public boolean requestPermission() {
 
@@ -445,178 +445,502 @@ public class DriverAttachFileInfoActivity extends AppCompatActivity implements V
             }
             return false;
         } else {
-
             return true;
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+        switch (requestCode) {
+            case SELECT_CAMERA_PIC:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {                    // check whether storage permission granted or not.
+                    //do what you want;
+                    // imageBrowse();
+                    //showPicProfileDialog();
+                    if(flag==1)
+                    {
+                        cImgVwDriverVerification.performClick();
+                    }else if(flag==2)
+                    {
+                        cImgVwDriverAutoInsurance.performClick();
+                    }else if(flag==3)
+                    {
+                        cImgVwHomeInsurance.performClick();
+                    }else if(flag==4)
+                    {
+                        cImgVwUberDriver.performClick();
+                    }
+                }
+                break;
+            case CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE:
+                if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // required permissions granted, start crop image activity
+                    startCropImageActivity(mCropImageUri);
+
+                } else {
+          //          Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         if (resultCode == RESULT_OK) {
 
-            if(requestCode == PICK_IMAGE_REQUEST){
-                Uri picUri = data.getData();
+            //priyanka(15-5) start
+            /*if (requestCode == SELECT_GALLERY_PIC) {
+                try {
+                    if (flag == 1) {
+                        flag_driving_license = 1;
+                        mImageUri = data.getData();
+                        try {
+                            bitmap = getBitmapFromUri(mImageUri);
+                            bitmap = scaleImage(this, mImageUri);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } catch (Throwable throwable) {
+                            Bugsnag.notify(throwable);
+                        }
+                        imgVwDriverVerification.setImageURI(mImageUri);
+                        filePath_driving_license = encodeTobase64(bitmap);
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            //    imageUpload();
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_DRIVING_LICENSE, filePath_driving_license);
+                            catTypeDriver.execute();
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+                        }
+                    }
+                    if (flag == 2) {
+                       *//* mImageUri = data.getData();
+                        bitmap = getBitmapFromUri(mImageUri);
+                        bitmap = scaleImage(this, mImageUri);
+                        imgVwDriverAutoInsurance.setImageURI(mImageUri);
+                        filePath_insurance_card = encodeTobase64(bitmap);*//*
+                        flag_insurance_card = 1;
+                        mImageUri = data.getData();
+                        try {
+                            bitmap = getBitmapFromUri(mImageUri);
+                            bitmap = scaleImage(this, mImageUri);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } catch (Throwable throwable) {
+                            Bugsnag.notify(throwable);
+                        }
+                        imgVwDriverAutoInsurance.setImageURI(mImageUri);
+                        filePath_insurance_card = encodeTobase64(bitmap);
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            //    imageUpload();
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_INSURANCE_CARD, filePath_insurance_card);
+                            catTypeDriver.execute();
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+                        }
+                    }
+                    if (flag == 3) {
+                      *//*  mImageUri = data.getData();
+                        bitmap = getBitmapFromUri(mImageUri);
+                        bitmap = scaleImage(this, mImageUri);
+                        imgVwHomeInsurance.setImageURI(mImageUri);
+                        filePath_home_insurance = encodeTobase64(bitmap);*//*
+                        flag_home_insurance = 1;
+                        mImageUri = data.getData();
+                        try {
+                            bitmap = getBitmapFromUri(mImageUri);
+                            bitmap = scaleImage(this, mImageUri);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } catch (Throwable throwable) {
+                            Bugsnag.notify(throwable);
+                        }
+                        imgVwHomeInsurance.setImageURI(mImageUri);
+                        filePath_home_insurance = encodeTobase64(bitmap);
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            //    imageUpload();
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_HOME_INSURANCE, filePath_home_insurance);
+                            catTypeDriver.execute();
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+                        }
+                    }
+                    if (flag == 4) {
+                      *//*  mImageUri = data.getData();
+                        bitmap = getBitmapFromUri(mImageUri);
+                        bitmap = scaleImage(this, mImageUri);
+                        imgVwUberDriver.setImageURI(mImageUri);
+                        filePath_current_driver = encodeTobase64(bitmap);*//*
+                        flag_current_driver = 1;
+                        mImageUri = data.getData();
+                        try {
+                            bitmap = getBitmapFromUri(mImageUri);
+                            bitmap = scaleImage(this, mImageUri);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        } catch (Throwable throwable) {
+                            Bugsnag.notify(throwable);
+                        }
+                        imgVwUberDriver.setImageURI(mImageUri);
+                        filePath_current_driver = encodeTobase64(bitmap);
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            //    imageUpload();
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_CURRENT_DRIVER, filePath_current_driver);
+                            catTypeDriver.execute();
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } catch (Throwable throwable) {
+                    Bugsnag.notify(throwable);
+                }
+            } else if (requestCode == SELECT_CAMERA_PIC) {
+                try {
 
-            /*    filePath = getPath(picUri);
-                filePath1 =getPath(picUri);
-                filePath2 =getPath(picUri);
-                filePath3 =getPath(picUri);
-                Log.d("picUri", picUri.toString());
-                Log.d("filePath", filePath);*/
-                if(flag==1)
-                {
-                    imgVwDriverVerification.setVisibility(View.VISIBLE);
-                    imgVwDriverVerification.setImageURI(picUri);
-                    filePath_driving_license = getPath(picUri);
-                    Toast.makeText(context,filePath_driving_license,Toast.LENGTH_LONG).show();
+
+                    if (flag == 1) {
+                        *//*Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+                        imgVwProPic.setImageBitmap(photo);
+
+                        Uri tempUri = getImageUri(photo);
+                        File finalFile = new File(getRealPathFromURI(tempUri));
+
+                        imgVwProPic.setImageURI(getImageUri(imageOreintationValidator(photo, String.valueOf(finalFile))));
+
+                        strProPicBase64 = encodeTobase64(photo);
+
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            imageUpload(strProPicBase64);
+
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+
+                        }*//*
+                        flag_driving_license = 1;
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+                        imgVwDriverVerification.setImageBitmap(photo);
+
+                     *//*   Uri tempUri = getImageUri(photo);
+                        File finalFile = new File(getRealPathFromURI(tempUri));
+                        imgVwDriverVerification.setImageURI(getImageUri(imageOreintationValidator(photo, String.valueOf(finalFile))));*//*
+
+                        filePath_driving_license = encodeTobase64(photo);
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            //    imageUpload();
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_DRIVING_LICENSE, filePath_driving_license);
+                            catTypeDriver.execute();
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+                        }
+                    }
+                    if (flag == 2) {
+                        flag_insurance_card = 1;
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+                        imgVwDriverAutoInsurance.setImageBitmap(photo);
+
+                      *//*  Uri tempUri = getImageUri(photo);
+                        File finalFile = new File(getRealPathFromURI(tempUri));
+                        imgVwDriverAutoInsurance.setImageURI(getImageUri(imageOreintationValidator(photo, String.valueOf(finalFile))));*//*
+
+                        filePath_insurance_card = encodeTobase64(photo);
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            //    imageUpload();
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_INSURANCE_CARD, filePath_insurance_card);
+                            catTypeDriver.execute();
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+                        }
+                    }
+                    if (flag == 3) {
+                        flag_home_insurance = 1;
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+                        imgVwHomeInsurance.setImageBitmap(photo);
+
+                       *//* Uri tempUri = getImageUri(photo);
+                        File finalFile = new File(getRealPathFromURI(tempUri));
+
+                        imgVwHomeInsurance.setImageURI(getImageUri(imageOreintationValidator(photo, String.valueOf(finalFile))));
+*//*
+                        filePath_home_insurance = encodeTobase64(photo);
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            //    imageUpload();
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_HOME_INSURANCE, filePath_home_insurance);
+                            catTypeDriver.execute();
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+                        }
+                    }
+                    if (flag == 4) {
+                        flag_current_driver = 1;
+                        Bitmap photo = (Bitmap) data.getExtras().get("data");
+
+                        imgVwUberDriver.setImageBitmap(photo);
+
+                      *//*  Uri tempUri = getImageUri(photo);
+                        File finalFile = new File(getRealPathFromURI(tempUri));
+
+                        imgVwUberDriver.setImageURI(getImageUri(imageOreintationValidator(photo, String.valueOf(finalFile))));
+*//*
+                        filePath_current_driver = encodeTobase64(photo);
+                        if (ConnectivityDetector.isConnectingToInternet(context)) {
+                            //    imageUpload();
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_CURRENT_DRIVER, filePath_current_driver);
+                            catTypeDriver.execute();
+                        } else {
+                            SnackBar.showInternetError(context, snackBarView);
+                        }
+
+                    }
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } catch (Throwable throwable) {
+                    Bugsnag.notify(throwable);
                 }
-                if(flag==2)
-                {
-                    imgVwDriverAutoInsurance.setVisibility(View.VISIBLE);
-                    imgVwDriverAutoInsurance.setImageURI(picUri);
-                    filePath_insurance_card =getPath(picUri);
+
+
+            }*/
+            Uri imageUri = null;
+            // handle result of pick image chooser
+            if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+
+                imageUri = CropImage.getPickImageResultUri(this, data);
+
+                // For API >= 23 we need to check specifically that we have permissions to read external storage.
+                if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)) {
+                    // request permissions and handle the result in onRequestPermissionsResult()
+                    mCropImageUri = imageUri;
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA}, CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+                } else {
+                    // no permissions required or already granted, can start crop image activity
+                    startCropImageActivity(imageUri);
                 }
-                if(flag==3)
-                {
-                    imgVwHomeInsurance.setVisibility(View.VISIBLE);
-                    imgVwHomeInsurance.setImageURI(picUri);
-                    filePath_home_insurance = getPath(picUri);
-                }
-                if(flag==4)
-                {
-                    imgVwUberDriver.setVisibility(View.VISIBLE);
-                    imgVwUberDriver.setImageURI(picUri);
-                    filePath_current_driver = getPath(picUri);
-                }
+            } else if (requestCode == CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                    if(flag == 1)
+                    {
+                        flag_driving_license = 1;
+//                        ((ImageView) findViewById(R.id.imgVwDriverVerification)).setImageURI(CropImage.getActivityResult(data).getUri());
+                        Glide.with(getApplicationContext()).load("https://www.hkparts.net/shop/pc/images/uploading.gif").into(imgVwDriverVerification);
+                        try {
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_DRIVING_LICENSE, encodeTobase64(getBitmapFromUri(CropImage.getActivityResult(data).getUri())), CropImage.getActivityResult(data).getUri());
+                            catTypeDriver.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else if(flag == 2)
+                    {
+                        flag_insurance_card = 1;
+//                        ((ImageView) findViewById(R.id.imgVwDriverAutoInsurance)).setImageURI(CropImage.getActivityResult(data).getUri());
+                        Glide.with(getApplicationContext()).load("https://www.hkparts.net/shop/pc/images/uploading.gif").into(imgVwDriverAutoInsurance);
+                        try {
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_INSURANCE_CARD, encodeTobase64(getBitmapFromUri(CropImage.getActivityResult(data).getUri())),CropImage.getActivityResult(data).getUri());
+                            catTypeDriver.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else if(flag == 3)
+                    {
+                        flag_home_insurance = 1;
+//                        ((ImageView) findViewById(R.id.imgVwHomeInsurance)).setImageURI(CropImage.getActivityResult(data).getUri());
+                        Glide.with(getApplicationContext()).load("https://www.hkparts.net/shop/pc/images/uploading.gif").into(imgVwHomeInsurance);
+                        try {
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_HOME_INSURANCE, encodeTobase64(getBitmapFromUri(CropImage.getActivityResult(data).getUri())), CropImage.getActivityResult(data).getUri());
+                            catTypeDriver.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }else if(flag ==4)
+                    {
+                        flag_current_driver = 1;
+//                        ((ImageView) findViewById(R.id.imgVwUberDriver)).setImageURI(CropImage.getActivityResult(data).getUri());
+                        Glide.with(getApplicationContext()).load("https://www.hkparts.net/shop/pc/images/uploading.gif").into(imgVwUberDriver);
+                        try {
+                            DocumentUpload catTypeDriver = new DocumentUpload(WebFields.SIGN_UP_UPLOAD_FILE.PARAM_CURRENT_DRIVER, encodeTobase64(getBitmapFromUri(CropImage.getActivityResult(data).getUri())), CropImage.getActivityResult(data).getUri());
+                            catTypeDriver.execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
             }
-
         }
 
-        /* if (resultCode == Activity.RESULT_OK) {
-
-            if (requestCode == CAMARA_PERMIT) {
-
-                Bitmap photo = (Bitmap) data.getExtras().get("data");
-                picturePath = storingImage(photo);
-                if(flag==1)
-                {
-                    imgVwDriverVerification.setVisibility(View.VISIBLE);
-                    imgVwDriverVerification.setImageBitmap(photo);
-                    filePath_driving_license = data.getData().getPath();
-
-                }
-                if(flag==2)
-                {
-                    imgVwDriverAutoInsurance.setVisibility(View.VISIBLE);
-                    imgVwDriverAutoInsurance.setImageBitmap(photo);
-                    filePath_insurance_card =data.getData().getPath();
-                }
-                if(flag==3)
-                {
-                    imgVwHomeInsurance.setVisibility(View.VISIBLE);
-                    imgVwHomeInsurance.setImageBitmap(photo);
-                    filePath_home_insurance = data.getData().getPath();
-                }
-                if(flag==4)
-                {
-                    imgVwUberDriver.setVisibility(View.VISIBLE);
-                    imgVwUberDriver.setImageBitmap(photo);
-                    filePath_current_driver = data.getData().getPath();
-                }
-
-                uri = data.getData();
-                // Toast.makeText(getActivity(), picturePath, Toast.LENGTH_LONG).show();
-            } else if (requestCode == GALLARY_PERMISSION) {
-                uri = data.getData();
-                String[] imageFile = {MediaStore.Images.Media.DATA};
-
-                Cursor cursor = getApplicationContext().getContentResolver().query(uri, imageFile, null, null, null);
-                cursor.moveToFirst();
-                int colIndex = cursor.getColumnIndex(imageFile[0]);
-                String photo = cursor.getString(colIndex);
-                cursor.close();
-
-                //Bitmap image=(BitmapFactory.decodeFile(photo));
-                //DisplayImage.setImageBitmap(image);
-                if(flag==1)
-                {
-                    imgVwDriverVerification.setVisibility(View.VISIBLE);
-                    imgVwDriverVerification.setImageURI(uri);
-                    imgVwDriverVerification.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    filePath_driving_license = uri.getPath();
-                }
-                if(flag==2)
-                {
-                    imgVwDriverAutoInsurance.setVisibility(View.VISIBLE);
-                    imgVwDriverAutoInsurance.setImageURI(uri);
-                    imgVwDriverAutoInsurance.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    filePath_insurance_card = uri.getPath();
-                }
-                if(flag==3)
-                {
-                    imgVwHomeInsurance.setVisibility(View.VISIBLE);
-                    imgVwHomeInsurance.setImageURI(uri);
-                    imgVwHomeInsurance.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    filePath_home_insurance = uri.getPath();
-                }
-                if(flag==4)
-                {
-                    imgVwUberDriver.setVisibility(View.VISIBLE);
-                    imgVwUberDriver.setImageURI(uri);
-                    imgVwUberDriver.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                    filePath_current_driver = uri.getPath();
-                }
-               // picturePath = uri.getPath();
-                // Toast.makeText(getActivity(), picturePath, Toast.LENGTH_LONG).show();
-
-            }
-
-
-        }*/
 
     }
-    private String getPath(Uri contentUri) {
-        String[] proj = { MediaStore.Images.Media.DATA };
-        CursorLoader loader = new CursorLoader(getApplicationContext(), contentUri, proj, null, null, null);
-        Cursor cursor = loader.loadInBackground();
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        cursor.moveToFirst();
-        String result = cursor.getString(column_index);
-        cursor.close();
-        Log.e("result path",result);
-        return result;
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .start(this);
     }
 
-    String storingImage(Bitmap bitmap) {
-        int i = 10000;
-        String path = null;
-        //i = 1 + 5;
+    private Bitmap imageOreintationValidator(Bitmap bitmap, String path) {
 
-        String root = Environment.getExternalStorageDirectory().toString();
-        File myDir = new File(root, "Greego");
-        myDir.mkdirs();
-        Random random = new Random();
-        i = random.nextInt();
-        File outputFile = new File(myDir, "photo_" + i + ".jpg");
+        ExifInterface ei;
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
-            fileOutputStream.flush();
-            fileOutputStream.close();
-            path = outputFile.getPath();
-
-            //Toast.makeText(getActivity(), path, Toast.LENGTH_LONG).show();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            ei = new ExifInterface(path);
+            int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION,
+                    ExifInterface.ORIENTATION_NORMAL);
+            switch (orientation) {
+                case ExifInterface.ORIENTATION_ROTATE_90:
+                    bitmap = rotateImage(bitmap, 90);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_180:
+                    bitmap = rotateImage(bitmap, 180);
+                    break;
+                case ExifInterface.ORIENTATION_ROTATE_270:
+                    bitmap = rotateImage(bitmap, 270);
+                    break;
+            }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Throwable throwable) {
+            Bugsnag.notify(throwable);
         }
-        return path;
+
+        return bitmap;
     }
 
+    private Bitmap rotateImage(Bitmap source, float angle) {
+
+        Bitmap bitmap = null;
+        Matrix matrix = new Matrix();
+        matrix.postRotate(angle);
+        try {
+            bitmap = Bitmap.createBitmap(source, 0, 0, source.getWidth(), source.getHeight(),
+                    matrix, true);
+        } catch (OutOfMemoryError err) {
+            err.printStackTrace();
+        } catch (Throwable throwable) {
+            Bugsnag.notify(throwable);
+        }
+        return bitmap;
+    }
+
+    public static String encodeTobase64(Bitmap image) {
+        Bitmap immagex = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immagex.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+        Applog.E(imageEncoded);
+        return imageEncoded;
+    }
+
+    public static Bitmap scaleImage(Context context, Uri photoUri) throws IOException {
+        InputStream is = context.getContentResolver().openInputStream(photoUri);
+        BitmapFactory.Options dbo = new BitmapFactory.Options();
+        dbo.inJustDecodeBounds = true;
+        BitmapFactory.decodeStream(is, null, dbo);
+        is.close();
+
+        int rotatedWidth, rotatedHeight;
+        int orientation = getOrientation(context, photoUri);
+
+        if (orientation == 90 || orientation == 270) {
+            rotatedWidth = dbo.outHeight;
+            rotatedHeight = dbo.outWidth;
+        } else {
+            rotatedWidth = dbo.outWidth;
+            rotatedHeight = dbo.outHeight;
+        }
+
+        Bitmap srcBitmap;
+        is = context.getContentResolver().openInputStream(photoUri);
+        if (rotatedWidth > MAX_IMAGE_DIMENSION || rotatedHeight > MAX_IMAGE_DIMENSION) {
+            float widthRatio = ((float) rotatedWidth) / ((float) MAX_IMAGE_DIMENSION);
+            float heightRatio = ((float) rotatedHeight) / ((float) MAX_IMAGE_DIMENSION);
+            float maxRatio = Math.max(widthRatio, heightRatio);
+
+            // Create the bitmap from file
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = (int) maxRatio;
+            srcBitmap = BitmapFactory.decodeStream(is, null, options);
+        } else {
+            srcBitmap = BitmapFactory.decodeStream(is);
+        }
+        is.close();
+
+        /*
+         * if the orientation is not 0 (or -1, which means we don't know), we
+         * have to do a rotation.
+         */
+        if (orientation > 0) {
+            Matrix matrix = new Matrix();
+            matrix.postRotate(orientation);
+
+            srcBitmap = Bitmap.createBitmap(srcBitmap, 0, 0, srcBitmap.getWidth(),
+                    srcBitmap.getHeight(), matrix, true);
+        }
+
+        String type = context.getContentResolver().getType(photoUri);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        if (type.equals("image/png")) {
+            srcBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        } else if (type.equals("image/jpg") || type.equals("image/jpeg")) {
+            srcBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        }
+        byte[] bMapArray = baos.toByteArray();
+        baos.close();
+        return BitmapFactory.decodeByteArray(bMapArray, 0, bMapArray.length);
+    }
+
+    public static int getOrientation(Context context, Uri photoUri) {
+        /*/ it's on the external media. /*/
+        Cursor cursor = context.getContentResolver().query(photoUri,
+                new String[]{MediaStore.Images.ImageColumns.ORIENTATION}, null, null, null);
+
+        if (cursor.getCount() != 1) {
+            return -1;
+        }
+
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    public Uri getImageUri(Bitmap inImage) {
+        String path = null;
+        try {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+        } catch (Throwable throwable) {
+            Bugsnag.notify(throwable);
+        }
+
+        return Uri.parse(path);
+    }
+
+    //Get Image using Camera
+    public String getRealPathFromURI(Uri uri) {
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+        return cursor.getString(idx);
+    }
+
+    private Bitmap getBitmapFromUri(Uri uri) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor =
+                context.getContentResolver().openFileDescriptor(uri, "r");
+        FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
+        Bitmap image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
+        parcelFileDescriptor.close();
+        return image;
+    }
 
 
 }

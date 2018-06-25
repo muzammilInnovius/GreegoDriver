@@ -19,6 +19,7 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
 
+import com.greegoapp.greegodriver.Activity.AcceptUserRequestActivity;
 import com.greegoapp.greegodriver.R;
 
 import java.io.IOException;

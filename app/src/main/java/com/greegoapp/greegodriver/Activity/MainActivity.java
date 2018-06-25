@@ -11,7 +11,9 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bugsnag.android.Bugsnag;
 import com.greegoapp.greegodriver.R;
+import com.greegoapp.greegodriver.Utils.SnackBar;
 import com.greegoapp.greegodriver.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -20,12 +22,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Context context;
     Button btnStart;
     TextView tvUserAppLink;
+    private View snackBarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         context = MainActivity.this;
+        Bugsnag.init(context);
+        snackBarView = findViewById(android.R.id.content);
         bindView();
         setListner();
     }
@@ -45,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId())
         {
             case R.id.tvUserAppLink:
-                Toast.makeText(context,"User App Link",Toast.LENGTH_LONG).show();
+                SnackBar.showSuccess(context,snackBarView,"User App Link");
+//                Toast.makeText(context,"User App Link",Toast.LENGTH_LONG).show();
                 break;
             case R.id.btnStart:
                 Intent nextPage=new Intent(this,SignUpMobileNumberActivity.class);

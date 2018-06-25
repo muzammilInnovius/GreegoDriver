@@ -8,12 +8,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.greegoapp.greegodriver.Utils.RoundedImageView
+        android:layout_marginTop="@dimen/scale_15dp"
+        android:padding="@dimen/scale_15dp"
         android:id="@+id/imgVwUserProfile"
         android:layout_width="@dimen/scale_125dp"
         android:layout_height="@dimen/scale_125dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_profile"
-        app:corner_radius="@dimen/scale_75dp"
+        android:src="@mipmap/ic_place_holder"
+        app:corner_radius="@dimen/scale_60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />
@@ -31,7 +33,7 @@
         android:id="@+id/tvUserAddress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="50 Massachusetts Ave NE, Washington, DC 20002,Joy?"
+        android:text=""
         android:textSize="@dimen/txt_16"
         android:gravity="center"
         android:paddingLeft="@dimen/scale_30dp"

@@ -7,6 +7,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context="com.greegoapp.greegodriver.Activity.SettingActivity">
 
         <android.support.constraint.ConstraintLayout
@@ -72,7 +73,7 @@
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/send_feedback_bg"
+            android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@+id/view">
 
             <RelativeLayout
@@ -95,10 +96,10 @@
                         android:layout_width="@dimen/scale_60dp"
                         android:layout_height="@dimen/scale_60dp"
                         android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/scale_1dp"
+                        android:layout_marginLeft="@dimen/scale_10dp"
                         android:elevation="4dp"
                         android:scaleType="fitXY"
-                        android:src="@mipmap/ic_driver_profile"
+                        android:src="@mipmap/ic_place_holder"
                         app:border_color="@color/app_bg"
                         app:corner_radius="@dimen/scale_30dp"
                         app:round_background="true" />
@@ -116,7 +117,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@+id/ivProPic"
-                            android:text="@string/user_name"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="@dimen/txt_15"
                             android:textStyle="bold"
@@ -137,9 +138,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvUserName"
+                            android:layout_marginTop="0dp"
                             android:layout_toRightOf="@+id/tvJoin"
                             android:layout_weight="1"
-                            android:text="@string/joinDate"
+                            android:text=""
                             android:textSize="@dimen/txt_12" />
 
                     </RelativeLayout>
@@ -159,15 +161,10 @@
 
                     <ImageView
                         android:id="@+id/imgVwEmail"
-                        android:layout_width="@dimen/scale_40dp"
-                        android:layout_height="45dp"
+                        android:layout_width="@dimen/scale_50dp"
+                        android:layout_height="@dimen/scale_50dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginBottom="@dimen/scale_5dp"
-                        android:layout_marginEnd="@dimen/scale_5dp"
-                        android:layout_marginLeft="@dimen/scale_5dp"
-                        android:layout_marginRight="@dimen/scale_5dp"
-                        android:layout_marginStart="@dimen/scale_5dp"
-                        android:layout_marginTop="@dimen/scale_5dp"
+                        android:layout_marginLeft="@dimen/scale_2dp"
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_mail" />
 
@@ -185,7 +182,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@+id/imgVwEmail"
-                            android:text="@string/hint_email"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="@dimen/txt_15"
                             android:textStyle="bold"
@@ -216,10 +213,9 @@
 
                     <ImageView
                         android:id="@+id/imgVwPhone"
-                        android:layout_width="@dimen/scale_40dp"
-                        android:layout_height="@dimen/scale_40dp"
+                        android:layout_width="@dimen/scale_50dp"
+                        android:layout_height="@dimen/scale_50dp"
                         android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/scale_5dp"
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_phone" />
 
@@ -230,7 +226,7 @@
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/imgVwPhone"
                         android:paddingLeft="@dimen/scale_28dp"
-                        android:text="@string/phone"
+                        android:text=""
                         android:textSize="@dimen/txt_15"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -251,7 +247,6 @@
                         android:layout_width="@dimen/scale_60dp"
                         android:layout_height="@dimen/scale_60dp"
                         android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/scale_4dp"
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_money" />
 
@@ -284,7 +279,6 @@
                         android:layout_width="@dimen/scale_60dp"
                         android:layout_height="@dimen/scale_60dp"
                         android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/scale_4dp"
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_marine_nautical_09_512" />
 
@@ -310,6 +304,42 @@
                         android:text="@string/google_map" />
                 </RelativeLayout>
 
+                <!--
+                                <RelativeLayout
+                                    android:id="@+id/rlBankInfo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/scale_85dp"
+                                    android:layout_below="@+id/rlNavigate"
+                                    android:layout_marginTop="@dimen/scale_1dp"
+                                    android:background="@color/white"
+                                    android:clickable="true"
+                                    android:paddingLeft="@dimen/scale_10dp"
+                                    android:paddingRight="@dimen/scale_10dp">
+
+                                    <ImageView
+                                        android:id="@+id/imgVwBankInfo"
+                                        android:layout_width="@dimen/scale_50dp"
+                                        android:layout_height="@dimen/scale_40dp"
+                                        android:layout_centerVertical="true"
+                                        android:layout_margin="@dimen/scale_5dp"
+                                        android:scaleType="fitXY"
+                                        android:src="@mipmap/ic_bank" />
+
+                                    <TextView
+                                        android:id="@+id/tvBankInfo"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerVertical="true"
+                                        android:layout_toRightOf="@+id/imgVwBankInfo"
+                                        android:paddingLeft="@dimen/scale_20dp"
+                                        android:text="@string/bank_info_title"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/txt_15"
+                                        android:textStyle="bold" />
+
+                                </RelativeLayout>
+                -->
+
                 <RelativeLayout
                     android:id="@+id/rlLogout"
                     android:layout_width="match_parent"
@@ -325,26 +355,26 @@
                     <ImageView
                         android:id="@+id/imgVwLogout"
                         android:layout_width="@dimen/scale_40dp"
-                        android:layout_height="@dimen/scale_40dp"
-                        android:layout_alignParentBottom="true"
+                        android:layout_height="@dimen/scale_50dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/scale_10dp"
-                        android:layout_marginRight="@dimen/scale_10dp"
-                        android:layout_marginTop="@dimen/scale_10dp"
                         android:src="@mipmap/ic_logout" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginLeft="@dimen/scale_10dp"
-                        android:layout_marginRight="@dimen/scale_10dp"
-                        android:layout_toRightOf="@+id/imgVwLogout"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignTop="@+id/imgVwLogout"
                         android:paddingLeft="@dimen/scale_20dp"
+                        android:layout_marginTop="@dimen/scale_6dp"
+                        android:layout_marginLeft="@dimen/scale_60dp"
                         android:text="@string/logout"
                         android:textColor="@color/black"
                         android:textSize="@dimen/txt_20"
                         android:textStyle="bold" />
 
+<!--
                     <View
                         android:id="@+id/view1"
                         android:layout_width="match_parent"
@@ -353,6 +383,7 @@
                         android:layout_marginBottom="@dimen/scale_10dp"
                         android:layout_marginTop="@dimen/scale_1dp"
                         android:background="@color/bg_view" />
+-->
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>

@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/scale_10dp"
+        android:background="@color/white"
         tools:context="com.greegoapp.greegodriver.Activity.DriverBankInfoActivity">
         <android.support.constraint.ConstraintLayout
             android:id="@+id/header"
@@ -118,6 +119,7 @@
                         android:background="@null"
                         android:padding="@dimen/scale_10dp"
                         android:inputType="number"
+                        android:maxLength="9"
                         android:hint="@string/routing_number"
                         android:textColor="@color/app_bg"
                         android:textSize="@dimen/txt_15"
@@ -149,6 +151,7 @@
                         android:padding="@dimen/scale_10dp"
                         android:hint="@string/account_number"
                         android:textColor="@color/app_bg"
+                        android:maxLength="17"
                         android:inputType="number"
                         android:textSize="@dimen/txt_15"
                         android:imeOptions="actionDone"/>

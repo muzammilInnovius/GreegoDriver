@@ -8,7 +8,6 @@ public class AppPrefFields {
     public final static String PARAM_ID= "id";
     public final static String PARAM_NEW= "new";
     public final static String PARAM_OTP= "otp";
-
     public final static String SHARED_ISLOGGEDIN = "logIn";
     public final static String SHARED_PROFILE_STATUS= "profile_status";
 

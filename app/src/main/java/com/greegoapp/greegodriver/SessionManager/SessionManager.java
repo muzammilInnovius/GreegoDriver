@@ -113,7 +113,6 @@ public class SessionManager {
             editor.putString(AppPrefFields.PARAM_CONTACT_NO, vo.getData().getContact_number());
             editor.putInt(AppPrefFields.PARAM_OTP, vo.getData().getOtp());
             editor.putString(AppPrefFields.PARAM_TOKEN, vo.getData().getToken());
-
             editor.apply();
         } catch (Exception e) {
             // TODO: handle exception

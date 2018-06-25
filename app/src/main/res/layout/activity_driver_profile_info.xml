@@ -7,6 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingTop="@dimen/scale_10dp"
+        android:background="@color/white"
         tools:context="com.greegoapp.greegodriver.Activity.DriverProfileInfoActivity">
 
         <android.support.constraint.ConstraintLayout
@@ -108,7 +109,17 @@
                     android:text="@string/request_for_profile"
                     android:textColor="@color/trans_black"
                     android:textSize="@dimen/txt_13" />
-
+                <com.theartofdev.edmodo.cropper.CropImageView
+                    android:id="@+id/iVwProPic2"
+                    android:layout_width="@dimen/scale_150dp"
+                    android:layout_height="@dimen/scale_150dp"
+                    android:layout_below="@+id/tvDriverProfileInstruction"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/scale_70dp"
+                    android:src="@mipmap/contact_icon"
+                    android:elevation="4dp"
+                    app:corner_radius="@dimen/scale_75dp"
+                    />
                 <com.greegoapp.greegodriver.Utils.RoundedImageView
                     android:id="@+id/imgVwProfile"
                     android:layout_width="@dimen/scale_150dp"
@@ -116,7 +127,7 @@
                     android:layout_below="@+id/tvDriverProfileInstruction"
                     android:layout_centerHorizontal="true"
                     android:layout_margin="@dimen/scale_70dp"
-                    android:src="@mipmap/ic_profile"
+                    android:src="@mipmap/contact_icon"
                     android:scaleType="fitXY"
                     android:elevation="4dp"
                     app:round_background="true"

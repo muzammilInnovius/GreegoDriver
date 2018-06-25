@@ -1,9 +1,417 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Activity.TripHistoryDetailActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_screen"
+        tools:context="com.greegoapp.greegodriver.Activity.TripHistoryDetailActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/scale_40dp"
+            android:background="@color/white"
+            android:clickable="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/ibBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_6dp"
+                android:src="@mipmap/ic_back_button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/scale_3dp"
+                android:layout_marginRight="@dimen/scale_5dp"
+                android:layout_marginTop="@dimen/scale_5dp"
+                android:background="@android:color/transparent"
+                android:padding="@dimen/scale_8dp"
+                android:src="@mipmap/ic_edit"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/scale_7dp"
+                android:text=""
+                android:textColor="@color/black"
+                android:textSize="@dimen/txt_20"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+
+            <LinearLayout
+                android:id="@+id/llTripHistoryDetailDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingBottom="@dimen/scale_110dp"
+                android:orientation="vertical">
+
+                <!--  <android.support.v7.widget.CardView
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content">
+  -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/bg_rectangle74"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/scale_2dp">
+
+                    <TextView
+                        android:id="@+id/tvTripRecept"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center"
+                        android:text="@string/trip_receipt"
+                        android:textColor="@color/app_bg"
+                        android:textSize="@dimen/txt_15" />
+
+                </LinearLayout>
+                <!-- </android.support.v7.widget.CardView>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/scale_1dp"
+                    android:background="@color/white"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <fragment
+                        android:id="@+id/tripMap"
+                        android:name="com.google.android.gms.maps.MapFragment"
+                        android:layout_width="match_parent"
+                        android:clickable="false"
+                        android:layout_height="@dimen/scale_260dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/scale_50dp"
+                    android:paddingBottom="@dimen/scale_10dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/scale_2dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvS"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scale_5dp"
+                            android:text="S"
+                            android:textColor="@color/green"
+                            android:textSize="@dimen/scale_25dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvStart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="tart"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvStartTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:text=""
+                            android:textColor="@color/hint_color"
+                            android:textSize="@dimen/txt_16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scale_2dp"
+                            android:text="@string/pick_up"
+                            android:textSize="@dimen/txt_16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/scale_10dp"
+                        android:layout_marginRight="@dimen/scale_10dp"
+                        android:layout_marginTop="@dimen/scale_5dp"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:id="@+id/viewTimeStart"
+                            android:layout_width="1dp"
+                            android:layout_height="@dimen/scale_30dp"
+                            android:background="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tvStartPlace"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scale_60dp"
+                            android:text="@string/request_at"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_16" />
+
+                        <TextView
+                            android:id="@+id/tvRequestTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scale_2dp"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_16" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/scale_10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvE"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scale_5dp"
+                            android:text="E"
+                            android:textColor="@color/end"
+                            android:textSize="@dimen/scale_25dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvEnd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="nd"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_16"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvEndTime"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scale_25dp"
+                            android:text=""
+                            android:textColor="@color/hint_color"
+                            android:textSize="@dimen/txt_16" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scale_2dp"
+                            android:text="@string/drop"
+                            android:textSize="@dimen/txt_16" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/scale_1dp"
+                    android:background="@color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/scale_5dp"
+                        android:layout_marginLeft="@dimen/scale_5dp"
+                        android:layout_marginRight="@dimen/scale_5dp"
+                        android:layout_marginTop="@dimen/scale_5dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/scale_5dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tvTripGreegoTitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/drive_earning"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/txt_16" />
+
+                            <TextView
+                                android:id="@+id/tvDriveEarningAmt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/trip_price"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/txt_16" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tvTripGreegoTriptime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/scale_2dp"
+                            android:layout_weight="1"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textSize="@dimen/txt_12" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/scale_5dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tvPromotion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/greego_fees"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/txt_16" />
+
+
+                            <TextView
+                                android:id="@+id/tvGreegoFeeAmt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/scale_30dp"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/greego_fee_price"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/txt_16" />
+
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/scale_5dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tvtiptitle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/tip"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/txt_16" />
+
+
+                            <TextView
+                                android:id="@+id/tvTipAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/scale_30dp"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:text="@string/tip_price"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/txt_16" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/viewTotalAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="@dimen/scale_5dp"
+                            android:layout_marginRight="@dimen/scale_5dp"
+                            android:layout_marginTop="@dimen/scale_1dp"
+                            android:background="@color/black" />
+
+                        <LinearLayout
+                            android:id="@+id/llTotal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/scale_10dp"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tvTotal"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/total"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/txt_16" />
+
+
+                            <TextView
+                                android:id="@+id/tvTotalAmount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/scale_30dp"
+                                android:layout_weight="1"
+                                android:gravity="end"
+                                android:text="@string/trip_price"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/txt_16" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.constraint.ConstraintLayout>
+</layout>

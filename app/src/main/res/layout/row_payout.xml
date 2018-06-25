@@ -1,6 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:padding="@dimen/scale_2dp"
+        android:layout_margin="@dimen/scale_5dp"
+        android:background="@drawable/lin_bg_without_boder"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_payout_ride_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint=""
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tv_payout_ride_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/weekly_pay"
+                android:layout_below="@+id/tv_payout_ride_date_time"
+                android:visibility="gone"
+                android:textSize="15sp"/>
+            <ImageView
+                android:id="@+id/imgVwEpay"
+                android:visibility="gone"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@mipmap/ic_express_pay"
+                android:layout_below="@+id/tv_payout_ride_date_time"
+                />
+            <TextView
+                android:id="@+id/tv_express_pay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="@dimen/scale_2dp"
+                android:layout_below="@+id/tv_payout_ride_date_time"
+                android:layout_toRightOf="@+id/imgVwEpay"
+                android:textSize="15sp"
+                android:hint="@string/express_pay"/>
+            <TextView
+                android:id="@+id/tv_payout_ride_money"
+                android:layout_marginLeft="@dimen/scale_20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/dollar_symbol"
+                android:layout_alignParentRight="true"
+                android:hint=""
+                android:textSize="25sp"/>
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

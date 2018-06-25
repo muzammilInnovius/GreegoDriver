@@ -6,11 +6,14 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -18,10 +21,12 @@ import com.android.volley.Response;
 import com.android.volley.error.AuthFailureError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonObjectRequest;
+import com.bugsnag.android.Bugsnag;
 import com.google.gson.Gson;
 import com.greegoapp.greegodriver.AppController.AppController;
 import com.greegoapp.greegodriver.GlobleFields.GlobalValues;
 import com.greegoapp.greegodriver.Model.DriverPersnlInfoUpdateData;
+import com.greegoapp.greegodriver.Model.TermsCondition;
 import com.greegoapp.greegodriver.R;
 import com.greegoapp.greegodriver.SessionManager.SessionManager;
 import com.greegoapp.greegodriver.Utils.Applog;
@@ -50,6 +55,8 @@ public class SignUpAgreementActivity extends AppCompatActivity implements View.O
     String strEmail, strFName, strLName, strPromoCode;
     int promoCode;
     boolean isChecked;
+    TextView tvAgreementTitleDesc;
+    TextView tvAgreementDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +69,87 @@ public class SignUpAgreementActivity extends AppCompatActivity implements View.O
         strPromoCode = getIntent().getStringExtra("promoCode");
 
         context = SignUpAgreementActivity.this;
+        Bugsnag.init(context);
         snackBarView = findViewById(android.R.id.content);
         bindView();
         setListners();
+        callTermsCondiAPI();
+    }
+
+    private void callTermsCondiAPI() {
+        try {
+            JSONObject jsonObject = new JSONObject();
+
+            MyProgressDialog.showProgressDialog(context);
+
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                    WebFields.BASE_URL + WebFields.TERMS_CONDITION.MODE, null, new Response.Listener<JSONObject>() {
+
+
+                @Override
+                public void onResponse(JSONObject response) {
+
+                    TermsCondition userDetail = new Gson().fromJson(String.valueOf(response), TermsCondition.class);
+                    try {
+                        if (userDetail.getError_code() == 0) {
+                            Applog.E("success: " + response.toString());
+                            MyProgressDialog.hideProgressDialog();
+                            try {
+                                tvAgreementDetail.setText(Html.fromHtml(userDetail.getData().getTerms_conditions()));
+//                                tvAgreementDetail.loadData(userDetail.getData().getTerms_conditions(),"text/html","utf-8");
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }catch (Throwable throwable)
+                            {
+                                Bugsnag.notify(throwable);
+                            }
+                        } else {
+                            MyProgressDialog.hideProgressDialog();
+                            SnackBar.showError(context, snackBarView, response.getString("message"));
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }catch (Throwable throwable)
+                    {
+                        Bugsnag.notify(throwable);
+                    }
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    MyProgressDialog.hideProgressDialog();
+                    Applog.E("Error: " + error.getMessage());
+
+                    SnackBar.showError(context, snackBarView, getResources().getString(R.string.something_went_wrong));
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() {
+                    Map<String, String> params = new HashMap<String, String>();
+
+                    params.put(WebFields.PARAM_ACCEPT, "application/json");
+                    Applog.E("Token==>" + SessionManager.getToken(context));
+                    params.put(WebFields.PARAM_AUTHOTIZATION, GlobalValues.BEARER_TOKEN + SessionManager.getToken(context));
+
+                    return params;
+                }
+            };
+            jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(
+                    GlobalValues.TIME_OUT,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+            AppController.getInstance().addToRequestQueue(jsonObjReq);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }catch (Throwable throwable)
+        {
+            Bugsnag.notify(throwable);
+        }
+
     }
 
     private void setListners() {
@@ -91,15 +176,22 @@ public class SignUpAgreementActivity extends AppCompatActivity implements View.O
         ibBack = binding.ibBack;
         relativeLayout = binding.rlAgreement;
         btnFinish = binding.btnFinish;
-
+        tvAgreementTitleDesc = binding.tvAgreementTitleDesc;
+        tvAgreementDetail = binding.tvAgreementDetail;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ibBack:
-                KeyboardUtility.hideKeyboard(context, view);
+                /*KeyboardUtility.hideKeyboard(context, view);
                 Intent in = new Intent(context, SignUpPromocodeActivity.class);
+                in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(in);
+                overridePendingTransition(R.anim.trans_left_in, R.anim.trans_right_out);*/
+
+                KeyboardUtility.hideKeyboard(context, view);
+                Intent in = new Intent(context, SignUpUserNameActivity.class);
                 in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(in);
                 overridePendingTransition(R.anim.trans_left_in, R.anim.trans_right_out);
@@ -127,16 +219,16 @@ public class SignUpAgreementActivity extends AppCompatActivity implements View.O
         try {
             JSONObject jsonObject = new JSONObject();
 
-            if (!strPromoCode.matches("")) {
+           /* if (!strPromoCode.matches("")) {
                 promoCode = Integer.parseInt(strPromoCode);
-            }
+            }*/
 
             jsonObject.put(WebFields.SIGN_UP_PROFILE_UPDATE.PARAM_FIRST_NAME, strFName);
             jsonObject.put(WebFields.SIGN_UP_PROFILE_UPDATE.PARAM_LAST_NAME, strLName);
             jsonObject.put(WebFields.SIGN_UP_PROFILE_UPDATE.PARAM_EMAIL, strEmail);
          /*   jsonObject.put(WebFields.SIGN_UP_PROFILE_UPDATE.PARAM_CITY, "");
             jsonObject.put(WebFields.SIGN_UP_PROFILE_UPDATE.PARAM_PRO_PIC, "");*/
-            jsonObject.put(WebFields.SIGN_UP_PROFILE_UPDATE.PARAM_PROMO_CODE, promoCode);
+            jsonObject.put(WebFields.SIGN_UP_PROFILE_UPDATE.PARAM_PROMO_CODE, strPromoCode);
 
             if (isChecked) {
                 jsonObject.put(WebFields.SIGN_UP_PROFILE_UPDATE.PARAM_IS_AGGREED, 1);
@@ -180,6 +272,9 @@ public class SignUpAgreementActivity extends AppCompatActivity implements View.O
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }catch (Throwable throwable)
+                    {
+                        Bugsnag.notify(throwable);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -210,6 +305,9 @@ public class SignUpAgreementActivity extends AppCompatActivity implements View.O
             AppController.getInstance().addToRequestQueue(jsonObjReq);
         } catch (Exception e) {
             e.printStackTrace();
+        }catch (Throwable throwable)
+        {
+            Bugsnag.notify(throwable);
         }
 
     }

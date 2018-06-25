@@ -6,7 +6,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context="com.greegoapp.greegodriver.Activity.UserRateActivity">
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/header"
             android:layout_width="match_parent"
@@ -21,14 +23,15 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_greego_text"
                 android:padding="@dimen/scale_20dp"
+                android:src="@mipmap/ic_greego_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
+
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"
@@ -40,97 +43,252 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/scrollView">
+
+                <!--
+                                <RelativeLayout
+                                    android:id="@+id/rlPrice"
+                                    android:visibility="gone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@mipmap/bg_rectangle69">
+
+
+                                    <RelativeLayout
+                                        android:id="@+id/rlTripPrice"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:padding="@dimen/scale_2dp">
+
+                                        <TextView
+                                            android:id="@+id/tvTripPrice"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Trip price"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+
+                                        <TextView
+                                            android:id="@+id/tvPriceSymbol"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_toLeftOf="@+id/tvPrice"
+                                            android:text="@string/price_symbol"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+
+                                        <TextView
+                                            android:id="@+id/tvPrice"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_marginLeft="@dimen/scale_1dp"
+                                            android:hint="@string/trip_price"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/rlAddTip"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/rlTripPrice"
+                                        android:padding="@dimen/scale_2dp">
+
+                                        <TextView
+                                            android:id="@+id/tvDriverTip"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Add a tip"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+
+                                        <TextView
+                                            android:id="@+id/tvDriverTipTtl"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_toLeftOf="@+id/tvTipPrice"
+                                            android:text="@string/price_symbol"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+
+                                        <TextView
+                                            android:id="@+id/tvTipPrice"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_marginLeft="@dimen/scale_1dp"
+                                            android:hint="@string/trip_price"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:id="@+id/rlTotalPrice"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_below="@+id/rlAddTip"
+                                        android:padding="@dimen/scale_2dp">
+
+                                        <TextView
+                                            android:id="@+id/tvTotalPriceTtl"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Total cost"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+
+                                        <TextView
+                                            android:id="@+id/tvTotalPriceT"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_toLeftOf="@+id/tvTotalPrice"
+                                            android:text="@string/price_symbol"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+
+                                        <TextView
+                                            android:id="@+id/tvTotalPrice"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_marginLeft="@dimen/scale_1dp"
+                                            android:hint="@string/trip_price"
+                                            android:textColor="@color/black"
+                                            android:textSize="@dimen/txt_18"
+                                            android:textStyle="bold|italic" />
+                                    </RelativeLayout>
+
+
+                                </RelativeLayout>
+                -->
+                <RelativeLayout
+                    android:id="@+id/rlPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scale_110dp"
+                    android:background="@mipmap/bg_rectangle69"
+                    android:visibility="visible">
+
                     <RelativeLayout
-                        android:id="@+id/rlPrice"
+                        android:id="@+id/rlTripPrice"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/scale_110dp"
-                        android:background="@mipmap/bg_rectangle69"
-                        android:gravity="center">
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:padding="@dimen/scale_2dp">
+
                         <TextView
-                            android:id="@+id/tvPriceSymbol"
+                            android:id="@+id/tvDriverTipTtl"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/price_symbol"
-                            android:textSize="@dimen/txt_40"
                             android:textColor="@color/black"
-                            android:textStyle="bold|italic"
-                            />
+                            android:textSize="@dimen/txt_25"
+                            android:textStyle="bold|italic" />
+
                         <TextView
                             android:id="@+id/tvPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/trip_price"
-                            android:textSize="@dimen/txt_40"
-                            android:textColor="@color/black"
-                            android:textStyle="bold|italic"
                             android:layout_marginLeft="@dimen/scale_1dp"
-                            android:layout_toRightOf="@+id/tvPriceSymbol"
-                           />
+                            android:paddingRight="@dimen/scale_2dp"
+                            android:layout_toRightOf="@+id/tvDriverTipTtl"
+                            android:hint="@string/trip_price"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/txt_25"
+                            android:textStyle="bold|italic" />
                     </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/rlUserRate"
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rlUserRate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlPrice"
+                    android:background="@mipmap/bg_rectangle84">
+
+                    <com.greegoapp.greegodriver.Utils.RoundedImageView
+                        android:id="@+id/imgVwUserProfile"
+                        android:layout_width="@dimen/scale_125dp"
+                        android:layout_height="@dimen/scale_125dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="@dimen/scale_1dp"
+                        android:layout_marginTop="@dimen/scale_5dp"
+                        android:background="@mipmap/ic_place_holder"
+                        android:elevation="4dp"
+                        android:scaleType="fitXY"
+                        app:border_color="@color/app_bg"
+                        app:corner_radius="@dimen/scale_60dp"
+                        app:round_background="true" />
+
+                    <TextView
+                        android:id="@+id/tvReview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/bg_rectangle84"
-                        android:layout_below="@+id/rlPrice">
-                        <com.greegoapp.greegodriver.Utils.RoundedImageView
-                            android:id="@+id/imgVwUserProfile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/scale_120dp"
-                            android:layout_centerHorizontal="true"
-                            android:src="@mipmap/ic_user_profile" />
-                        <TextView
-                            android:id="@+id/tvReview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/review_text"
-                            android:textSize="@dimen/txt_25"
-                            android:textStyle="bold|italic"
-                            android:textColor="@color/black"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/imgVwUserProfile"/>
-                        <RatingBar
-                            android:id="@+id/ratingBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tvReview"
-                            android:shadowColor="@color/black"
-                            android:paddingTop="@dimen/scale_10dp"
-                            android:layout_centerHorizontal="true"
-                            />
-                        <TextView
-                            android:id="@+id/textView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/rate_instruction"
-                            android:textColor="@color/bg_view"
-                            android:textSize="@dimen/txt_20"
-                            android:textStyle="italic|bold"
-                            android:gravity="center"
-                            android:layout_marginTop="@dimen/scale_10dp"
-                            android:layout_marginLeft="@dimen/scale_10dp"
-                            android:layout_marginRight="@dimen/scale_10dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_below="@+id/ratingBar"/>
-                    </RelativeLayout>
+                        android:layout_below="@+id/imgVwUserProfile"
+                        android:layout_centerHorizontal="true"
+                        android:text="harshal"
+                        android:textAlignment="center"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp"
+                        android:paddingRight="@dimen/scale_10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/txt_25"
+                        android:textStyle="bold|italic" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvReview"
+                        android:layout_centerHorizontal="true"
+                        android:paddingTop="@dimen/scale_10dp"
+                        android:rating="5"
+                        android:shadowColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ratingBar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="@dimen/scale_10dp"
+                        android:layout_marginRight="@dimen/scale_10dp"
+                        android:layout_marginTop="@dimen/scale_10dp"
+                        android:gravity="center"
+                        android:text="@string/rate_instruction"
+                        android:textColor="@color/bg_view"
+                        android:textSize="@dimen/txt_20"
+                        android:textStyle="italic|bold" />
+                </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
+
         <Button
             android:id="@+id/btnDone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/done"
-            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:background="@mipmap/bg_rectangle84"
-            android:layout_alignParentBottom="true"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/done"
+            android:textAllCaps="false"
+            android:textSize="@dimen/txt_30"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:textSize="@dimen/txt_30" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bugsnag.android.Bugsnag;
 import com.greegoapp.greegodriver.Activity.HomeActivity;
 import com.greegoapp.greegodriver.R;
 import com.greegoapp.greegodriver.databinding.FragmentSettingDetailBinding;
@@ -65,7 +66,7 @@ public class SettingDetailFragment extends Fragment implements View.OnClickListe
         View view = binding.getRoot();
         snackBarView = getActivity().findViewById(android.R.id.content);
         context = getActivity();
-
+        Bugsnag.init(context);
         bindViews();
 
         setListner();

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.bugsnag.android.Bugsnag;
 import com.greegoapp.greegodriver.Activity.HomeActivity;
 import com.greegoapp.greegodriver.R;
 import com.greegoapp.greegodriver.databinding.FragmentUserNameSettingBinding;
@@ -77,7 +78,7 @@ public class UserNameSettingFragment extends Fragment implements View.OnClickLis
         View view = binding.getRoot();
         snackBarView = getActivity().findViewById(android.R.id.content);
         context = getActivity();
-
+        Bugsnag.init(context);
         bindViews();
 
         setListner();

@@ -16,21 +16,22 @@
             android:id="@+id/imgVwUserProfile"
             android:layout_width="@dimen/scale_110dp"
             android:layout_height="@dimen/scale_110dp"
-           android:src="@mipmap/ic_user_profile"
-            app:corner_radius="@dimen/scale_75dp"
+           android:src="@mipmap/ic_place_holder"
+            app:corner_radius="@dimen/scale_65dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             />
+
         <TextView
             android:id="@+id/tvSure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/drop_user"
-            android:textSize="@dimen/txt_25"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imgVwUserProfile"
+            android:layout_toEndOf="@+id/imgVwUserProfile"
+            android:padding="@dimen/scale_10dp"
+            android:text="@string/drop_user"
             android:textColor="@color/black"
-            android:padding="@dimen/scale_10dp"/>
+            android:textSize="@dimen/txt_25" />
 
     </RelativeLayout>
     <com.google.android.gms.maps.MapView
@@ -55,7 +56,7 @@
             android:id="@+id/tvUserAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_address"
+            android:text=""
             android:layout_centerVertical="true"
             android:textColor="@color/black"
             android:layout_toRightOf="@+id/imgVwEPin"/>

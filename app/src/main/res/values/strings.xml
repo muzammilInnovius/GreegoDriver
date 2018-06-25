@@ -47,7 +47,7 @@
     <string name="entered_promocode_no_empty">Please enter Promo code.</string>
     <string name="whats_agreement">Do you agree with Greego?</string>
     <string name="desc_agreement">It is the term &amp; condition for users</string>
-    <string name="agreement_detail">Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,</string>
+    <string name="agreement_detail">Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,Lorem ipsum dolor sit amet,</string>
     <string name="check_agreement">I agree the Greego agreement</string>
     <string name="no_checked_agreement">Please first accept the term &amp; condition.</string>
 
@@ -65,7 +65,7 @@
     <string name="empty_middle_name">Please enter your middle name.</string>
     <string name="empty_last_name">Please enter your last name.</string>
     <string name="empty_social_security_number">Please enter social security number.</string>
-    <string name="valid_social_security_number">Please enter valid social security number.</string>
+    <string name="valid_social_security_number">Social security number should be 9 characters long.</string>
     <string name="empty_date_of_birth">Please enter your date of birth.</string>
 
     <!--driver shipping info-->
@@ -77,10 +77,12 @@
     <string name="driven_with_another">I\'ve driven with another rideshare company</string>
     <string name="city_prompt">City</string>
     <string name="state_prompt">State</string>
+    <string name="empty_city">Please enter your city.</string>
+    <string name="empty_state">Please enter your state.</string>
     <string name="empty_street_address">Please enter your street address.</string>
     <string name="empty_Apt_name">Please enter your appartment number.</string>
     <string name="empty_zip_code">Please enter your zip code.</string>
-    <string name="valid_zip_code">Please enter valid zip code.</string>
+    <string name="valid_zip_code">Zip code should be 5 character long.</string>
     <string name="state">State</string>
     <string name="city">City</string>
 
@@ -89,13 +91,15 @@
     <string name="driver_verification">Driver Verification</string>
     <string name="auto_insurance">Auto Insurance (No registration)</string>
     <string name="option">Options</string>
-    <string name="option_desc">Depending on the document,it helps to shortern the background checking.</string>
+    <string name="option_desc">Depending on the document, it helps to shortern the background checking.</string>
     <string name="check_question">Please check the following question.</string>
     <string name="have_home_insurance">*Do you have home insurance?</string>
     <string name="uber_driver">*Are you Uber driver?</string>
     <string name="attach_home_insurance">Please attach the document of home insurance</string>
     <string name="attach_uber_payroll">Please attach the document of recent Uber payroll</string>
+    <string name="select_image">Please attach your documents.</string>
 
+    <string name="valid_promo">Please enter promo code.</string>
     <!--driver bank information-->
     <string name="bank_info_title">Bank Information</string>
     <string name="request_for_bank_detail">Please enter your bank information for earning money</string>
@@ -103,14 +107,16 @@
     <string name="account_number">Account Number</string>
     <string name="empty_routing_number">Please enter your routing number.</string>
     <string name="empty_account_number">Please enter your account number.</string>
-    <string name="valid_routing_number">Routing number should be minimum 9 characters long.</string>
-    <string name="valid_account_number">Account number should be minimum 8 characters long.</string>
+    <string name="valid_routing_number">Routing number should be 2 to 9 characters long.</string>
+    <string name="valid_account_number">Account number should be 10 to 16 characters long.</string>
 
     <!--driver type info-->
     <string name="driver_type_title">Driver Type</string>
     <string name="request_for_drive_type">Please choose the car-size and transmission that you can drive</string>
     <string name="car_size">Car-size</string>
     <string name="transmission">Transmission</string>
+    <string name="select_car_size">Please select  your car size.</string>
+    <string name="select_transmission">Please select car transmission type.</string>
 
     <!--driver Profile info-->
     <string name="profile_title">Profile</string>
@@ -120,12 +126,14 @@
     <string name="switch_to_user">Switch to user</string>
     <string name="title">title</string>
 
+
+
     <!--map fragment-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--accept user request-->
-    <string name="user_address">50 Massachusetts Ave NE, Washington, DC 20002</string>
-    <string name="remain_time">5 MIN Away</string>
+    <string name="user_address">50 Massachusetts Ave NE, Washington, DC 2000250 Massachusetts Ave NE, Washington, DC 20002</string>
+    <string name="remain_time"></string>
     <string name="second">60</string>
     <string name="user_name">Joy</string>
     <string name="user_rating">5.0</string>
@@ -137,7 +145,7 @@
 
 
     <!--dialog user already taken-->
-    <string name="user_already_taken">This user is already taken by other driver</string>
+    <string name="user_already_taken">This user is already taken by another driver</string>
     <string name="back_home">Back to  home</string>
 
 
@@ -155,9 +163,9 @@
     <string name="sure">Are you sure?</string>
 
     <!--confirm navigate-->
-    <string name="drop_user">Drop off Joy</string>
+    <string name="drop_user">Drop off </string>
     <string name="navigate">Navigate</string>
-    <string name="drop_in_time">13 MIN</string>
+    <string name="drop_in_time"></string>
 
     <!--dialog dropped-->
     <string name="did_you_arrive">Did you arrived</string>
@@ -166,7 +174,7 @@
     <string name="confirm_drop">Confirm drop off</string>
 
     <!--rate-->
-    <string name="trip_price">50.19</string>
+    <string name="trip_price">0.00</string>
     <string name="price_symbol">$</string>
     <string name="review_text">Awesome</string>
     <string name="rate_instruction">You\'ll never be matched with a user you rate 3 stars or below</string>
@@ -200,9 +208,97 @@
     <string name="driver_name">Tom</string>
     <string name="whats_email_again">What\'s your email again?</string>
     <string name="update">Updates</string>
-        <!--priyanka 23/4-->
+    <!--priyanka 23/4-->
     <string name="enter_first_name">Please enter your first name.</string>
     <string name="enter_last_name">Please enter your last name.</string>
+    <string name="today">Today</string>
+    <string name="referText">Refer a driver in Washington D.C. \n  both earn up to $150 bonus.</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="add_payment_method">Add Payment Method</string>
+    <string name="payment_setting_title">This is your payment setting</string>
+    <string name="tv_update_email">tv update email</string>
+    <string name="tv_confirm_email">tv confirm email</string>
+    <string name="tv_send_conf_email">tv send conf email</string>
+    <string name="add_promo_code">Add Promo Code</string>
+    <string name="promotion_code">Promotion Code</string>
+    <string name="promotion">Promotion</string>
+    <string name="text_edit_payment_title">Edit Payment</string>
+    <string name="card_number">Card Number</string>
+    <string name="cvv">CVV</string>
+    <string name="zipcode">ZipCode</string>
+    <string name="save">Save</string>
+    <string name="enter_valid_card_no">Enter Valid Card Number</string>
+    <string name="enter_exp_date">Enter Exp. Date</string>
+    <string name="enter_cvv_no">Enter CVV Number</string>
+    <string name="enter_valid_cvv_no">Enter Valid CVV Number</string>
+    <string name="enter_zipcode">Enter ZipCode</string>
+    <string name="enter_valid_zipcode">Enter Valid ZipCode</string>
+    <string name="whats_your_email_again">What\'s your email again?</string>
+    <string name="user_email">a@a.a</string>
+    <string name="confirm_email_discription">Please confirm your email using the link below</string>
+    <string name="confirm_email_">send confirmation email</string>
+    <string name="account_info">Your payment setting</string>
+    <string name="btnInstall">Install</string>
+
+    <string name="url">AIzaSyAv9JCgBG0AyQocQvwYuqyrstGIhHZOEaw</string>
+
+    <!--Express Pay-->
+    <string name="express_pay">Express Pay</string>
+    <string name="confirm">Confirm</string>
+    <string name="drive_payment">Driver Payment</string>
+    <string name="other_payment">Other Payment</string>
+    <string name="greego_fee">Greego Fee</string>
+    <string name="express_fee">Express Fee</string>
+    <string name="total_deposite">Total Deposit</string>
+    <string name="edit_card">Edit Visa(********)</string>
+    <string name="cashout">Cashout at 2:29 am on Feb 28, 2018</string>
+    <string name="desc_express_pay">This deposit will arrive in your checking account within the hour, depending on your bank</string>
+    <string name="about_e_pay_bonuse">Express Pay may not include bonuses that are calculated at the end of the week</string>
+
+    <!--Trip History detail-->
+    <string name="trip_date_time">Feb 19, 2018, 3:40 pm</string>
+    <string name="driver_id">ABC123</string>
+    <string name="thanks_msg_to_user">Thanks for requesting Greego driver</string>
+    <string name="start_time">0:00 PM</string>
+    <string name="trip_start_location">3rd Avenue, New York, NY</string>
+    <string name="end">End</string>
+    <string name="end_time">0:00 PM</string>
+    <string name="trip_end_location">2nd Avenue, New York, Ny</string>
+    <string name="greego_fair">Greego fair</string>
+    <string name="greego_fair_time">(0.00 mi, 0m 00s)</string>
+    <string name="promotion_price">$0.00</string>
+    <string name="total">Total</string>
+    <string name="get_help">Get a help from Greego</string>
+    <string name="trip_receipt">(Receipt #:)</string>
+    <string name="pick_up">Picked Up</string>
+    <string name="request_at">Requested at</string>
+    <string name="drop">Dropped Off</string>
+    <string name="drive_earning">Driver Earning</string>
+    <string name="greego_fees">Greego Fees</string>
+    <string name="greego_fee_price">-$0.00</string>
+    <string name="payout_activity">Payout Activity</string>
+    <string name="help">Help</string>
+    <string name="ride_history">Ride History</string>
+    <string name="invalid_promo_code">Invalid Promocode.</string>
+    <string name="weekly_pay">Weekly payout</string>
+    <string name="help_center">Help Center</string>
+    <string name="legal_txt">Legal</string>
+    <string name="greego_app_version">Greego app version</string>
+    <string name="verify">Verified</string>
+    <string name="terms">  TERMS &amp; </string>
+    <string name="termstitle"><![CDATA[TERMS &]]></string>
+    <string name="termsTitle">TERMS &amp; </string>
+    <string name="conditions">CONDITIONS</string>
+    <string name="how_help">HOW CAN WE</string>
+    <string name="help_questionMark">HELP?</string>
+    <string name="greegoHelp">greego.co/help</string>
+    <string name="lost_found">Lost &amp; Found</string>
+    <string name="report_safety">Report an accident, safety incident, or citation</string>
+    <string name="bonus">Bonus</string>
+    <string name="how_pay_cal">How and when driver pay is calculated</string>
+    <string name="tv_policy">Service animal policy</string>
+    <string name="tip">Tip</string>
+    <string name="tip_price">+$0.00</string>
 
 
 </resources>

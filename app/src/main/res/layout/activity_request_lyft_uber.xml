@@ -40,6 +40,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header">
             <RelativeLayout
+                android:clickable="true"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#EFEFEF"
@@ -56,6 +58,8 @@
                     android:textSize="@dimen/txt_30"
                     android:background="@mipmap/bg_rectangle69" />
                 <RelativeLayout
+                    android:clickable="true"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvRequestSection">
@@ -103,6 +107,14 @@
                             android:textSize="@dimen/txt_16"
                             android:textColor="@color/black"
                             android:layout_toRightOf="@+id/imgVwLyft"/>
+                       <!-- <TextView
+                            android:id="@+id/tvInstallLyft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="install"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/tvRequestLyft"
+                            />-->
                     </RelativeLayout>
                     <RelativeLayout
                         android:id="@+id/rlUber"

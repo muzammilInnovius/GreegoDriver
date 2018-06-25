@@ -8,9 +8,9 @@ import java.util.List;
 public class TripHistoryDetailsModel implements Parcelable {
 
     /**
-     * data : [{"id":6,"request_id":15,"user_id":1,"driver_id":3,"status":4,"actual_trip_amount":0,"actual_trip_miles":0,"tip_amount":0,"actual_trip_travel_time":0,"trip_driver_rating":0,"trip_user_rating":0,"created_at":"2018-05-05 09:45:14","updated_at":"2018-05-05 09:45:55","request":{"id":15,"user_id":1,"user_vehicle_id":2,"from_address":"5, Mahalaxmi Five Rd, Chetan Society, Paldi, Ahmedabad, Gujarat 380007, India","from_lat":23.01,"from_lng":72.5626,"to_address":"2, Fatehpura, Shantivan, Motinagar, Paldi, Ahmedabad, Gujarat 380007, India","to_lat":23.0044,"to_lng":72.5602,"total_estimated_travel_time":12,"total_estimated_trip_cost":12.69,"request_status":1,"created_at":"2018-05-05 09:45:08","updated_at":"2018-05-05 09:45:14"}},{"id":7,"request_id":17,"user_id":2,"driver_id":3,"status":4,"actual_trip_amount":0,"actual_trip_miles":0,"tip_amount":0,"actual_trip_travel_time":0,"trip_driver_rating":0,"trip_user_rating":0,"created_at":"2018-05-05 09:48:22","updated_at":"2018-05-05 09:53:35","request":{"id":17,"user_id":2,"user_vehicle_id":1,"from_address":"Chimanlal Girdharlal Road, Paldi","from_lat":23.0115,"from_lng":72.5622,"to_address":"7-f, Paldi Road, Paldi Gaam, Paldi","to_lat":23.0119,"to_lng":72.5634,"total_estimated_travel_time":1,"total_estimated_trip_cost":3,"request_status":1,"created_at":"2018-05-05 09:48:18","updated_at":"2018-05-05 09:48:22"}}]
+     * data : [{"id":169,"from_address":"test","from_lat":23.0101,"from_lng":72.5626,"to_address":"to test","to_lat":23.0035,"to_lng":72.5616,"total_estimated_travel_time":0,"total_estimated_trip_cost":0,"created_at":"2018-05-08 10:30:29","updated_at":"2018-05-08 12:02:07","payout_status":2},{"id":187,"from_address":"5, Mahalaxmi Five Rd, Chetan Society, Paldi, Ahmedabad, Gujarat 380007, India","from_lat":23.01,"from_lng":72.5626,"to_address":"8, Pankaj Society, SBK Society, Paldi, Ahmedabad, Gujarat 380007, India","to_lat":23.0031,"to_lng":72.5589,"total_estimated_travel_time":12,"total_estimated_trip_cost":13.42,"created_at":"2018-05-08 11:45:55","updated_at":"2018-05-08 11:46:16","payout_status":0},{"id":197,"from_address":"12, Paldi, Ahmedabad, Gujarat 380007, India","from_lat":23.0146,"from_lng":72.5605,"to_address":"Shivalik 5, Paldi, Ahmedabad, Gujarat 380007, India","to_lat":23.0108,"to_lng":72.5624,"total_estimated_travel_time":0,"total_estimated_trip_cost":10.2265,"created_at":"2018-05-08 13:28:00","updated_at":"2018-05-08 13:28:08","payout_status":2}]
      * error_code : 0
-     * message : Success
+     * message : The trip details
      */
 
     private int error_code;
@@ -71,36 +71,96 @@ public class TripHistoryDetailsModel implements Parcelable {
 
     public static class DataBean {
         /**
-         * id : 6
-         * request_id : 15
-         * user_id : 1
-         * driver_id : 3
-         * status : 4
-         * actual_trip_amount : 0
-         * actual_trip_miles : 0
-         * tip_amount : 0
-         * actual_trip_travel_time : 0
-         * trip_driver_rating : 0
-         * trip_user_rating : 0
-         * created_at : 2018-05-05 09:45:14
-         * updated_at : 2018-05-05 09:45:55
-         * request : {"id":15,"user_id":1,"user_vehicle_id":2,"from_address":"5, Mahalaxmi Five Rd, Chetan Society, Paldi, Ahmedabad, Gujarat 380007, India","from_lat":23.01,"from_lng":72.5626,"to_address":"2, Fatehpura, Shantivan, Motinagar, Paldi, Ahmedabad, Gujarat 380007, India","to_lat":23.0044,"to_lng":72.5602,"total_estimated_travel_time":12,"total_estimated_trip_cost":12.69,"request_status":1,"created_at":"2018-05-05 09:45:08","updated_at":"2018-05-05 09:45:14"}
+         * id : 169
+         * from_address : test
+         * from_lat : 23.0101
+         * from_lng : 72.5626
+         * to_address : to test
+         * to_lat : 23.0035
+         * to_lng : 72.5616
+         * total_estimated_travel_time : 0
+         * total_estimated_trip_cost : 0
+         * created_at : 2018-05-08 10:30:29
+         * updated_at : 2018-05-08 12:02:07
+         * payout_status : 2
          */
 
         private int id;
-        private int request_id;
-        private int user_id;
-        private int driver_id;
-        private int status;
-        private int actual_trip_amount;
-        private int actual_trip_miles;
-        private int tip_amount;
-        private int actual_trip_travel_time;
-        private int trip_driver_rating;
-        private int trip_user_rating;
+        private String from_address;
+        private double from_lat;
+        private double from_lng;
+        private String to_address;
+        private double to_lat;
+        private double to_lng;
+        private String total_estimated_travel_time;
+        private double total_estimated_trip_cost;
         private String created_at;
         private String updated_at;
-        private RequestBean request;
+        private int payout_status;
+        private String transaction_id;
+        private String start_time;
+        private String end_time;
+        private int transaction_status;
+        private double actual_trip_amount;
+        private double tip_amount;
+
+        public double getActual_trip_amount() {
+            return actual_trip_amount;
+        }
+
+        public void setActual_trip_amount(double actual_trip_amount) {
+            this.actual_trip_amount = actual_trip_amount;
+        }
+
+        public double getTip_amount() {
+            return tip_amount;
+        }
+
+        public void setTip_amount(double tip_amount) {
+            this.tip_amount = tip_amount;
+        }
+
+        public int getTransaction_status() {
+            return transaction_status;
+        }
+
+        public void setTransaction_status(int transaction_status) {
+            this.transaction_status = transaction_status;
+        }
+
+        public String getStart_time() {
+            return start_time;
+        }
+
+        public void setStart_time(String start_time) {
+            this.start_time = start_time;
+        }
+
+        public String getEnd_time() {
+            return end_time;
+        }
+
+        public void setEnd_time(String end_time) {
+            this.end_time = end_time;
+        }
+
+        public String getTransaction_id() {
+            return transaction_id;
+        }
+
+        public void setTransaction_id(String transaction_id) {
+            this.transaction_id = transaction_id;
+        }
+
+        public double getActual_trip_miles() {
+            return actual_trip_miles;
+        }
+
+        public void setActual_trip_miles(double actual_trip_miles) {
+            this.actual_trip_miles = actual_trip_miles;
+        }
+
+        private double actual_trip_miles;
 
         public int getId() {
             return id;
@@ -110,84 +170,68 @@ public class TripHistoryDetailsModel implements Parcelable {
             this.id = id;
         }
 
-        public int getRequest_id() {
-            return request_id;
+        public String getFrom_address() {
+            return from_address;
         }
 
-        public void setRequest_id(int request_id) {
-            this.request_id = request_id;
+        public void setFrom_address(String from_address) {
+            this.from_address = from_address;
         }
 
-        public int getUser_id() {
-            return user_id;
+        public double getFrom_lat() {
+            return from_lat;
         }
 
-        public void setUser_id(int user_id) {
-            this.user_id = user_id;
+        public void setFrom_lat(double from_lat) {
+            this.from_lat = from_lat;
         }
 
-        public int getDriver_id() {
-            return driver_id;
+        public double getFrom_lng() {
+            return from_lng;
         }
 
-        public void setDriver_id(int driver_id) {
-            this.driver_id = driver_id;
+        public void setFrom_lng(double from_lng) {
+            this.from_lng = from_lng;
         }
 
-        public int getStatus() {
-            return status;
+        public String getTo_address() {
+            return to_address;
         }
 
-        public void setStatus(int status) {
-            this.status = status;
+        public void setTo_address(String to_address) {
+            this.to_address = to_address;
         }
 
-        public int getActual_trip_amount() {
-            return actual_trip_amount;
+        public double getTo_lat() {
+            return to_lat;
         }
 
-        public void setActual_trip_amount(int actual_trip_amount) {
-            this.actual_trip_amount = actual_trip_amount;
+        public void setTo_lat(double to_lat) {
+            this.to_lat = to_lat;
         }
 
-        public int getActual_trip_miles() {
-            return actual_trip_miles;
+        public double getTo_lng() {
+            return to_lng;
         }
 
-        public void setActual_trip_miles(int actual_trip_miles) {
-            this.actual_trip_miles = actual_trip_miles;
+        public void setTo_lng(double to_lng) {
+            this.to_lng = to_lng;
         }
 
-        public int getTip_amount() {
-            return tip_amount;
+        public String getTotal_estimated_travel_time() {
+            return total_estimated_travel_time;
         }
 
-        public void setTip_amount(int tip_amount) {
-            this.tip_amount = tip_amount;
+        public void setTotal_estimated_travel_time(String total_estimated_travel_time) {
+            this.total_estimated_travel_time = total_estimated_travel_time;
         }
 
-        public int getActual_trip_travel_time() {
-            return actual_trip_travel_time;
+        public double getTotal_estimated_trip_cost() {
+            return total_estimated_trip_cost;
         }
 
-        public void setActual_trip_travel_time(int actual_trip_travel_time) {
-            this.actual_trip_travel_time = actual_trip_travel_time;
-        }
-
-        public int getTrip_driver_rating() {
-            return trip_driver_rating;
-        }
-
-        public void setTrip_driver_rating(int trip_driver_rating) {
-            this.trip_driver_rating = trip_driver_rating;
-        }
-
-        public int getTrip_user_rating() {
-            return trip_user_rating;
-        }
-
-        public void setTrip_user_rating(int trip_user_rating) {
-            this.trip_user_rating = trip_user_rating;
+        public void setTotal_estimated_trip_cost(double total_estimated_trip_cost) {
+            this.total_estimated_trip_cost = total_estimated_trip_cost;
         }
 
         public String getCreated_at() {
@@ -206,158 +250,12 @@ public class TripHistoryDetailsModel implements Parcelable {
             this.updated_at = updated_at;
         }
 
-        public RequestBean getRequest() {
-            return request;
+        public int getPayout_status() {
+            return payout_status;
         }
 
-        public void setRequest(RequestBean request) {
-            this.request = request;
-        }
-
-        public static class RequestBean {
-            /**
-             * id : 15
-             * user_id : 1
-             * user_vehicle_id : 2
-             * from_address : 5, Mahalaxmi Five Rd, Chetan Society, Paldi, Ahmedabad, Gujarat 380007, India
-             * from_lat : 23.01
-             * from_lng : 72.5626
-             * to_address : 2, Fatehpura, Shantivan, Motinagar, Paldi, Ahmedabad, Gujarat 380007, India
-             * to_lat : 23.0044
-             * to_lng : 72.5602
-             * total_estimated_travel_time : 12
-             * total_estimated_trip_cost : 12.69
-             * request_status : 1
-             * created_at : 2018-05-05 09:45:08
-             * updated_at : 2018-05-05 09:45:14
-             */
-
-            private int id;
-            private int user_id;
-            private int user_vehicle_id;
-            private String from_address;
-            private double from_lat;
-            private double from_lng;
-            private String to_address;
-            private double to_lat;
-            private double to_lng;
-            private int total_estimated_travel_time;
-            private double total_estimated_trip_cost;
-            private int request_status;
-            private String created_at;
-            private String updated_at;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public int getUser_id() {
-                return user_id;
-            }
-
-            public void setUser_id(int user_id) {
-                this.user_id = user_id;
-            }
-
-            public int getUser_vehicle_id() {
-                return user_vehicle_id;
-            }
-
-            public void setUser_vehicle_id(int user_vehicle_id) {
-                this.user_vehicle_id = user_vehicle_id;
-            }
-
-            public String getFrom_address() {
-                return from_address;
-            }
-
-            public void setFrom_address(String from_address) {
-                this.from_address = from_address;
-            }
-
-            public double getFrom_lat() {
-                return from_lat;
-            }
-
-            public void setFrom_lat(double from_lat) {
-                this.from_lat = from_lat;
-            }
-
-            public double getFrom_lng() {
-                return from_lng;
-            }
-
-            public void setFrom_lng(double from_lng) {
-                this.from_lng = from_lng;
-            }
-
-            public String getTo_address() {
-                return to_address;
-            }
-
-            public void setTo_address(String to_address) {
-                this.to_address = to_address;
-            }
-
-            public double getTo_lat() {
-                return to_lat;
-            }
-
-            public void setTo_lat(double to_lat) {
-                this.to_lat = to_lat;
-            }
-
-            public double getTo_lng() {
-                return to_lng;
-            }
-
-            public void setTo_lng(double to_lng) {
-                this.to_lng = to_lng;
-            }
-
-            public int getTotal_estimated_travel_time() {
-                return total_estimated_travel_time;
-            }
-
-            public void setTotal_estimated_travel_time(int total_estimated_travel_time) {
-                this.total_estimated_travel_time = total_estimated_travel_time;
-            }
-
-            public double getTotal_estimated_trip_cost() {
-                return total_estimated_trip_cost;
-            }
-
-            public void setTotal_estimated_trip_cost(double total_estimated_trip_cost) {
-                this.total_estimated_trip_cost = total_estimated_trip_cost;
-            }
-
-            public int getRequest_status() {
-                return request_status;
-            }
-
-            public void setRequest_status(int request_status) {
-                this.request_status = request_status;
-            }
-
-            public String getCreated_at() {
-                return created_at;
-            }
-
-            public void setCreated_at(String created_at) {
-                this.created_at = created_at;
-            }
-
-            public String getUpdated_at() {
-                return updated_at;
-            }
-
-            public void setUpdated_at(String updated_at) {
-                this.updated_at = updated_at;
-            }
+        public void setPayout_status(int payout_status) {
+            this.payout_status = payout_status;
         }
     }
 }
